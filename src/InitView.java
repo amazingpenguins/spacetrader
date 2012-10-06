@@ -133,20 +133,20 @@ public class InitView {
 	 * Getters for the attributes.
 	 * @return the integer associated with each player attribute
 	 */
-	public int getPilot() {
-		return Integer.parseInt(pilot.getText());
+	public short getPilot() {
+		return Short.parseShort(pilot.getText());
 	}
 	
-	public int getTrader() {
-		return Integer.parseInt(trader.getText());
+	public short getTrader() {
+		return Short.parseShort(trader.getText());
 	}
 	
-	public int getFighter() {
-		return Integer.parseInt(fighter.getText());
+	public short getFighter() {
+		return Short.parseShort(fighter.getText());
 	}
 	
-	public int getEngineer() {
-		return Integer.parseInt(engineer.getText());
+	public short getEngineer() {
+		return Short.parseShort(engineer.getText());
 	}
 	
 	/*
