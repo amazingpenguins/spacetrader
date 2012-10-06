@@ -207,8 +207,4 @@ public class InitView {
 		}
 	}
 
-	public static void main(String args[]) {
-		InitView blah = new InitView();
-	}
-
 }
