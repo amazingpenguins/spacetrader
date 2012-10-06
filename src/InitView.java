@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -91,6 +92,7 @@ public class InitView {
 		difficulties.add(easy);
 		difficulties.add(normal);
 		difficulties.add(hard);
+		difficulties.setSelected(normal.getModel(), true);
 		difficultyPanel.add(easy);
 		difficultyPanel.add(normal);
 		difficultyPanel.add(hard);
@@ -129,42 +131,43 @@ public class InitView {
 	
 	/*
 	 * Getters for the attributes.
-	 * @return the JTextField associated with each player attribute
+	 * @return the integer associated with each player attribute
 	 */
-	public JTextField getPilot() {
-		return pilot;
+	public int getPilot() {
+		return Integer.parseInt(pilot.getText());
 	}
 	
-	public JTextField getTrader() {
-		return trader;
+	public int getTrader() {
+		return Integer.parseInt(trader.getText());
 	}
 	
-	public JTextField getFighter() {
-		return fighter;
+	public int getFighter() {
+		return Integer.parseInt(fighter.getText());
 	}
 	
-	public JTextField getEngineer() {
-		return engineer;
+	public int getEngineer() {
+		return Integer.parseInt(engineer.getText());
 	}
 	
 	/*
 	 * Getter for the character name
-	 * @return the JTextField associated with the player name
+	 * @return the String associated with the player name
 	 */
-	public JTextField getName() {
-		return name;
+	public String getName() {
+		return name.getText();
 	}
 	
 	/*
 	 * Getter for the difficulty
-	 * @return the ButtonGroup associated with the difficulties
+	 * @return the String associated with the difficulties (Easy, Normal, Hard)
 	 */
-	public ButtonGroup getDifficulty() {
-		return difficulties;
+	public String getDifficulty() {
+		return difficulties.getSelection().getActionCommand();
 	}
 	
 	/*
 	 * Getter for the start button
+	 * @return the JButton used to start the game
 	 */
 	public JButton getStart() {
 		return start;
