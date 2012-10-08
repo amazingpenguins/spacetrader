@@ -1,4 +1,4 @@
-public class GameController
+public class GameController implements InitViewDelegate
 {
 	// Game State
 	private enum State
@@ -18,20 +18,23 @@ public class GameController
 	private State state = State.INIT;
 	short[] attributes;
 	
+	private String difficulty;
+
 	public GameController()
 	{
+		difficulty = new String("Beginner"); // default to this, but the player can change it in the InitView
 		//TODO Implement saved games.
+
 		//TODO Actually get the player info from the UI.
-		short pilotStat = 0, traderStat = 0, fighterStat = 0, engineerStat = 0;
-		plr = new Player("test", pilotStat, traderStat, fighterStat, engineerStat, false);
+		this.displayInitConfigScreen();
 	}
+
 	private int runGame()
 	{
 		//TODO Finish the game states.
 		switch(state)
 		{
 			case INIT:
-				System.out.println("Init");
 				state = State.NEXTSTATE;
 				break;
 			default:
@@ -39,6 +42,23 @@ public class GameController
 		}
 		return 0;
 	}
+
+	public void displayInitConfigScreen()
+	{
+		InitView initView = new InitView();
+		initView.setDelegate(this);
+	}
+
+	public void doneConfiguring(InitView view) {
+		plr = new Player(view.getName(), view.getPilot() , view.getTrader(), view.getFighter(), view.getEngineer(), false);
+		difficulty = view.getDifficulty();
+		plr.setShip(new SpaceShip(1));
+		view.exit();
+		System.out.println("Starting Game With Difficulty: " + difficulty);
+		System.out.println("Created a new player:");
+		System.out.println(plr);
+	}
+
 	public static void main(String[] args)
 	{
 		GameController gc = new GameController();

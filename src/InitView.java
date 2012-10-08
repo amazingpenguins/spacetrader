@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -25,10 +27,11 @@ public class InitView {
 			fighterPanel, engineerPanel, difficultyPanel, startPanel, errorPanel;
 	private JTextField name, pilot, trader, fighter, engineer;
 	private ButtonGroup difficulties;
-	private JRadioButton easy, normal, hard;
+	private JRadioButton beginner, easy, normal, hard, impossible;
 	private JButton start;
 	private JLabel heading, nameLabel, pilotLabel, traderLabel, fighterLabel,
 			engineerLabel, errorLabel;
+	private InitViewDelegate delegate;
 
 	public InitView() {
 		// header
@@ -86,21 +89,38 @@ public class InitView {
 		difficultyPanel = new JPanel();
 		difficultyPanel.setPreferredSize(new Dimension(500, 40));
 		difficulties = new ButtonGroup();
+
+		beginner = new JRadioButton("Beginner");
+		beginner.setActionCommand("Beginner");
 		easy = new JRadioButton("Easy");
+		easy.setActionCommand("Easy");
 		normal = new JRadioButton("Normal");
+		normal.setActionCommand("Normal");
 		hard = new JRadioButton("Hard");
+		hard.setActionCommand("Hard");
+		impossible = new JRadioButton("Impossible");
+		impossible.setActionCommand("Impossible");
+
+		difficulties.add(beginner);
 		difficulties.add(easy);
 		difficulties.add(normal);
 		difficulties.add(hard);
+		difficulties.add(impossible);
+
 		difficulties.setSelected(normal.getModel(), true);
+		
+		difficultyPanel.add(beginner);
 		difficultyPanel.add(easy);
 		difficultyPanel.add(normal);
 		difficultyPanel.add(hard);
+		difficultyPanel.add(impossible);
 		
+
 		// start
 		startPanel = new JPanel();
 		startPanel.setPreferredSize(new Dimension(500, 40));
 		start = new JButton("Start");
+		start.addActionListener(new StartButtonListener(this));
 		startPanel.add(start);
 		
 		// error
@@ -128,7 +148,15 @@ public class InitView {
 		initFrame.setVisible(true);
 	}
 
-	
+	public Object getDelegate() {
+		return delegate;
+	}
+
+	public void setDelegate(InitViewDelegate delegate) {
+		this.delegate = delegate;
+	}
+
+
 	/*
 	 * Getters for the attributes.
 	 * @return the integer associated with each player attribute
@@ -149,6 +177,11 @@ public class InitView {
 		return Short.parseShort(engineer.getText());
 	}
 	
+	public void exit() {
+		initFrame.setVisible(false);
+		initFrame.dispose();
+	}
+
 	/*
 	 * Getter for the character name
 	 * @return the String associated with the player name
@@ -159,7 +192,7 @@ public class InitView {
 	
 	/*
 	 * Getter for the difficulty
-	 * @return the String associated with the difficulties (Easy, Normal, Hard)
+	 * @return the String associated with the difficulties (Beginner, Easy, Normal, Hard, Impossible)
 	 */
 	public String getDifficulty() {
 		return difficulties.getSelection().getActionCommand();
@@ -206,5 +239,18 @@ public class InitView {
 			}
 		}
 	}
+
+	private class StartButtonListener implements ActionListener {
+		private InitView view;
+
+		public StartButtonListener(InitView view) {
+			this.view = view;
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			delegate.doneConfiguring(view);
+		}
+	}
+
 
 }
