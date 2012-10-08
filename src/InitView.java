@@ -1,11 +1,8 @@
 import java.awt.Color;
 import java.awt.Dimension;
-<<<<<<< HEAD
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-=======
 import java.awt.event.*;
->>>>>>> InitView uses spinners now, and Start has ActionListener
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -37,16 +34,11 @@ public class InitView {
 	private JButton start;
 	private JLabel heading, nameLabel, pilotLabel, traderLabel, fighterLabel,
 			engineerLabel, errorLabel;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	private InitViewDelegate delegate;
-=======
 	private boolean engaged;
-=======
->>>>>>> i made a variable and then deleted it.
 	private Player plr;
 	private GameController gc;
->>>>>>> InitView uses spinners now, and Start has ActionListener
 
 	public InitView(GameController gc) {
 		// header
@@ -131,11 +123,8 @@ public class InitView {
 		startPanel = new JPanel();
 		startPanel.setPreferredSize(new Dimension(500, 40));
 		start = new JButton("Start");
-<<<<<<< HEAD
 		start.addActionListener(new StartButtonListener(this));
-=======
 		start.addActionListener(new StartListener());
->>>>>>> InitView uses spinners now, and Start has ActionListener
 		startPanel.add(start);
 		
 		// error
