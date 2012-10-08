@@ -15,7 +15,8 @@ public class Player
 	public static final short INITCREDITS = 1000;
 	private final Map<Stat, Short> myStats;
 	
-	private boolean amNPC;
+
+	private boolean amNPC; // false if it is a human, true if it is a computer. 
 	private int credits;
 	private String name;
 	private SpaceShip myShip;
@@ -61,5 +62,17 @@ public class Player
 	public void setShip(SpaceShip newShip)
 	{
 		myShip = newShip;
+	}
+
+	public String toString() {
+		String description = "Player {\n";
+		description += "\tName: " + name + ",\n";
+		description += "\tCredits: " + credits + ",\n";
+		description += "\tShip: " + myShip + ",\n";
+		for (Stat s : myStats.keySet()) {
+			description += "\t" + s.toString() + ": " + myStats.get(s) + "\n";
+		}
+		description += "}";
+		return description;
 	}
 }
