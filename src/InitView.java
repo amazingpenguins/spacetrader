@@ -1,7 +1,11 @@
 import java.awt.Color;
 import java.awt.Dimension;
+<<<<<<< HEAD
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+=======
+import java.awt.event.*;
+>>>>>>> InitView uses spinners now, and Start has ActionListener
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -11,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.JSpinner;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -26,14 +31,21 @@ public class InitView {
 	private JPanel headingPanel, namePanel, pilotPanel, traderPanel,
 			fighterPanel, engineerPanel, difficultyPanel, startPanel, errorPanel;
 	private JTextField name, pilot, trader, fighter, engineer;
+	private JSpinner pilotS, traderS, fighterS, engineerS;
 	private ButtonGroup difficulties;
 	private JRadioButton beginner, easy, normal, hard, impossible;
 	private JButton start;
 	private JLabel heading, nameLabel, pilotLabel, traderLabel, fighterLabel,
 			engineerLabel, errorLabel;
+<<<<<<< HEAD
 	private InitViewDelegate delegate;
+=======
+	private boolean engaged;
+	private Player plr;
+	private GameController gc;
+>>>>>>> InitView uses spinners now, and Start has ActionListener
 
-	public InitView() {
+	public InitView(GameController gc) {
 		// header
 		headingPanel = new JPanel();
 		headingPanel.setPreferredSize(new Dimension(500, 50));
@@ -45,7 +57,7 @@ public class InitView {
 		namePanel = new JPanel();
 		namePanel.setPreferredSize(new Dimension(500, 40));
 		nameLabel = new JLabel("Character Name:  ");
-		name = new JTextField(20);
+		name = new JTextField("Name", 20);
 		namePanel.add(nameLabel);
 		namePanel.add(name);
 
@@ -53,37 +65,33 @@ public class InitView {
 		pilotPanel = new JPanel();
 		pilotPanel.setPreferredSize(new Dimension(500, 30));
 		pilotLabel = new JLabel("Pilot:           ");
-		pilot = new JTextField(2);
-		pilot.setDocument(new JTextFieldLimit(2));
+		pilotS = new JSpinner();
 		pilotPanel.add(pilotLabel);
-		pilotPanel.add(pilot);
+		pilotPanel.add(pilotS);
 		
 		// trader
 		traderPanel = new JPanel();
 		traderPanel.setPreferredSize(new Dimension(500, 30));
 		traderLabel = new JLabel("Trader:       ");
-		trader = new JTextField(2);
-		trader.setDocument(new JTextFieldLimit(2));
+		traderS = new JSpinner();
 		traderPanel.add(traderLabel);
-		traderPanel.add(trader);
+		traderPanel.add(traderS);
 		
 		// fighter
 		fighterPanel = new JPanel();
 		fighterPanel.setPreferredSize(new Dimension(500, 30));
 		fighterLabel = new JLabel("Fighter:       ");
-		fighter = new JTextField(2);
-		fighter.setDocument(new JTextFieldLimit(2));
+		fighterS = new JSpinner();
 		fighterPanel.add(fighterLabel);
-		fighterPanel.add(fighter);
+		fighterPanel.add(fighterS);
 		
 		// engineer
 		engineerPanel = new JPanel();
 		engineerPanel.setPreferredSize(new Dimension(500, 40));
 		engineerLabel = new JLabel("Engineer:   ");
-		engineer = new JTextField(2);
-		engineer.setDocument(new JTextFieldLimit(2));
+		engineerS = new JSpinner();
 		engineerPanel.add(engineerLabel);
-		engineerPanel.add(engineer);
+		engineerPanel.add(engineerS);
 		
 		// difficulty
 		difficultyPanel = new JPanel();
@@ -120,7 +128,11 @@ public class InitView {
 		startPanel = new JPanel();
 		startPanel.setPreferredSize(new Dimension(500, 40));
 		start = new JButton("Start");
+<<<<<<< HEAD
 		start.addActionListener(new StartButtonListener(this));
+=======
+		start.addActionListener(new StartListener());
+>>>>>>> InitView uses spinners now, and Start has ActionListener
 		startPanel.add(start);
 		
 		// error
@@ -146,6 +158,8 @@ public class InitView {
 		initFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initFrame.pack();
 		initFrame.setVisible(true);
+		
+		this.gc = gc;
 	}
 
 	public Object getDelegate() {
@@ -162,19 +176,19 @@ public class InitView {
 	 * @return the integer associated with each player attribute
 	 */
 	public short getPilot() {
-		return Short.parseShort(pilot.getText());
+		return Short.parseShort((String)pilotS.getValue().toString());
 	}
 	
 	public short getTrader() {
-		return Short.parseShort(trader.getText());
+		return Short.parseShort((String)traderS.getValue().toString());
 	}
 	
 	public short getFighter() {
-		return Short.parseShort(fighter.getText());
+		return Short.parseShort((String)fighterS.getValue().toString());
 	}
 	
 	public short getEngineer() {
-		return Short.parseShort(engineer.getText());
+		return Short.parseShort((String)engineerS.getValue().toString());
 	}
 	
 	public void exit() {
@@ -212,6 +226,17 @@ public class InitView {
 	 */
 	public void setError(String text){
 		errorLabel.setText(text);
+	}
+	
+	public void setPlayer(Player p){
+		gc.setPlayer(p);
+	}
+	
+	private class StartListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){			
+			plr = new Player(getName(), getPilot(), getTrader(), getFighter(), getEngineer(), false);
+			setPlayer(plr);
+		}
 	}
 	
 	//Private subclass that limits text input for the attributes
