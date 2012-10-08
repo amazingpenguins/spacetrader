@@ -17,6 +17,8 @@ public class GameController implements InitViewDelegate
 	Player plr;
 	private State state = State.INIT;
 	short[] attributes;
+	private InitView init;
+	short pilotStat, traderStat, fighterStat, engineerStat;
 	
 	private String difficulty;
 
@@ -26,16 +28,37 @@ public class GameController implements InitViewDelegate
 		//TODO Implement saved games.
 
 		//TODO Actually get the player info from the UI.
+<<<<<<< HEAD
 		this.displayInitConfigScreen();
 	}
 
 	private int runGame()
+=======
+		pilotStat = 0;
+		traderStat = 0;
+		fighterStat = 0;
+		engineerStat = 0;
+	}
+	
+	public void setPlayer(Player p){
+		plr = p;
+		System.out.println(plr);
+	}
+	private int runGame(GameController gc)
+>>>>>>> when start is clicked new player is created based on gui input
 	{
 		//TODO Finish the game states.
 		switch(state)
 		{
 			case INIT:
+<<<<<<< HEAD
+=======
+				System.out.println("Init");
+				init = new InitView(gc);
+				//player should not be created until start button is clicked
+>>>>>>> when start is clicked new player is created based on gui input
 				state = State.NEXTSTATE;
+				
 				break;
 			default:
 				return 1;
@@ -62,6 +85,6 @@ public class GameController implements InitViewDelegate
 	public static void main(String[] args)
 	{
 		GameController gc = new GameController();
-		while(gc.runGame() == 0);
+		while(gc.runGame(gc) == 0);
 	}
 }
