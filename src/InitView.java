@@ -38,9 +38,12 @@ public class InitView {
 	private JLabel heading, nameLabel, pilotLabel, traderLabel, fighterLabel,
 			engineerLabel, errorLabel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private InitViewDelegate delegate;
 =======
 	private boolean engaged;
+=======
+>>>>>>> i made a variable and then deleted it.
 	private Player plr;
 	private GameController gc;
 >>>>>>> InitView uses spinners now, and Start has ActionListener
