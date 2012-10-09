@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.*;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -12,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.JSpinner;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -28,19 +26,14 @@ public class InitView {
 	private JPanel headingPanel, namePanel, pilotPanel, traderPanel,
 			fighterPanel, engineerPanel, difficultyPanel, startPanel, errorPanel;
 	private JTextField name, pilot, trader, fighter, engineer;
-	private JSpinner pilotS, traderS, fighterS, engineerS;
 	private ButtonGroup difficulties;
 	private JRadioButton beginner, easy, normal, hard, impossible;
 	private JButton start;
 	private JLabel heading, nameLabel, pilotLabel, traderLabel, fighterLabel,
 			engineerLabel, errorLabel;
-
 	private InitViewDelegate delegate;
-	private boolean engaged;
-	private Player plr;
-	private GameController gc;
 
-	public InitView(GameController gc) {
+	public InitView() {
 		// header
 		headingPanel = new JPanel();
 		headingPanel.setPreferredSize(new Dimension(500, 50));
@@ -52,7 +45,7 @@ public class InitView {
 		namePanel = new JPanel();
 		namePanel.setPreferredSize(new Dimension(500, 40));
 		nameLabel = new JLabel("Character Name:  ");
-		name = new JTextField("Name", 20);
+		name = new JTextField(20);
 		namePanel.add(nameLabel);
 		namePanel.add(name);
 
@@ -60,33 +53,37 @@ public class InitView {
 		pilotPanel = new JPanel();
 		pilotPanel.setPreferredSize(new Dimension(500, 30));
 		pilotLabel = new JLabel("Pilot:           ");
-		pilotS = new JSpinner();
+		pilot = new JTextField(2);
+		pilot.setDocument(new JTextFieldLimit(2));
 		pilotPanel.add(pilotLabel);
-		pilotPanel.add(pilotS);
+		pilotPanel.add(pilot);
 		
 		// trader
 		traderPanel = new JPanel();
 		traderPanel.setPreferredSize(new Dimension(500, 30));
 		traderLabel = new JLabel("Trader:       ");
-		traderS = new JSpinner();
+		trader = new JTextField(2);
+		trader.setDocument(new JTextFieldLimit(2));
 		traderPanel.add(traderLabel);
-		traderPanel.add(traderS);
+		traderPanel.add(trader);
 		
 		// fighter
 		fighterPanel = new JPanel();
 		fighterPanel.setPreferredSize(new Dimension(500, 30));
 		fighterLabel = new JLabel("Fighter:       ");
-		fighterS = new JSpinner();
+		fighter = new JTextField(2);
+		fighter.setDocument(new JTextFieldLimit(2));
 		fighterPanel.add(fighterLabel);
-		fighterPanel.add(fighterS);
+		fighterPanel.add(fighter);
 		
 		// engineer
 		engineerPanel = new JPanel();
 		engineerPanel.setPreferredSize(new Dimension(500, 40));
 		engineerLabel = new JLabel("Engineer:   ");
-		engineerS = new JSpinner();
+		engineer = new JTextField(2);
+		engineer.setDocument(new JTextFieldLimit(2));
 		engineerPanel.add(engineerLabel);
-		engineerPanel.add(engineerS);
+		engineerPanel.add(engineer);
 		
 		// difficulty
 		difficultyPanel = new JPanel();
@@ -124,7 +121,6 @@ public class InitView {
 		startPanel.setPreferredSize(new Dimension(500, 40));
 		start = new JButton("Start");
 		start.addActionListener(new StartButtonListener(this));
-		start.addActionListener(new StartListener());
 		startPanel.add(start);
 		
 		// error
@@ -150,8 +146,6 @@ public class InitView {
 		initFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initFrame.pack();
 		initFrame.setVisible(true);
-		
-		this.gc = gc;
 	}
 
 	public Object getDelegate() {
@@ -168,19 +162,19 @@ public class InitView {
 	 * @return the integer associated with each player attribute
 	 */
 	public short getPilot() {
-		return Short.parseShort((String)pilotS.getValue().toString());
+		return Short.parseShort(pilot.getText());
 	}
 	
 	public short getTrader() {
-		return Short.parseShort((String)traderS.getValue().toString());
+		return Short.parseShort(trader.getText());
 	}
 	
 	public short getFighter() {
-		return Short.parseShort((String)fighterS.getValue().toString());
+		return Short.parseShort(fighter.getText());
 	}
 	
 	public short getEngineer() {
-		return Short.parseShort((String)engineerS.getValue().toString());
+		return Short.parseShort(engineer.getText());
 	}
 	
 	public void exit() {
@@ -218,17 +212,6 @@ public class InitView {
 	 */
 	public void setError(String text){
 		errorLabel.setText(text);
-	}
-	
-	public void setPlayer(Player p){
-		gc.setPlayer(p);
-	}
-	
-	private class StartListener implements ActionListener{
-		public void actionPerformed(ActionEvent e){			
-			plr = new Player(getName(), getPilot(), getTrader(), getFighter(), getEngineer(), false);
-			setPlayer(plr);
-		}
 	}
 	
 	//Private subclass that limits text input for the attributes
