@@ -10,7 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -25,7 +29,9 @@ public class InitView {
 	private JFrame initFrame;
 	private JPanel headingPanel, namePanel, pilotPanel, traderPanel,
 			fighterPanel, engineerPanel, difficultyPanel, startPanel, errorPanel;
-	private JTextField name, pilot, trader, fighter, engineer;
+	private JTextField name;
+	private JSpinner pilotS, traderS, fighterS, engineerS;
+	private SpinnerNumberModel pilotSkill, traderSkill, fighterSkill, engineerSkill;
 	private ButtonGroup difficulties;
 	private JRadioButton beginner, easy, normal, hard, impossible;
 	private JButton start;
@@ -33,7 +39,13 @@ public class InitView {
 			engineerLabel, errorLabel;
 	private InitViewDelegate delegate;
 
+	//TODO move this.
+	private final short MAXSTATVAL = 16;
+	private int pointsLeft;
 	public InitView() {
+		// assign pointsLeft
+		pointsLeft = MAXSTATVAL;
+		
 		// header
 		headingPanel = new JPanel();
 		headingPanel.setPreferredSize(new Dimension(500, 50));
@@ -53,37 +65,77 @@ public class InitView {
 		pilotPanel = new JPanel();
 		pilotPanel.setPreferredSize(new Dimension(500, 30));
 		pilotLabel = new JLabel("Pilot:           ");
-		pilot = new JTextField(2);
-		pilot.setDocument(new JTextFieldLimit(2));
+		pilotSkill = new SpinnerNumberModel(0,0,MAXSTATVAL,1);
+		pilotS = new JSpinner(pilotSkill);
+		((JSpinner.DefaultEditor)pilotS.getEditor()).getTextField().setColumns(2);
+	    pilotS.addChangeListener(new ChangeListener() {
+	        public void stateChanged(ChangeEvent e) {
+	        	pointsLeft = MAXSTATVAL - getSpentPoints();
+	            if (pointsLeft < 0) {
+	            	pilotS.setValue(getPilot() - 1);
+	            	pointsLeft = MAXSTATVAL - getSpentPoints();
+	            }
+	        }
+	    });
 		pilotPanel.add(pilotLabel);
-		pilotPanel.add(pilot);
+		pilotPanel.add(pilotS);
 		
 		// trader
 		traderPanel = new JPanel();
 		traderPanel.setPreferredSize(new Dimension(500, 30));
 		traderLabel = new JLabel("Trader:       ");
-		trader = new JTextField(2);
-		trader.setDocument(new JTextFieldLimit(2));
+		traderSkill = new SpinnerNumberModel(0,0,MAXSTATVAL,1);
+		traderS = new JSpinner(traderSkill);
+		((JSpinner.DefaultEditor)traderS.getEditor()).getTextField().setColumns(2);
+	    traderS.addChangeListener(new ChangeListener() {
+	        public void stateChanged(ChangeEvent e) {
+	        	pointsLeft = MAXSTATVAL - getSpentPoints();
+	            if (pointsLeft < 0) {
+	            	traderS.setValue(getTrader() - 1);
+	            	pointsLeft = MAXSTATVAL - getSpentPoints();
+	            }
+	        }
+	    });
 		traderPanel.add(traderLabel);
-		traderPanel.add(trader);
+		traderPanel.add(traderS);
 		
 		// fighter
 		fighterPanel = new JPanel();
 		fighterPanel.setPreferredSize(new Dimension(500, 30));
 		fighterLabel = new JLabel("Fighter:       ");
-		fighter = new JTextField(2);
-		fighter.setDocument(new JTextFieldLimit(2));
+		fighterSkill = new SpinnerNumberModel(0,0,MAXSTATVAL,1);
+		fighterS = new JSpinner(fighterSkill);
+		((JSpinner.DefaultEditor)fighterS.getEditor()).getTextField().setColumns(2);
+	    fighterS.addChangeListener(new ChangeListener() {
+	        public void stateChanged(ChangeEvent e) {
+	        	pointsLeft = MAXSTATVAL - getSpentPoints();
+	            if (pointsLeft < 0) {
+	            	fighterS.setValue(getFighter() - 1);
+	            	pointsLeft = MAXSTATVAL - getSpentPoints();
+	            }
+	        }
+	    });
 		fighterPanel.add(fighterLabel);
-		fighterPanel.add(fighter);
+		fighterPanel.add(fighterS);
 		
 		// engineer
 		engineerPanel = new JPanel();
 		engineerPanel.setPreferredSize(new Dimension(500, 40));
 		engineerLabel = new JLabel("Engineer:   ");
-		engineer = new JTextField(2);
-		engineer.setDocument(new JTextFieldLimit(2));
+		engineerSkill = new SpinnerNumberModel(0,0,MAXSTATVAL,1);
+		engineerS = new JSpinner(engineerSkill);
+		((JSpinner.DefaultEditor)engineerS.getEditor()).getTextField().setColumns(2);
+	    engineerS.addChangeListener(new ChangeListener() {
+	        public void stateChanged(ChangeEvent e) {
+	        	pointsLeft = MAXSTATVAL - getSpentPoints();
+	            if (pointsLeft < 0) {
+	            	engineerS.setValue(getEngineer() - 1);
+	            	pointsLeft = MAXSTATVAL - getSpentPoints();
+	            }
+	        }
+	    });
 		engineerPanel.add(engineerLabel);
-		engineerPanel.add(engineer);
+		engineerPanel.add(engineerS);
 		
 		// difficulty
 		difficultyPanel = new JPanel();
@@ -155,26 +207,28 @@ public class InitView {
 	public void setDelegate(InitViewDelegate delegate) {
 		this.delegate = delegate;
 	}
-
+	private short getSpentPoints() {
+		return (short) (getPilot() + getTrader() + getFighter() + getEngineer());
+	}
 
 	/*
 	 * Getters for the attributes.
 	 * @return the integer associated with each player attribute
 	 */
 	public short getPilot() {
-		return Short.parseShort(pilot.getText());
+		return pilotSkill.getNumber().shortValue();
 	}
 	
 	public short getTrader() {
-		return Short.parseShort(trader.getText());
+		return traderSkill.getNumber().shortValue();
 	}
 	
 	public short getFighter() {
-		return Short.parseShort(fighter.getText());
+		return fighterSkill.getNumber().shortValue();
 	}
 	
 	public short getEngineer() {
-		return Short.parseShort(engineer.getText());
+		return engineerSkill.getNumber().shortValue();
 	}
 	
 	public void exit() {
@@ -214,32 +268,6 @@ public class InitView {
 		errorLabel.setText(text);
 	}
 	
-	//Private subclass that limits text input for the attributes
-	//pulled from http://stackoverflow.com/questions/10136794/limiting-the-number-of-characters-in-a-jtextfield
-	private class JTextFieldLimit extends PlainDocument {
-		private int limit;
-
-		JTextFieldLimit(int limit) {
-			super();
-			this.limit = limit;
-		}
-
-		JTextFieldLimit(int limit, boolean upper) {
-			super();
-			this.limit = limit;
-		}
-
-		public void insertString(int offset, String str, AttributeSet attr)
-				throws BadLocationException {
-			if (str == null)
-				return;
-
-			if ((getLength() + str.length()) <= limit) {
-				super.insertString(offset, str, attr);
-			}
-		}
-	}
-
 	private class StartButtonListener implements ActionListener {
 		private InitView view;
 
