@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,9 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
 
 
 /*
@@ -71,10 +67,8 @@ public class InitView {
 	    pilotS.addChangeListener(new ChangeListener() {
 	        public void stateChanged(ChangeEvent e) {
 	        	pointsLeft = MAXSTATVAL - getSpentPoints();
-	            if (pointsLeft < 0) {
+	            if (pointsLeft < 0)
 	            	pilotS.setValue(getPilot() - 1);
-	            	pointsLeft = MAXSTATVAL - getSpentPoints();
-	            }
 	        }
 	    });
 		pilotPanel.add(pilotLabel);
@@ -90,10 +84,8 @@ public class InitView {
 	    traderS.addChangeListener(new ChangeListener() {
 	        public void stateChanged(ChangeEvent e) {
 	        	pointsLeft = MAXSTATVAL - getSpentPoints();
-	            if (pointsLeft < 0) {
+	            if (pointsLeft < 0)
 	            	traderS.setValue(getTrader() - 1);
-	            	pointsLeft = MAXSTATVAL - getSpentPoints();
-	            }
 	        }
 	    });
 		traderPanel.add(traderLabel);
@@ -109,10 +101,8 @@ public class InitView {
 	    fighterS.addChangeListener(new ChangeListener() {
 	        public void stateChanged(ChangeEvent e) {
 	        	pointsLeft = MAXSTATVAL - getSpentPoints();
-	            if (pointsLeft < 0) {
+	            if (pointsLeft < 0)
 	            	fighterS.setValue(getFighter() - 1);
-	            	pointsLeft = MAXSTATVAL - getSpentPoints();
-	            }
 	        }
 	    });
 		fighterPanel.add(fighterLabel);
@@ -128,10 +118,8 @@ public class InitView {
 	    engineerS.addChangeListener(new ChangeListener() {
 	        public void stateChanged(ChangeEvent e) {
 	        	pointsLeft = MAXSTATVAL - getSpentPoints();
-	            if (pointsLeft < 0) {
+	            if (pointsLeft < 0)
 	            	engineerS.setValue(getEngineer() - 1);
-	            	pointsLeft = MAXSTATVAL - getSpentPoints();
-	            }
 	        }
 	    });
 		engineerPanel.add(engineerLabel);
