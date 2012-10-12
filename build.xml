@@ -1,75 +1,75 @@
 <!-- Build project spacetrader, default option is "all" -->
 <project name="spacetrader" default="all" basedir=".">
-	<!-- Describe our project -->
-	<description>
-		Space trader!
-	</description>
+    <!-- Describe our project -->
+    <description>
+        Space trader!
+    </description>
 
-	<!-- Initialize the property values -->
-	<target name="init">
-		<!-- Define our directories -->
-		<property name="apidoc.dir" 	location="apidoc"/>
-		<property name="bin.dir" 	location="bin"/>
-		<property name="jar.dir" 	location="${bin.dir}/jar"/>
-		<property name="src.dir" 	location="src"/>
-		<property name="jarfile" 	value="${basedir}/spacetrader.jar"/>
-	</target>
+    <!-- Initialize the property values -->
+    <target name="init">
+        <!-- Define our directories -->
+        <property name="apidoc.dir"  location="apidoc"/>
+        <property name="bin.dir"     location="bin"/>
+        <property name="jar.dir"     location="${bin.dir}/jar"/>
+        <property name="src.dir"     location="src"/>
+        <property name="jarfile"     value="${basedir}/spacetrader.jar"/>
+    </target>
 
-	<!-- Create any needed directories -->
-	<target name="prepare" depends="init">
-		<mkdir dir="${bin.dir}"/>
-		<mkdir dir="${apidoc.dir}"/>
-	</target>
+    <!-- Create any needed directories -->
+    <target name="prepare" depends="init">
+        <mkdir dir="${bin.dir}"/>
+        <mkdir dir="${apidoc.dir}"/>
+    </target>
 
-	<!-- Clean up the directories and jarfile -->
-	<target name="clean" depends="init"
-			description="Cleans the build ">
-		<delete dir="${bin.dir}"/>
-		<delete dir="${apidoc.dir}"/>
-		<delete file="${jarfile}"/>
-	</target>
+    <!-- Clean up the directories and jarfile -->
+    <target name="clean" depends="init"
+            description="Cleans the build ">
+        <delete dir="${bin.dir}"/>
+        <delete dir="${apidoc.dir}"/>
+        <delete file="${jarfile}"/>
+    </target>
 
-	<!-- Compile all of the source -->
-	<target name="compile" depends="prepare"
-			description="Compile the source ">
-		<javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false"/>
-	</target>
+    <!-- Compile all of the source -->
+    <target name="compile" depends="prepare"
+            description="Compile the source ">
+        <javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false"/>
+    </target>
 
-	<!-- Generate javadocs for the source -->
-	<target name="javadoc" depends="prepare"
-			description="Generate the javadocs ">
-		<javadoc sourcepath="${src.dir}" access="public" destdir="${apidoc.dir}/javadoc">
-			<fileset dir="${src.dir}">
-				<include name="**/*.java"/>
-			</fileset>
-			<bottom>
-				<![CDATA[<i>Copyright &#169; 2012 The Amazing Penguins CS2340. All Rights Reserved.</i>]]>
-			</bottom>
-		</javadoc>	
+    <!-- Generate javadocs for the source -->
+    <target name="javadoc" depends="prepare"
+            description="Generate the javadocs ">
+        <javadoc sourcepath="${src.dir}" access="public" destdir="${apidoc.dir}/javadoc">
+            <fileset dir="${src.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+            <bottom>
+                <![CDATA[<i>Copyright &#169; 2012 The Amazing Penguins CS2340. All Rights Reserved.</i>]]>
+            </bottom>
+        </javadoc>    
 
-	</target>
+    </target>
 
-	<!-- Generate a .jar file in the basedir -->
-	<target name="jar" depends="compile"
-			description="Generate a jar file of the project ">
-		<jar basedir="${bin.dir}" destfile="${jarfile}">
-			<manifest>
-				<attribute name="Main-Class" value="GameController"/>
-				<attribute name="Class-Path" value="java.class.path" />
-			</manifest>
-		</jar>
-	</target>
+    <!-- Generate a .jar file in the basedir -->
+    <target name="jar" depends="compile"
+            description="Generate a jar file of the project ">
+        <jar basedir="${bin.dir}" destfile="${jarfile}">
+            <manifest>
+                <attribute name="Main-Class" value="GameController"/>
+                <attribute name="Class-Path" value="java.class.path" />
+            </manifest>
+        </jar>
+    </target>
 
-	<!-- Run the generated jar file -->
-	<target name="run" depends="jar">
-		<java jar="${jarfile}" fork="true">
-		<classpath>
-			<pathelement location="${bin.dir}"/>
-			<pathelement location="java.class.path"/>
-		</classpath>
-		</java>
-	</target>
+    <!-- Run the generated jar file -->
+    <target name="run" depends="jar">
+        <java jar="${jarfile}" fork="true">
+        <classpath>
+            <pathelement location="${bin.dir}"/>
+            <pathelement location="java.class.path"/>
+        </classpath>
+        </java>
+    </target>
 
-	<!-- Generates the javadocs, and builds/runs the jar -->
-	<target name="all" depends="javadoc,run"/>
+    <!-- Generates the javadocs, and builds/runs the jar -->
+    <target name="all" depends="javadoc,run"/>
 </project>
