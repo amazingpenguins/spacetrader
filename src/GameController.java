@@ -5,21 +5,23 @@ public class GameController implements InitViewDelegate {
     private enum State {
         INIT(0),
         NEXTSTATE(1);
-        
+
+        @SuppressWarnings("unused")
         private int index;
         private State(int index) {
             this.index = index;
         }
     }
 
-    Player plr;
+    private Player plr;
     private State state = State.INIT;
     short[] attributes;
     
     private String difficulty;
+    private SolarSystem[][] universe;
 
     public GameController() {
-        difficulty = new String("Beginner"); // default to this, but the player can change it in the InitView
+        difficulty = "Beginner"; // default to this, but the player can change it in the InitView
         //TODO Implement saved games.
     }
 
@@ -35,9 +37,24 @@ public class GameController implements InitViewDelegate {
                 state = State.NEXTSTATE;
                 break;
             default:
+                for (int i = 0; i < 20; i++) {
+                    for (int j = 0; j < 20; j++) {
+                        System.out.println(universe[i][j]);
+                    }
+                }
+                System.out.println("Exiting...");
                 return 1;
         }
         return 0;
+    }
+
+    private void generateUniverse() {
+        universe = new SolarSystem[20][20];
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                universe[i][j] = new SolarSystem();
+            }
+        }
     }
 
     public void displayInitConfigScreen() {
