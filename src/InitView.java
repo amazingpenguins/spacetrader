@@ -261,6 +261,14 @@ public class InitView {
         errorLabel.setText(text);
     }
     
+    /**
+    *
+    */
+    private boolean verifyInput() {
+        return ((this.name.getText().length() != 0) && this.pointsLeft == 0);
+    }
+
+
     private class StartButtonListener implements ActionListener {
         private InitView view;
 
@@ -269,8 +277,13 @@ public class InitView {
         }
 
         public void actionPerformed(ActionEvent e) {
-            delegate.doneConfiguring(view);
-            initLatch.countDown();
+            if (view.verifyInput()) {
+                delegate.doneConfiguring(view);
+                initLatch.countDown();
+            } else {
+                // In the future, something can be done to display an error message to the user. 
+                // Not for Milestone 6 though...
+            }
         }
     }
 
