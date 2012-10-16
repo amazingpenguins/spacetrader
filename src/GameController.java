@@ -15,8 +15,6 @@ public class GameController implements InitViewDelegate {
 
     private Player plr;
     private State state = State.INIT;
-    short[] attributes;
-    
     private String difficulty;
     private SolarSystem[][] universe;
 
@@ -69,13 +67,20 @@ public class GameController implements InitViewDelegate {
     }
 
     public void doneConfiguring(InitView view) {
-        plr = new Player(view.getName(), view.getPilot() , view.getTrader(), view.getFighter(), view.getEngineer(), false);
-        difficulty = view.getDifficulty();
+        Stats plrStats = new Stats();
+        plrStats.setName(view.getName());
+        plrStats.setPilot(view.getPilot());
+        plrStats.setTrader(view.getTrader());
+        plrStats.setFighter(view.getFighter());
+        plrStats.setEngineer(view.getEngineer());
+        plrStats.setAmNPC(false);
+
+        plr = new Player(plrStats);
         plr.setShip(new SpaceShip(1));
+        
+
+        difficulty = view.getDifficulty();
         view.exit();
-        System.out.println("Starting Game With Difficulty: " + difficulty);
-        System.out.println("Created a new player:");
-        System.out.println(plr);
     }
 
     public static void main(String[] args) {
