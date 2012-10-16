@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.concurrent.CountDownLatch;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -34,13 +35,17 @@ public class InitView {
     private JLabel heading, nameLabel, pilotLabel, traderLabel, fighterLabel,
             engineerLabel, errorLabel;
     private InitViewDelegate delegate;
+    private CountDownLatch initLatch;
 
     //TODO move this.
     private final short MAXSTATVAL = 16;
     private int pointsLeft;
-    public InitView() {
+    public InitView(CountDownLatch initLatch) {
         // assign pointsLeft
         pointsLeft = MAXSTATVAL;
+
+        // assign our latch
+        this.initLatch = initLatch;
         
         // header
         headingPanel = new JPanel();
@@ -265,6 +270,7 @@ public class InitView {
 
         public void actionPerformed(ActionEvent e) {
             delegate.doneConfiguring(view);
+            initLatch.countDown();
         }
     }
 

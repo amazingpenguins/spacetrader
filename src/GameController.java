@@ -1,3 +1,5 @@
+import java.util.concurrent.CountDownLatch;
+
 public class GameController implements InitViewDelegate {
     // Game State
     private enum State {
@@ -9,8 +11,7 @@ public class GameController implements InitViewDelegate {
             this.index = index;
         }
     }
-    
-    //
+
     Player plr;
     private State state = State.INIT;
     short[] attributes;
@@ -20,15 +21,17 @@ public class GameController implements InitViewDelegate {
     public GameController() {
         difficulty = new String("Beginner"); // default to this, but the player can change it in the InitView
         //TODO Implement saved games.
-
-        //TODO Actually get the player info from the UI.
-        this.displayInitConfigScreen();
     }
 
     private int runGame() {
         //TODO Finish the game states.
         switch(state) {
             case INIT:
+                this.displayInitConfigScreen();
+                System.out.println("Starting Game With Difficulty: " + difficulty);
+                System.out.println("Created a new player:");
+                System.out.println(plr);
+                generateUniverse();
                 state = State.NEXTSTATE;
                 break;
             default:
@@ -38,8 +41,14 @@ public class GameController implements InitViewDelegate {
     }
 
     public void displayInitConfigScreen() {
-        InitView initView = new InitView();
+        CountDownLatch initLatch = new CountDownLatch(1);
+        InitView initView = new InitView(initLatch);
         initView.setDelegate(this);
+        try {
+            initLatch.await();
+        } catch (InterruptedException ie) {
+          ie.printStackTrace();
+        }
     }
 
     public void doneConfiguring(InitView view) {
@@ -55,5 +64,7 @@ public class GameController implements InitViewDelegate {
     public static void main(String[] args) {
         GameController gc = new GameController();
         while(gc.runGame() == 0);
+
+        System.exit(0);
     }
 }
