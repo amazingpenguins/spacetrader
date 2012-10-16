@@ -76,8 +76,7 @@ public class GameController implements InitViewDelegate {
         plrStats.setAmNPC(false);
 
         plr = new Player(plrStats);
-        plr.setShip(new SpaceShip(1));
-        
+        plr.setShip(new SpaceShip(SpaceShip.GNAT));
 
         difficulty = view.getDifficulty();
         view.exit();

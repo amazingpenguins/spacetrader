@@ -1,32 +1,37 @@
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.EnumMap;
 
 public class SpaceShip {
-    protected enum Stat {
-        CARGOSIZE,
-        WEAPONSLOTS,
-        SHIELDSLOTS,
-        GADGETSLOTS,
-        CREWSIZE,
-        FUELSIZE,
-        TECHLEVEL,
-        FUELCOST,
-        BOUNTY,
-        OCCURENCE,
-        HULLSTRENGTH,
-        REPAIRCOST,
-        SIZE,
-        PRICE;
-    }
-    protected ArrayList<Player> crew;
-    protected Map<Stat, Integer> shipStats;
-    private final String name;
+    public static final short FLEA      = 0,
+                              GNAT      = 1,
+                              FIREFLY   = 2,
+                              MOSQUITO  = 3,
+                              BUMBLEBEE = 4;
 
+    @SuppressWarnings("unused")
+    private final short CARGOSIZE,
+                        WEAPONSLOTS,
+                        SHIELDSLOTS,
+                        GADGETSLOTS,
+                        CREWSIZE,
+                        FUELSIZE,
+                        TECHLEVEL,
+                        FUELCOST,
+                        BOUNTY,
+                        OCCURENCE,
+                        HULLSTRENGTH,
+                        REPAIRCOST,
+                        SIZE;
+    
+    @SuppressWarnings("unused")
+    private final int PRICE;
+    private final String NAME;
+    private ArrayList<Player> crew;
+    
     /**
      * This constructor generates a SpaceShip with all of the correct
      * stats, based on the type specified.
      * @param type The type of ship to generate:
+     * SpaceShip.<TYPE>
      * 0 == flea
      * 1 == gnat
      * 2 == firefly
@@ -35,128 +40,127 @@ public class SpaceShip {
      * default == gnat
      */
     public SpaceShip(int type) {
-        shipStats = new EnumMap<Stat, Integer>(Stat.class);
         switch(type) {
             case 0:
                 //flea
-                this.name = "flea";
-                shipStats.put(Stat.CARGOSIZE, 10);
-                shipStats.put(Stat.WEAPONSLOTS, 0);
-                shipStats.put(Stat.SHIELDSLOTS, 0);
-                shipStats.put(Stat.GADGETSLOTS, 0);
-                shipStats.put(Stat.CREWSIZE, 1);
-                shipStats.put(Stat.FUELSIZE, 20);
-                shipStats.put(Stat.TECHLEVEL, 4);
-                shipStats.put(Stat.FUELCOST, 1);
-                shipStats.put(Stat.BOUNTY, 5);
-                shipStats.put(Stat.OCCURENCE, 2);
-                shipStats.put(Stat.HULLSTRENGTH, 25);
-                shipStats.put(Stat.REPAIRCOST, 1);
-                shipStats.put(Stat.SIZE, 0);
-                shipStats.put(Stat.PRICE, 2000);
+                NAME = "Flea";
+                CARGOSIZE    = 10;
+                WEAPONSLOTS  = 0;
+                SHIELDSLOTS  = 0;
+                GADGETSLOTS  = 0;
+                CREWSIZE     = 1;
+                FUELSIZE     = 20;
+                TECHLEVEL    = 4;
+                FUELCOST     = 1;
+                BOUNTY       = 5;
+                OCCURENCE    = 2;
+                HULLSTRENGTH = 25;
+                REPAIRCOST   = 1;
+                SIZE         = 0;
+                PRICE        = 2000;
                 break;
             case 1:
                 //gnat
-                this.name = "gnat";
-                shipStats.put(Stat.CARGOSIZE, 15);
-                shipStats.put(Stat.WEAPONSLOTS, 1);
-                shipStats.put(Stat.SHIELDSLOTS, 0);
-                shipStats.put(Stat.GADGETSLOTS, 1);
-                shipStats.put(Stat.CREWSIZE, 1);
-                shipStats.put(Stat.FUELSIZE, 14);
-                shipStats.put(Stat.TECHLEVEL, 5);
-                shipStats.put(Stat.FUELCOST, 2);
-                shipStats.put(Stat.BOUNTY, 50);
-                shipStats.put(Stat.OCCURENCE, 28);
-                shipStats.put(Stat.HULLSTRENGTH, 100);
-                shipStats.put(Stat.REPAIRCOST, 1);
-                shipStats.put(Stat.SIZE, 1);
-                shipStats.put(Stat.PRICE, 10000);
+                NAME = "Gnat";
+                CARGOSIZE    = 15;
+                WEAPONSLOTS  = 1;
+                SHIELDSLOTS  = 0;
+                GADGETSLOTS  = 1;
+                CREWSIZE     = 1;
+                FUELSIZE     = 14;
+                TECHLEVEL    = 5;
+                FUELCOST     = 2;
+                BOUNTY       = 50;
+                OCCURENCE    = 28;
+                HULLSTRENGTH = 100;
+                REPAIRCOST   = 1;
+                SIZE         = 1;
+                PRICE        = 10000;
                 break;
             case 2:
                 //firefly
-                this.name = "firefly";
-                shipStats.put(Stat.CARGOSIZE, 20);
-                shipStats.put(Stat.WEAPONSLOTS, 1);
-                shipStats.put(Stat.SHIELDSLOTS, 1);
-                shipStats.put(Stat.GADGETSLOTS, 1);
-                shipStats.put(Stat.CREWSIZE, 1);
-                shipStats.put(Stat.FUELSIZE, 17);
-                shipStats.put(Stat.TECHLEVEL, 5);
-                shipStats.put(Stat.FUELCOST, 3);
-                shipStats.put(Stat.BOUNTY, 75);
-                shipStats.put(Stat.OCCURENCE, 20);
-                shipStats.put(Stat.HULLSTRENGTH, 100);
-                shipStats.put(Stat.REPAIRCOST, 1);
-                shipStats.put(Stat.SIZE, 1);
-                shipStats.put(Stat.PRICE, 25000);
+                NAME = "Firefly";
+                CARGOSIZE    = 20;
+                WEAPONSLOTS  = 1;
+                SHIELDSLOTS  = 1;
+                GADGETSLOTS  = 1;
+                CREWSIZE     = 1;
+                FUELSIZE     = 17;
+                TECHLEVEL    = 5;
+                FUELCOST     = 3;
+                BOUNTY       = 75;
+                OCCURENCE    = 20;
+                HULLSTRENGTH = 100;
+                REPAIRCOST   = 1;
+                SIZE         = 1;
+                PRICE        = 25000;
                 break;
             case 3:
                 //mosquito
-                this.name = "mosquito";
-                shipStats.put(Stat.CARGOSIZE, 15);
-                shipStats.put(Stat.WEAPONSLOTS, 2);
-                shipStats.put(Stat.SHIELDSLOTS, 1);
-                shipStats.put(Stat.GADGETSLOTS, 1);
-                shipStats.put(Stat.CREWSIZE, 1);
-                shipStats.put(Stat.FUELSIZE, 13);
-                shipStats.put(Stat.TECHLEVEL, 5);
-                shipStats.put(Stat.FUELCOST, 5);
-                shipStats.put(Stat.BOUNTY, 100);
-                shipStats.put(Stat.OCCURENCE, 20);
-                shipStats.put(Stat.HULLSTRENGTH, 100);
-                shipStats.put(Stat.REPAIRCOST, 1);
-                shipStats.put(Stat.SIZE, 1);
-                shipStats.put(Stat.PRICE, 30000);
+                NAME = "Mosquito";
+                CARGOSIZE    = 15;
+                WEAPONSLOTS  = 2;
+                SHIELDSLOTS  = 1;
+                GADGETSLOTS  = 1;
+                CREWSIZE     = 1;
+                FUELSIZE     = 13;
+                TECHLEVEL    = 5;
+                FUELCOST     = 5;
+                BOUNTY       = 100;
+                OCCURENCE    = 20;
+                HULLSTRENGTH = 100;
+                REPAIRCOST   = 1;
+                SIZE         = 1;
+                PRICE        = 30000;
                 break;
             case 4:
                 //bumblebee
-                this.name = "bumblebee";
-                shipStats.put(Stat.CARGOSIZE, 25);
-                shipStats.put(Stat.WEAPONSLOTS, 1);
-                shipStats.put(Stat.SHIELDSLOTS, 1);
-                shipStats.put(Stat.GADGETSLOTS, 2);
-                shipStats.put(Stat.CREWSIZE, 2);
-                shipStats.put(Stat.FUELSIZE, 15);
-                shipStats.put(Stat.TECHLEVEL, 5);
-                shipStats.put(Stat.FUELCOST, 7);
-                shipStats.put(Stat.BOUNTY, 125);
-                shipStats.put(Stat.OCCURENCE, 15);
-                shipStats.put(Stat.HULLSTRENGTH, 100);
-                shipStats.put(Stat.REPAIRCOST, 1);
-                shipStats.put(Stat.SIZE, 2);
-                shipStats.put(Stat.PRICE, 60000);
+                NAME = "Bumblebee";
+                CARGOSIZE    = 25;
+                WEAPONSLOTS  = 1;
+                SHIELDSLOTS  = 1;
+                GADGETSLOTS  = 2;
+                CREWSIZE     = 2;
+                FUELSIZE     = 15;
+                TECHLEVEL    = 5;
+                FUELCOST     = 7;
+                BOUNTY       = 125;
+                OCCURENCE    = 15;
+                HULLSTRENGTH = 100;
+                REPAIRCOST   = 1;
+                SIZE         = 2;
+                PRICE        = 60000;
                 break;
             default:
                 //gnat
-                this.name = "gnat";
-                shipStats.put(Stat.CARGOSIZE, 15);
-                shipStats.put(Stat.WEAPONSLOTS, 1);
-                shipStats.put(Stat.SHIELDSLOTS, 0);
-                shipStats.put(Stat.GADGETSLOTS, 1);
-                shipStats.put(Stat.CREWSIZE, 1);
-                shipStats.put(Stat.FUELSIZE, 14);
-                shipStats.put(Stat.TECHLEVEL, 5);
-                shipStats.put(Stat.FUELCOST, 2);
-                shipStats.put(Stat.BOUNTY, 50);
-                shipStats.put(Stat.OCCURENCE, 28);
-                shipStats.put(Stat.HULLSTRENGTH, 100);
-                shipStats.put(Stat.REPAIRCOST, 1);
-                shipStats.put(Stat.SIZE, 1);
-                shipStats.put(Stat.PRICE, 10000);
+                NAME = "Gnat";
+                CARGOSIZE    = 15;
+                WEAPONSLOTS  = 1;
+                SHIELDSLOTS  = 0;
+                GADGETSLOTS  = 1;
+                CREWSIZE     = 1;
+                FUELSIZE     = 14;
+                TECHLEVEL    = 5;
+                FUELCOST     = 2;
+                BOUNTY       = 50;
+                OCCURENCE    = 28;
+                HULLSTRENGTH = 100;
+                REPAIRCOST   = 1;
+                SIZE         = 1;
+                PRICE        = 10000;
                 break;
         }
     }
-    public int getFuelSize() {
-        return shipStats.get(Stat.FUELSIZE);
-    }
+
     public boolean addCrew(Player crewMem) {
         return crew.add(crewMem);
     }
+
     public boolean removeCrew(Player crewMem) {
         return crew.remove(crewMem);
     }
+
     public String toString() {
-        return name;
+        return NAME;
     }
 }
