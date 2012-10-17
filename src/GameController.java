@@ -4,7 +4,8 @@ public class GameController implements InitViewDelegate {
     // Game State
     private enum State {
         INIT(0),
-        NEXTSTATE(1);
+        MAINMENU(1),
+        NEXTSTATE(2);
 
         @SuppressWarnings("unused")
         private int index;
@@ -32,15 +33,19 @@ public class GameController implements InitViewDelegate {
                 System.out.println("Created a new player:");
                 System.out.println(plr);
                 generateUniverse();
-                state = State.NEXTSTATE;
-                break;
-            default:
                 for (int i = 0; i < 20; i++) {
                     for (int j = 0; j < 20; j++) {
                         System.out.println(universe[i][j]);
                     }
                 }
                 System.out.println("Exiting...");
+                state = State.MAINMENU;
+                break;
+            case MAINMENU:
+                this.displayMainScreen();
+                state = State.NEXTSTATE;
+                break;
+            default:
                 return 1;
         }
         return 0;
@@ -61,6 +66,16 @@ public class GameController implements InitViewDelegate {
         initView.setDelegate(this);
         try {
             initLatch.await();
+        } catch (InterruptedException ie) {
+          ie.printStackTrace();
+        }
+    }
+
+    public void displayMainScreen() {
+        CountDownLatch mainScreenLatch = new CountDownLatch(1);
+        MainGUI mainGUI = new MainGUI(mainScreenLatch);
+        try {
+            mainScreenLatch.await();
         } catch (InterruptedException ie) {
           ie.printStackTrace();
         }
