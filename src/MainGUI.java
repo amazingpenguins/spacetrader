@@ -1,0 +1,47 @@
+import java.awt.Font;
+import javax.swing.*;
+import java.awt.Dimension;
+import java.util.concurrent.CountDownLatch;
+
+public class MainGUI {
+	private JFrame frame;
+	private JPanel mainPanel, titlePanel, displayPanel;
+	private CountDownLatch latch;
+
+	public MainGUI(CountDownLatch latch) {
+		frame = new JFrame(); 
+		mainPanel = new JPanel();
+		// display title, buttons, etc. then pack the frame and display to user
+		
+		this.latch = latch;
+		this.setupTitle();
+		mainPanel.add(titlePanel);
+		frame.add(mainPanel);
+		this.packageAndDisplay();
+		System.out.println("Created the mainGUI and should have displayed it..."); 
+	}
+
+	public void displayPanel(JPanel panel) {
+		// remove old panel, replace with new panel, hold on to a pointer to the new panel 
+		if (this.displayPanel != null)
+			mainPanel.remove(this.displayPanel);
+		this.displayPanel = panel;
+		mainPanel.add(displayPanel);
+	}
+
+	private void setupTitle() {
+		titlePanel = new JPanel();
+        titlePanel.setPreferredSize(new Dimension(500, 50));
+        JLabel titleLabel = new JLabel("Spacetrader");
+        Font font = new Font("Helvetica", Font.PLAIN, 32);
+        titleLabel.setFont(font);
+        titlePanel.add(titleLabel);
+	}
+
+	private void packageAndDisplay() {
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+	}
+
+}
