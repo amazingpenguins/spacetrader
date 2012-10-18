@@ -1,11 +1,12 @@
 import java.awt.Font;
 import javax.swing.*;
 import java.awt.Dimension;
+import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 
 public class MainGUI {
 	private JFrame frame;
-	private JPanel mainPanel, titlePanel, displayPanel;
+	private JPanel mainPanel, titlePanel, displayPanel, startPanel;
 	private CountDownLatch latch;
 
 	/**
@@ -14,16 +15,20 @@ public class MainGUI {
 	* @return MainGUI Instance
 	*/
 	public MainGUI(CountDownLatch latch) {
-		frame = new JFrame(); 
+		frame = new JFrame();
+        frame.setLayout(new BorderLayout());
 		mainPanel = new JPanel();
+        startPanel = new StartGamePanel();
 		// display title, buttons, etc. then pack the frame and display to user
 		
 		this.latch = latch;
 		this.setupTitle();
 		mainPanel.add(titlePanel);
-		frame.add(mainPanel);
+		frame.add(mainPanel, BorderLayout.NORTH);
+        frame.add(startPanel, BorderLayout.CENTER);
 		this.packageAndDisplay();
 		System.out.println("Created the mainGUI and should have displayed it..."); 
+        
 	}
 
 	/**
