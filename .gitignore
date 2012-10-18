@@ -1,6 +1,11 @@
-.settings/
+.idea/
 .metadata/
+.settings/
+apidoc/
 bin/
+out/
+spacetrader.jar
+*.DS_Store
+*.class
+*.iml
 *.swp
-.DS_Store
-.class
