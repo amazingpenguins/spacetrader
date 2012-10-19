@@ -41,7 +41,7 @@ public class SpaceShip {
      */
     public SpaceShip(int type) {
         switch(type) {
-            case 0:
+            case FLEA:
                 //flea
                 NAME = "Flea";
                 CARGOSIZE    = 10;
@@ -59,7 +59,7 @@ public class SpaceShip {
                 SIZE         = 0;
                 PRICE        = 2000;
                 break;
-            case 1:
+            case GNAT:
                 //gnat
                 NAME = "Gnat";
                 CARGOSIZE    = 15;
@@ -77,7 +77,7 @@ public class SpaceShip {
                 SIZE         = 1;
                 PRICE        = 10000;
                 break;
-            case 2:
+            case FIREFLY:
                 //firefly
                 NAME = "Firefly";
                 CARGOSIZE    = 20;
@@ -95,7 +95,7 @@ public class SpaceShip {
                 SIZE         = 1;
                 PRICE        = 25000;
                 break;
-            case 3:
+            case MOSQUITO:
                 //mosquito
                 NAME = "Mosquito";
                 CARGOSIZE    = 15;
@@ -113,7 +113,7 @@ public class SpaceShip {
                 SIZE         = 1;
                 PRICE        = 30000;
                 break;
-            case 4:
+            case BUMBLEBEE:
                 //bumblebee
                 NAME = "Bumblebee";
                 CARGOSIZE    = 25;
@@ -152,10 +152,20 @@ public class SpaceShip {
         }
     }
 
+    /**
+     * Add a crew member to the spaceship.
+     * @param crewMem Crew member to add.
+     * @return boolean: Was the addition successful?
+     */
     public boolean addCrew(Player crewMem) {
         return crew.add(crewMem);
     }
 
+    /**
+     * Remove a crew member from the spaceship.
+     * @param crewMem Crew member to remove.
+     * @return boolean: Was the removal successful?
+     */
     public boolean removeCrew(Player crewMem) {
         return crew.remove(crewMem);
     }
