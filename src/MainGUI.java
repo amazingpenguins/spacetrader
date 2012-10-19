@@ -12,23 +12,22 @@ public class MainGUI {
 	/**
 	* Constructor for MainGUI
 	* @param latch Countdown latch to make sure the main thread waits properly. 
-	* @return MainGUI Instance
 	*/
 	public MainGUI(CountDownLatch latch) {
 		frame = new JFrame();
-        frame.setLayout(new BorderLayout());
+		frame.setLayout(new BorderLayout());
 		mainPanel = new JPanel();
-        startPanel = new StartGamePanel();
+		startPanel = new StartGamePanel();
 		// display title, buttons, etc. then pack the frame and display to user
 		
 		this.latch = latch;
 		this.setupTitle();
 		mainPanel.add(titlePanel);
 		frame.add(mainPanel, BorderLayout.NORTH);
-        frame.add(startPanel, BorderLayout.CENTER);
+		frame.add(startPanel, BorderLayout.CENTER);
 		this.packageAndDisplay();
 		System.out.println("Created the mainGUI and should have displayed it..."); 
-        
+		
 	}
 
 	/**
@@ -49,11 +48,11 @@ public class MainGUI {
 	*/
 	private void setupTitle() {
 		titlePanel = new JPanel();
-        titlePanel.setPreferredSize(new Dimension(500, 50));
-        JLabel titleLabel = new JLabel("Spacetrader");
-        Font font = new Font("Helvetica", Font.PLAIN, 32);
-        titleLabel.setFont(font);
-        titlePanel.add(titleLabel);
+		titlePanel.setPreferredSize(new Dimension(500, 50));
+		JLabel titleLabel = new JLabel("Spacetrader");
+		Font font = new Font("Helvetica", Font.PLAIN, 32);
+		titleLabel.setFont(font);
+		titlePanel.add(titleLabel);
 	}
 
 	/*
@@ -61,8 +60,8 @@ public class MainGUI {
 	*/
 	private void packageAndDisplay() {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 }
