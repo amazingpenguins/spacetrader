@@ -75,12 +75,74 @@ public class SolarSystem {
         this.government = government;
     }
 
+    public String govString() {
+        switch(government) {
+            case ANARCHY:
+                return "Anarchy";
+            case CAPITALIST:
+                return "Capitalist";
+            case COMMUNIST:
+                return "Communist";
+            case CONFEDERACY:
+                return "Confederacy";
+            case CORPORATE:
+                return "Corporate";
+            case CYBERNETIC:
+                return "Cybernetic";
+            case DICTATORSHIP:
+                return "Dictatorship";
+            case FASCIST:
+                return "Fascist";
+            case FEUDAL:
+                return "Feudal";
+            case MILITARY:
+                return "Military";
+            case MONARCHY:
+                return "Monarchy";
+            case PACIFIST:
+                return "Pacifist";
+            case SOCIALIST:
+                return "Socialist";
+            case SATORI:
+                return "Satori";
+            case TECHNOCRACY:
+                return "Technocracy";
+            case THEOCRACY:
+                return "Theocracy";
+            default:
+                return "";
+        }
+    }
+
+    public String techString() {
+        switch(techLevel) {
+            case PREAGRICULTURE:
+                return "Pre-agriculture";
+            case AGRICULTURE:
+                return "Agriculture";
+            case MEDIEVAL:
+                return "Medieval";
+            case RENAISSANCE:
+                return "Renaissance";
+            case EARLYINDUSTRIAL:
+                return "Early Industrial";
+            case INDUSTRIAL:
+                return "Industrial";
+            case POSTINDUSTRIAL:
+                return "Post-industrial";
+            case HITECH:
+                return "Hi-Tech";
+            default:
+                return "";
+        }
+    }
+
     public String toString() {
         return String.format("SolarSystem {\n" +
-                             "\tGovernment: " + getGovernment() + "\n" +
-                             "\tTechLevel:  " + getTechLevel()  + "\n" +
-                             "\tPlanet:     " + myPlanet        + "\n" +
-                             "\tPlanet Env: " + myPlanet.getEnvironment() + "\n" +
+                             "\tGovernment: " + govString()          + "\n" +
+                             "\tTechLevel:  " + techString()         + "\n" +
+                             "\tPlanet:     " + myPlanet             + "\n" +
+                             "\tPlanet Env: " + myPlanet.envString() + "\n" +
                              "}");
     }
 }
