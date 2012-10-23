@@ -181,6 +181,37 @@ public class Planet {
         return techLevel;
     }
 
+    public String envString() {
+        switch(environment) {
+            case NORESOURCES:
+                return "No Resources";
+            case MINERALPOOR:
+                return "Mineral Poor";
+            case MINERALRICH:
+                return "Mineral Rich";
+            case DESERT:
+                return "Desert";
+            case LOTSOFWATER:
+                return "Lots of Water";
+            case RICHSOIL:
+                return "Rich Soil";
+            case RICHFAUNA:
+                return "Rich Fauna";
+            case LIFELESS:
+                return "Lifeless";
+            case WEIRDMUSHROOMS:
+                return "Weird Mushrooms";
+            case LOTSOFHERBS:
+                return "Lots of Herbs";
+            case ARTISTIC:
+                return "Artistic";
+            case WARLIKE:
+                return "War-like";
+            default:
+                return "";
+        }
+    }
+
     public String toString() {
         return name;
     }
