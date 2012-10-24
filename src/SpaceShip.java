@@ -23,6 +23,7 @@ public class SpaceShip {
                         SIZE;
     
     private Object[] cargoBay;//type will be Tradegood[] once class is created
+    private int[] cargoInventory;
     private int cargoIndex;
     @SuppressWarnings("unused")
     private final int PRICE;
@@ -153,6 +154,7 @@ public class SpaceShip {
                 break;
         }
         cargoBay = new Object[CARGOSIZE];
+        cargoInventory = new int[CARGOSIZE];
         cargoIndex = 0;
     }
 
@@ -177,10 +179,45 @@ public class SpaceShip {
     /**
      *Add Tradegoods to the cargoBay
      * @param cargo Tradegood to be added to cargoBay
+     * @param num number of the type of Tradegood being added to cargoBay
      */
-    public void addToCargo(Object cargo){//param type should be Tradegood
+    public void addToCargo(Object cargo, int num){// cargo type should be Tradegood
         cargoBay[cargoIndex] = cargo;
+        cargoInventory[cargoIndex] = num;
         cargoIndex++;
+        //iterate through cargo bay to see if there are Tradegoods of
+        //the same type as the ones being added.
+        //if there are, consolidate them into the same cargo bay
+        //and decrement cargoIndex.
+        //
+        //might look like this
+        //
+        //for(int i=0; i<cargoIndex-1; i++){
+        //  if(cargoBay[i].getType()==cargoBay[cargoIndex].getType()){
+        //      cargoInventory[i]+= cargoInventory[cargoIndex];
+        //      cargoIndex--;
+        //  }
+        //}
+    }
+    
+    /**
+     * Remove Tradegoods from the cargoBay
+     * @param cargo Tradegood to be removed from cargoBay
+     * @param num number of the type of Tradegood being removed from cargoBay
+     * @return Tradegood removed from cargoBay
+     */
+    public Object removeCargo(Object cargo, int num){//cargo type should be Tradegood
+        for(int i=0; i<cargoIndex; i++){
+            //if(cargoBay[i].getType()==cargo.getType()){
+            //  if(cargoInventory[i]>=num){
+            //      Object traded = cargoBay[i];
+            //      cargoInventory[i]-=num;
+            //      cargoBay[i] = null;
+            //      return traded;
+            //  }
+            //}
+        }
+        return null;
     }
 
     public String toString() {
