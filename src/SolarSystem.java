@@ -1,7 +1,10 @@
+import java.awt.*;
+
 public class SolarSystem {
     private int government;
     private int techLevel;
     private Planet myPlanet;
+    private Point myLocation;
 
     //NOTE this is EC
     /* Government Types */
@@ -40,10 +43,11 @@ public class SolarSystem {
      * @param techLevel SolarSystem techLevel.
      * @param p Planet contained within this SolarSystem.
      */
-    public SolarSystem(short government, short techLevel, Planet p) {
+    public SolarSystem(short government, short techLevel, Planet p, Point mp) {
         this.government = government;
         this.techLevel = techLevel;
         myPlanet = p;
+        myLocation = mp;
     }
 
     /**
@@ -53,6 +57,7 @@ public class SolarSystem {
         generatePlanets();
         government = (int)(Math.random() * GOVCOUNT);
         techLevel  = (int)(Math.random() * TECHCOUNT);
+        myLocation = new Point((int)(Math.random() * 100), (int)(Math.random() * 100));
     }
 
     public int getGovernment() {
@@ -139,10 +144,12 @@ public class SolarSystem {
 
     public String toString() {
         return String.format("SolarSystem {\n" +
-                             "\tGovernment: " + govString()          + "\n" +
-                             "\tTechLevel:  " + techString()         + "\n" +
-                             "\tPlanet:     " + myPlanet             + "\n" +
-                             "\tPlanet Env: " + myPlanet.envString() + "\n" +
+                             "\tLocation:   " + "(" + myLocation.getX() + ","  +
+                                      myLocation.getY() + ")"           + "\n" +
+                             "\tGovernment: " + govString()             + "\n" +
+                             "\tTechLevel:  " + techString()            + "\n" +
+                             "\tPlanet:     " + myPlanet                + "\n" +
+                             "\tPlanet Env: " + myPlanet.envString()    + "\n" +
                              "}");
     }
 }
