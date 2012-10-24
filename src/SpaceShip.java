@@ -22,6 +22,8 @@ public class SpaceShip {
                         REPAIRCOST,
                         SIZE;
     
+    private Object[] cargoBay;//type will be Tradegood[] once class is created
+    private int cargoIndex;
     @SuppressWarnings("unused")
     private final int PRICE;
     private final String NAME;
@@ -150,6 +152,8 @@ public class SpaceShip {
                 PRICE        = 10000;
                 break;
         }
+        cargoBay = new Object[CARGOSIZE];
+        cargoIndex = 0;
     }
 
     /**
@@ -168,6 +172,15 @@ public class SpaceShip {
      */
     public boolean removeCrew(Player crewMem) {
         return crew.remove(crewMem);
+    }
+    
+    /**
+     *Add Tradegoods to the cargoBay
+     * @param cargo Tradegood to be added to cargoBay
+     */
+    public void addToCargo(Object cargo){//param type should be Tradegood
+        cargoBay[cargoIndex] = cargo;
+        cargoIndex++;
     }
 
     public String toString() {
