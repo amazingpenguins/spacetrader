@@ -22,7 +22,7 @@ public class SpaceShip {
                         REPAIRCOST,
                         SIZE;
     
-    private Object[] cargoBay;//type will be Tradegood[] once class is created
+    private TradeGood[] cargoBay;
     private int[] cargoInventory;
     private int cargoIndex;
     @SuppressWarnings("unused")
@@ -153,7 +153,7 @@ public class SpaceShip {
                 PRICE        = 10000;
                 break;
         }
-        cargoBay = new Object[CARGOSIZE];
+        cargoBay = new TradeGood[CARGOSIZE];
         cargoInventory = new int[CARGOSIZE];
         cargoIndex = 0;
     }
@@ -177,11 +177,11 @@ public class SpaceShip {
     }
     
     /**
-     *Add Tradegoods to the cargoBay
-     * @param cargo Tradegood to be added to cargoBay
-     * @param num number of the type of Tradegood being added to cargoBay
+     * Add TradeGood(s) to the cargoBay
+     * @param cargo TradeGood to be added to cargoBay
+     * @param num Number of the type of TradeGood being added to cargoBay
      */
-    public void addToCargo(Object cargo, int num){// cargo type should be Tradegood
+    public void addToCargo(TradeGood cargo, int num){
         cargoBay[cargoIndex] = cargo;
         cargoInventory[cargoIndex] = num;
         cargoIndex++;
@@ -201,12 +201,12 @@ public class SpaceShip {
     }
     
     /**
-     * Remove Tradegoods from the cargoBay
-     * @param cargo Tradegood to be removed from cargoBay
-     * @param num number of the type of Tradegood being removed from cargoBay
-     * @return Tradegood removed from cargoBay
+     * Remove TradeGood(s) from the cargoBay
+     * @param cargo TradeGood to be removed from cargoBay
+     * @param num Number of the type of TradeGood being removed from cargoBay
+     * @return TradeGood removed from cargoBay
      */
-    public Object removeCargo(Object cargo, int num){//cargo type should be Tradegood
+    public Object removeCargo(TradeGood cargo, int num){
         for(int i=0; i<cargoIndex; i++){
             //if(cargoBay[i].getType()==cargo.getType()){
             //  if(cargoInventory[i]>=num){
