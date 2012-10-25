@@ -26,6 +26,10 @@ public class Player {
         s.setCredits(s.getCredits() + dCredits);
     }
 
+    public int getCredits() {
+        return s.getCredits();
+    }
+
 	public String toString() {
 		return String.format("Player {\n" +
 				             "\tName:     " + s.getName()     + "\n" +

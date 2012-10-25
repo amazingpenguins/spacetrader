@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SpaceShip {
     public static final short FLEA      = 0,
@@ -22,14 +24,13 @@ public class SpaceShip {
                         REPAIRCOST,
                         SIZE;
     
-    private TradeGood[] cargoBay;
-    private int[] cargoInventory;
-    private int cargoIndex;
+    private Map<Short, Integer> cargoBay;
+    private int curCargoCount;
     @SuppressWarnings("unused")
     private final int PRICE;
     private final String NAME;
     private ArrayList<Player> crew;
-    
+
     /**
      * This constructor generates a SpaceShip with all of the correct
      * stats, based on the type specified.
@@ -153,9 +154,8 @@ public class SpaceShip {
                 PRICE        = 10000;
                 break;
         }
-        cargoBay = new TradeGood[CARGOSIZE];
-        cargoInventory = new int[CARGOSIZE];
-        cargoIndex = 0;
+        cargoBay = new HashMap<Short, Integer>();
+        curCargoCount = 0;
     }
 
     /**
@@ -178,46 +178,63 @@ public class SpaceShip {
     
     /**
      * Add TradeGood(s) to the cargoBay
-     * @param cargo TradeGood to be added to cargoBay
-     * @param num Number of the type of TradeGood being added to cargoBay
+     * @param tg TradeGood to be added to cargoBay
+     * @param quantity Number of the type of TradeGood being added to cargoBay
      */
-    public void addToCargo(TradeGood cargo, int num){
-        cargoBay[cargoIndex] = cargo;
-        cargoInventory[cargoIndex] = num;
-        cargoIndex++;
-        //iterate through cargo bay to see if there are Tradegoods of
-        //the same type as the ones being added.
-        //if there are, consolidate them into the same cargo bay
-        //and decrement cargoIndex.
-        //
-        //might look like this
-        //
-        //for(int i=0; i<cargoIndex-1; i++){
-        //  if(cargoBay[i].getType()==cargoBay[cargoIndex].getType()){
-        //      cargoInventory[i]+= cargoInventory[cargoIndex];
-        //      cargoIndex--;
-        //  }
-        //}
+    public boolean addCargo(TradeGood tg, int quantity){
+        if(tg == null)
+            return false;
+
+        if((curCargoCount + quantity) <= CARGOSIZE) {
+            int curAmt = 0;
+            if(cargoBay.containsKey(tg.getType()))
+                curAmt = cargoBay.get(tg.getType());
+
+            curCargoCount += quantity;
+            cargoBay.put(tg.getType(), curAmt + quantity);
+            return true;
+        }
+        return false;
     }
     
     /**
      * Remove TradeGood(s) from the cargoBay
-     * @param cargo TradeGood to be removed from cargoBay
-     * @param num Number of the type of TradeGood being removed from cargoBay
+     * @param tg TradeGood to be removed from cargoBay
+     * @param quantity Number of the type of TradeGood being removed from cargoBay
      * @return TradeGood removed from cargoBay
      */
-    public Object removeCargo(TradeGood cargo, int num){
-        for(int i=0; i<cargoIndex; i++){
-            //if(cargoBay[i].getType()==cargo.getType()){
-            //  if(cargoInventory[i]>=num){
-            //      Object traded = cargoBay[i];
-            //      cargoInventory[i]-=num;
-            //      cargoBay[i] = null;
-            //      return traded;
-            //  }
-            //}
+    public boolean removeCargo(TradeGood tg, int quantity) {
+        if(tg == null)
+            return false;
+
+        if(cargoBay.containsKey(tg.getType()) &&
+                (cargoBay.get(tg.getType()) >= quantity)) {
+            int curAmt = cargoBay.get(tg.getType());
+            curCargoCount -= quantity;
+            cargoBay.put(tg.getType(), curAmt - quantity);
+            return true;
+        } else {
+            return false;
         }
-        return null;
+    }
+
+    /**
+     * Checks the cargo for a certain quantity of a TradeGood.
+     * @param tg The TradeGood to check for in the cargo.
+     * @param quantity Number of TradeGoods we need.
+     * @return Whether or not the cargo contains enough of that TradeGood.
+     */
+    public boolean containsCargo(TradeGood tg, int quantity) {
+        return (cargoBay.containsKey(tg.getType()) &&
+                (cargoBay.get(tg.getType()) >= quantity));
+    }
+
+    /**
+     * Check to see if the cargo is full.
+     * @return Is the cargo full?
+     */
+    public boolean cargoFull() {
+        return curCargoCount >= CARGOSIZE;
     }
 
     public String toString() {
