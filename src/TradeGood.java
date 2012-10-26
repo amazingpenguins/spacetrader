@@ -15,8 +15,13 @@ public class TradeGood implements Cloneable {
                               NARCOTICS = 8,
                               ROBOTS    = 9;
     private int value;
+    private int quantity;
     private short type;
 
+    /**
+     * Instantiate a TradeGood of a given type.
+     * @param type TradeGood.<TYPE> for type of TradeGood.
+     */
     public TradeGood(short type) {
         this.type = type;
         switch(type) {
@@ -54,12 +59,34 @@ public class TradeGood implements Cloneable {
                 value = 0;
         }
     }
+
+    /**
+     * Instantiate a TradeGood of a given type.
+     * @param type TradeGood.<TYPE> to instantiate.
+     * @param quantity Quantity of the TradeGood item.
+     */
+    public TradeGood(short type, int quantity) {
+        this(type);
+        this.quantity = quantity;
+    }
+
     public int getValue() {
         return value;
     }
+
     public short getType() {
         return type;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
     public TradeGood clone() {
         try {
             return (TradeGood)super.clone();
@@ -67,5 +94,44 @@ public class TradeGood implements Cloneable {
             CNSE.printStackTrace();
         }
         return new TradeGood((short)-1);
+    }
+
+    @Override
+    public int hashCode() {
+        return type;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof TradeGood) &&
+                this.type == ((TradeGood) obj).getType();
+    }
+
+    @Override
+    public String toString() {
+        switch(type) {
+            case WATER:
+                return "Water";
+            case FURS:
+                return "Furs";
+            case FOOD:
+                return "Food";
+            case ORE:
+                return "Ore";
+            case GAMES:
+                return "Games";
+            case FIREARMS:
+                return "Firearms";
+            case MEDICINE:
+                return "Medicine";
+            case MACHINES:
+                return "Machines";
+            case NARCOTICS:
+                return "Narcotics";
+            case ROBOTS:
+                return "Robots";
+            default:
+                return "Unkown";
+        }
     }
 }

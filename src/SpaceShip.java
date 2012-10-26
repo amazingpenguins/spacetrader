@@ -24,7 +24,7 @@ public class SpaceShip {
                         REPAIRCOST,
                         SIZE;
     
-    private Map<Short, Integer> cargoBay;
+    private Map<TradeGood, Integer> cargoBay;
     private int curCargoCount;
     @SuppressWarnings("unused")
     private final int PRICE;
@@ -154,7 +154,7 @@ public class SpaceShip {
                 PRICE        = 10000;
                 break;
         }
-        cargoBay = new HashMap<Short, Integer>();
+        cargoBay = new HashMap<TradeGood, Integer>();
         curCargoCount = 0;
     }
 
@@ -187,11 +187,11 @@ public class SpaceShip {
 
         if((curCargoCount + quantity) <= CARGOSIZE) {
             int curAmt = 0;
-            if(cargoBay.containsKey(tg.getType()))
-                curAmt = cargoBay.get(tg.getType());
+            if(cargoBay.containsKey(tg))
+                curAmt = cargoBay.get(tg);
 
             curCargoCount += quantity;
-            cargoBay.put(tg.getType(), curAmt + quantity);
+            cargoBay.put(tg, curAmt + quantity);
             return true;
         }
         return false;
@@ -207,11 +207,11 @@ public class SpaceShip {
         if(tg == null)
             return false;
 
-        if(cargoBay.containsKey(tg.getType()) &&
-                (cargoBay.get(tg.getType()) >= quantity)) {
-            int curAmt = cargoBay.get(tg.getType());
+        if(cargoBay.containsKey(tg) &&
+                (cargoBay.get(tg) >= quantity)) {
+            int curAmt = cargoBay.get(tg);
             curCargoCount -= quantity;
-            cargoBay.put(tg.getType(), curAmt - quantity);
+            cargoBay.put(tg, curAmt - quantity);
             return true;
         } else {
             return false;
@@ -225,8 +225,8 @@ public class SpaceShip {
      * @return Whether or not the cargo contains enough of that TradeGood.
      */
     public boolean containsCargo(TradeGood tg, int quantity) {
-        return (cargoBay.containsKey(tg.getType()) &&
-                (cargoBay.get(tg.getType()) >= quantity));
+        return (cargoBay.containsKey(tg) &&
+                (cargoBay.get(tg) >= quantity));
     }
 
     /**

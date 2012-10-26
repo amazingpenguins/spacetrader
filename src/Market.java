@@ -9,16 +9,16 @@ public class Market {
     private int government;
     private int environment;
     private int techLevel;
-    private Map<Short, Integer> myItems;
+    private Map<TradeGood, Integer> myItems;
 
     public Market(int government, int environment, int techLevel) {
         this.government = government;
         this.environment = environment;
         this.techLevel = techLevel;
-        myItems = new HashMap<Short,Integer>();
+        myItems = new HashMap<TradeGood,Integer>();
         for(int i = 0; i < TradeGood.ITEMCOUNT; i++) {
             TradeGood curGood = new TradeGood((short)i);
-            myItems.put(curGood.getType(), myPrice(curGood));
+            myItems.put(curGood, myPrice(curGood));
         }
     }
 
@@ -28,8 +28,8 @@ public class Market {
      * @return TradeGood's value.
      */
     public int calcPrice(TradeGood t) {
-        return myItems.containsKey(t.getType()) ?
-                myItems.get(t.getType()) : 0;
+        return myItems.containsKey(t) ?
+                myItems.get(t) : 0;
     }
 
     /**
@@ -39,12 +39,12 @@ public class Market {
      * @param quantity Number of TradeGood(s) to buy.
      */
     public void marketBuy(Player p, TradeGood t, int quantity) {
-        if(!myItems.containsKey(t.getType()))
+        if(!myItems.containsKey(t))
             return;
 
         if(p.getShip().containsCargo(t, quantity)) {
             if(p.getShip().removeCargo(t, quantity))
-                p.addCredits(myItems.get(t.getType()) * quantity);
+                p.addCredits(myItems.get(t) * quantity);
         }
     }
 
@@ -55,13 +55,13 @@ public class Market {
      * @param quantity The amount of TradeGood(s) to sell.
      */
     public void marketSell(Player p, TradeGood t, int quantity) {
-        if(!myItems.containsKey(t.getType()))
+        if(!myItems.containsKey(t))
             return;
 
         if(!p.getShip().cargoFull() &&
-                (p.getCredits() >= (myItems.get(t.getType()) * quantity))) {
+                (p.getCredits() >= (myItems.get(t) * quantity))) {
             p.getShip().addCargo(t, quantity);
-            p.addCredits(-(myItems.get(t.getType()) * quantity));
+            p.addCredits(-(myItems.get(t) * quantity));
         }
     }
 
