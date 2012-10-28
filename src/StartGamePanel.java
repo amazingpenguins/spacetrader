@@ -33,21 +33,10 @@ public class StartGamePanel extends JPanel {
             gc.goToState(GameController.State.NEWPLAYER);
         }
     }
+
+    
+    // copy and paste and rename new class to write a new ActionListener
     private class OtherListener implements ActionListener {
-        protected GameController gc;
-
-        public void actionPerformed(ActionEvent event) {
-
-        }
-    }
-    private class Other1Listener implements ActionListener {
-        protected GameController gc;
-
-        public void actionPerformed(ActionEvent event) {
-
-        }
-    }
-    private class Other2Listener implements ActionListener {
         protected GameController gc;
 
         public void actionPerformed(ActionEvent event) {
