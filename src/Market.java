@@ -66,6 +66,16 @@ public class Market {
     }
 
     /**
+    * Getter for the TradeGoods map in the market.. 
+    * @return Map Map of tradegoods
+    *
+    */
+    public Map<TradeGood, Integer> getTradegoods() {
+        return this.myItems;
+    }
+
+
+    /**
      * Calculate how much we value a TradeGood.
      * @param tg The TradeGood to price.
      * @return Our current value of the TradeGood.
