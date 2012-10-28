@@ -8,26 +8,25 @@ public class MainGUI {
 	private JFrame frame;
 	private JPanel mainPanel, titlePanel, displayPanel, startPanel;
 	private CountDownLatch latch;
+	private ArrayList<JPanel> cards;
 
 	/**
 	* Constructor for MainGUI
 	* @param latch Countdown latch to make sure the main thread waits properly. 
 	*/
-	public MainGUI(CountDownLatch latch) {
+	public MainGUI(CountDownLatch latch, ArrayList<JPanel> cards) {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		mainPanel = new JPanel();
 		startPanel = new StartGamePanel();
-		// display title, buttons, etc. then pack the frame and display to user
 		
+		// display title, buttons, etc. then pack the frame and display to user
 		this.latch = latch;
 		this.setupTitle();
 		mainPanel.add(titlePanel);
 		frame.add(mainPanel, BorderLayout.NORTH);
 		frame.add(startPanel, BorderLayout.CENTER);
 		this.packageAndDisplay();
-		System.out.println("Created the mainGUI and should have displayed it..."); 
-		
 	}
 
 	/**
