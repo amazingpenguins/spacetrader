@@ -5,17 +5,22 @@ import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.*;
 
+/**
+* Class to allow displaying of multiple screens. 
+* All panels that are displayed in this MainGUI should take in a CountDownLatch and decremement it when it's actions are complete. 
+*
+*/
+
 public class MainGUI {
 	private JFrame frame;
 	private JPanel mainPanel, titlePanel, displayPanel, contentPanel;
-	private CountDownLatch latch;
 	private HashMap<JPanel, String> cardMap;
 
 	/**
 	* Constructor for MainGUI
 	* @param latch Countdown latch to make sure the main thread waits properly. 
 	*/
-	public MainGUI(CountDownLatch latch, ArrayList<JPanel> cards) {
+	public MainGUI(ArrayList<JPanel> cards) {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		mainPanel = new JPanel();
@@ -33,7 +38,6 @@ public class MainGUI {
 		}
 
 		// display title, buttons, etc. then pack the frame and display to user
-		this.latch = latch;
 		this.setupTitle();
 		mainPanel.add(titlePanel);
 		frame.add(mainPanel, BorderLayout.NORTH);

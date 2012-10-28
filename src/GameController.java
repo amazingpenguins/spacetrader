@@ -5,10 +5,12 @@ import java.util.*;
 
 public class GameController implements InitViewDelegate {
     // Game State
-    private enum State {
+    public enum State {
         INIT(0),
         MAINMENU(1),
-        NEXTSTATE(2);
+        NEWPLAYER(2),
+        MARKETPANEL(3),
+        NEXTSTATE(4);
 
         @SuppressWarnings("unused")
         private int index;
@@ -26,6 +28,8 @@ public class GameController implements InitViewDelegate {
 
     private StartGamePanel startPanel;
     private MarketPanel marketPanel;
+    private CountDownLatch mainScreenLatch;
+
 
     public GameController() {
         difficulty = "Beginner"; // default to this, but the player can change it in the InitView
@@ -34,14 +38,21 @@ public class GameController implements InitViewDelegate {
         panels = new ArrayList<JPanel>();
         // add panels here to the array in the order they should show up in the game
         // if using the below syntax to both assign to the instance variable and add to the panels array, be sure to use proper parenthesis
-        panels.add((startPanel = new StartGamePanel()));
+        panels.add((startPanel = new StartGamePanel(this, mainScreenLatch)));
         panels.add((marketPanel = new MarketPanel(new Market(1,2,3))));
+        mainScreenLatch = new CountDownLatch(1);
     }
 
     private int runGame() {
         //TODO Finish the game states.
         switch(state) {
             case INIT:
+                this.setupMainGUI();
+            case MAINMENU:
+                this.await();
+                mainGUI.displayPanel(startPanel);
+                break;
+            case NEWPLAYER:
                 this.displayInitConfigScreen();
                 System.out.println("Starting Game With Difficulty: " + difficulty);
                 System.out.println("Created a new player:");
@@ -55,13 +66,13 @@ public class GameController implements InitViewDelegate {
                 System.out.println("Exiting...");
                 state = State.MAINMENU;
                 break;
-            case MAINMENU:
-                this.setupMainGUI();
-                mainGUI.displayPanel(startPanel);
-                state = State.NEXTSTATE;
+            case MARKETPANEL:
+                this.await();
+                mainGUI.displayPanel(marketPanel);
+                state = State.MAINMENU;
                 break;
             default:
-                mainGUI.displayPanel(marketPanel);
+                System.out.println("skipped states...");
                 return 1;
         }
         return 0;
@@ -80,21 +91,30 @@ public class GameController implements InitViewDelegate {
         CountDownLatch initLatch = new CountDownLatch(1);
         InitView initView = new InitView(initLatch);
         initView.setDelegate(this);
+        mainScreenLatch = new CountDownLatch(1);
         try {
             initLatch.await();
         } catch (InterruptedException ie) {
           ie.printStackTrace();
-        }
+        } 
     }
 
     public void setupMainGUI() {
-        CountDownLatch mainScreenLatch = new CountDownLatch(1);
-        mainGUI = new MainGUI(mainScreenLatch, panels);
+        mainGUI = new MainGUI(panels);  
+    }
+
+    private void await() {
+        mainScreenLatch = new CountDownLatch(1);
         try {
             mainScreenLatch.await();
         } catch (InterruptedException ie) {
           ie.printStackTrace();
         }
+    }
+
+    public void goToState(State state) {
+        mainScreenLatch.countDown();
+        this.state = state;
     }
 
     public void doneConfiguring(InitView view) {
