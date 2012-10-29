@@ -15,7 +15,6 @@ public class TradeGood implements Cloneable {
                               NARCOTICS = 8,
                               ROBOTS    = 9;
     private int value;
-    private int quantity;
     private short type;
 
     /**
@@ -60,30 +59,12 @@ public class TradeGood implements Cloneable {
         }
     }
 
-    /**
-     * Instantiate a TradeGood of a given type.
-     * @param type TradeGood.<TYPE> to instantiate.
-     * @param quantity Quantity of the TradeGood item.
-     */
-    public TradeGood(short type, int quantity) {
-        this(type);
-        this.quantity = quantity;
-    }
-
     public int getValue() {
         return value;
     }
 
     public short getType() {
         return type;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     @Override

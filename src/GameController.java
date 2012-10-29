@@ -39,7 +39,7 @@ public class GameController implements InitViewDelegate {
         // add panels here to the array in the order they should show up in the game
         // if using the below syntax to both assign to the instance variable and add to the panels array, be sure to use proper parenthesis
         panels.add((startPanel = new StartGamePanel(this, mainScreenLatch)));
-        panels.add((marketPanel = new MarketPanel(new Market(1,2,3))));
+        panels.add((marketPanel = new MarketPanel(new Market(1,2,3), plr)));
         mainScreenLatch = new CountDownLatch(1);
     }
 
@@ -48,27 +48,20 @@ public class GameController implements InitViewDelegate {
         switch(state) {
             case INIT:
                 this.setupMainGUI();
+                state = State.MAINMENU;
+                break;
             case MAINMENU:
-                this.await();
                 mainGUI.displayPanel(startPanel);
+                this.await();
                 break;
             case NEWPLAYER:
                 this.displayInitConfigScreen();
-                System.out.println("Starting Game With Difficulty: " + difficulty);
-                System.out.println("Created a new player:");
-                System.out.println(plr);
                 generateUniverse();
-                for (int i = 0; i < 20; i++) {
-                    for (int j = 0; j < 20; j++) {
-                        System.out.println(universe[i][j]);
-                    }
-                }
-                System.out.println("Exiting...");
                 state = State.MAINMENU;
                 break;
             case MARKETPANEL:
-                this.await();
                 mainGUI.displayPanel(marketPanel);
+                this.await();
                 state = State.MAINMENU;
                 break;
             default:
@@ -91,7 +84,6 @@ public class GameController implements InitViewDelegate {
         CountDownLatch initLatch = new CountDownLatch(1);
         InitView initView = new InitView(initLatch);
         initView.setDelegate(this);
-        mainScreenLatch = new CountDownLatch(1);
         try {
             initLatch.await();
         } catch (InterruptedException ie) {
@@ -136,7 +128,7 @@ public class GameController implements InitViewDelegate {
     public static void main(String[] args) {
         GameController gc = new GameController();
         while(gc.runGame() == 0);
-        
+
         System.exit(0);
     }
 }

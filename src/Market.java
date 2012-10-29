@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * User: ryree0
@@ -9,16 +10,26 @@ public class Market {
     private int government;
     private int environment;
     private int techLevel;
-    private Map<TradeGood, Integer> myItems;
+    private Map<TradeGood, MarketItem> myItems;
+
+    private class MarketItem {
+        private int value;
+        private int quantity;
+
+        private MarketItem(int value, int quantity) {
+            this.value = value;
+            this.quantity = quantity;
+        }
+    }
 
     public Market(int government, int environment, int techLevel) {
         this.government = government;
         this.environment = environment;
         this.techLevel = techLevel;
-        myItems = new HashMap<TradeGood,Integer>();
+        myItems = new HashMap<TradeGood,MarketItem>();
         for(int i = 0; i < TradeGood.ITEMCOUNT; i++) {
             TradeGood curGood = new TradeGood((short)i);
-            myItems.put(curGood, myPrice(curGood));
+            myItems.put(curGood, new MarketItem(myPrice(curGood), (int)(Math.random() * 20)));
         }
     }
 
@@ -27,9 +38,14 @@ public class Market {
      * @param t The TradeGood to price.
      * @return TradeGood's value.
      */
-    public int calcPrice(TradeGood t) {
+    public int getPrice(TradeGood t) {
         return myItems.containsKey(t) ?
-                myItems.get(t) : 0;
+                myItems.get(t).value : 0;
+    }
+
+    public int getQuantity(TradeGood t) {
+        return myItems.containsKey(t) ?
+                myItems.get(t).quantity : 0;
     }
 
     /**
@@ -39,12 +55,14 @@ public class Market {
      * @param quantity Number of TradeGood(s) to buy.
      */
     public void marketBuy(Player p, TradeGood t, int quantity) {
-        if(!myItems.containsKey(t))
+        if(!myItems.containsKey(t) || (p == null))
             return;
 
         if(p.getShip().containsCargo(t, quantity)) {
-            if(p.getShip().removeCargo(t, quantity))
-                p.addCredits(myItems.get(t) * quantity);
+            if(p.getShip().removeCargo(t, quantity)) {
+                p.addCredits(myItems.get(t).value * quantity);
+                myItems.get(t).quantity += quantity;
+            }
         }
     }
 
@@ -55,13 +73,15 @@ public class Market {
      * @param quantity The amount of TradeGood(s) to sell.
      */
     public void marketSell(Player p, TradeGood t, int quantity) {
-        if(!myItems.containsKey(t))
+        if(!myItems.containsKey(t) || (p == null))
             return;
 
         if(!p.getShip().cargoFull() &&
-                (p.getCredits() >= (myItems.get(t) * quantity))) {
+                (p.getCredits() >= (myItems.get(t).value * quantity)) &&
+                (myItems.get(t).quantity >= quantity)) {
             p.getShip().addCargo(t, quantity);
-            p.addCredits(-(myItems.get(t) * quantity));
+            p.addCredits(-(myItems.get(t).value * quantity));
+            myItems.get(t).quantity -= quantity;
         }
     }
 
@@ -70,8 +90,8 @@ public class Market {
     * @return Map Map of tradegoods
     *
     */
-    public Map<TradeGood, Integer> getTradegoods() {
-        return this.myItems;
+    public Set<TradeGood> getMarketGoods() {
+        return this.myItems.keySet();
     }
 
 

@@ -21,9 +21,8 @@ import javax.swing.event.ChangeListener;
  * Instantiating this class will create a JFrame that lets the user choose a name, set attributes, and choose a
  * difficulty. The errorLabel can be set to some string if the user doesn't input values correctly.
  */
-public class InitView {
+public class InitView extends JPanel{
 
-    private JFrame initFrame;
     private JPanel headingPanel, namePanel, pilotPanel, traderPanel,
             fighterPanel, engineerPanel, difficultyPanel, startPanel, errorPanel;
     private JTextField name;
@@ -176,21 +175,17 @@ public class InitView {
         errorPanel.add(errorLabel);
         
         // create the frame, add the components, display the frame
-        initFrame = new JFrame("Set Game and Player Properties");
-        initFrame.setLayout(new BoxLayout(initFrame.getContentPane(),
+        this.setLayout(new BoxLayout(this.getContentPane(),
                 BoxLayout.Y_AXIS));
-        initFrame.add(headingPanel);
-        initFrame.add(namePanel);
-        initFrame.add(pilotPanel);
-        initFrame.add(traderPanel);
-        initFrame.add(fighterPanel);
-        initFrame.add(engineerPanel);
-        initFrame.add(difficultyPanel);
-        initFrame.add(startPanel);
-        initFrame.add(errorPanel);
-        initFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initFrame.pack();
-        initFrame.setVisible(true);
+        this.add(headingPanel);
+        this.add(namePanel);
+        this.add(pilotPanel);
+        this.add(traderPanel);
+        this.add(fighterPanel);
+        this.add(engineerPanel);
+        this.add(difficultyPanel);
+        this.add(startPanel);
+        this.add(errorPanel);
     }
 
     public Object getDelegate() {
