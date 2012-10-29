@@ -175,7 +175,7 @@ public class InitView extends JPanel{
         errorPanel.add(errorLabel);
         
         // create the frame, add the components, display the frame
-        this.setLayout(new BoxLayout(initFrame.getContentPane(),
+        this.setLayout(new BoxLayout(this.getContentPane(),
                 BoxLayout.Y_AXIS));
         this.add(headingPanel);
         this.add(namePanel);
