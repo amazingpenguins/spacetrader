@@ -29,6 +29,7 @@ public class GameController implements InitViewDelegate {
     private StartGamePanel startPanel;
     private MarketPanel marketPanel;
     private CountDownLatch mainScreenLatch;
+    private InitView initView;
 
 
     public GameController() {
@@ -40,6 +41,7 @@ public class GameController implements InitViewDelegate {
         // if using the below syntax to both assign to the instance variable and add to the panels array, be sure to use proper parenthesis
         panels.add((startPanel = new StartGamePanel(this, mainScreenLatch)));
         panels.add((marketPanel = new MarketPanel(new Market(1,2,3), plr)));
+        panels.add(initView = new InitView(this));
         mainScreenLatch = new CountDownLatch(1);
     }
 
@@ -81,14 +83,9 @@ public class GameController implements InitViewDelegate {
     }
 
     public void displayInitConfigScreen() {
-        CountDownLatch initLatch = new CountDownLatch(1);
-        InitView initView = new InitView(initLatch);
         initView.setDelegate(this);
-        try {
-            initLatch.await();
-        } catch (InterruptedException ie) {
-          ie.printStackTrace();
-        } 
+        mainGUI.displayPanel(initView);
+        this.await();
     }
 
     public void setupMainGUI() {
@@ -122,7 +119,6 @@ public class GameController implements InitViewDelegate {
         plr.setShip(new SpaceShip(SpaceShip.GNAT));
 
         difficulty = view.getDifficulty();
-        view.exit();
     }
 
     public static void main(String[] args) {

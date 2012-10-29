@@ -35,16 +35,16 @@ public class InitView extends JPanel{
             engineerLabel, errorLabel;
     private InitViewDelegate delegate;
     private CountDownLatch initLatch;
+    private GameController gc;
 
     //TODO move this.
     private final short MAXSTATVAL = 16;
     private int pointsLeft;
-    public InitView(CountDownLatch initLatch) {
+    public InitView(GameController gc) {
+        this.gc = gc;
+
         // assign pointsLeft
         pointsLeft = MAXSTATVAL;
-
-        // assign our latch
-        this.initLatch = initLatch;
         
         // header
         headingPanel = new JPanel();
@@ -175,7 +175,7 @@ public class InitView extends JPanel{
         errorPanel.add(errorLabel);
         
         // create the frame, add the components, display the frame
-        this.setLayout(new BoxLayout(this.getContentPane(),
+        this.setLayout(new BoxLayout(this,
                 BoxLayout.Y_AXIS));
         this.add(headingPanel);
         this.add(namePanel);
@@ -217,11 +217,6 @@ public class InitView extends JPanel{
     
     public short getEngineer() {
         return engineerSkill.getNumber().shortValue();
-    }
-    
-    public void exit() {
-        initFrame.setVisible(false);
-        initFrame.dispose();
     }
 
     /*
@@ -274,7 +269,7 @@ public class InitView extends JPanel{
         public void actionPerformed(ActionEvent e) {
             if (view.verifyInput()) {
                 delegate.doneConfiguring(view);
-                initLatch.countDown();
+                gc.goToState(GameController.State.MAINMENU);
             } else {
                 // In the future, something can be done to display an error message to the user. 
                 // Not for Milestone 6 though...
