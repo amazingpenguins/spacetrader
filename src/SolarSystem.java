@@ -71,6 +71,9 @@ public class SolarSystem {
     public void generatePlanets() {
         myPlanet = new Planet(government, techLevel);
     }
+    public Planet getPlanet(){
+        return myPlanet;
+    }
 
     public void setTechLevel(int techLevel) {
         this.techLevel = techLevel;

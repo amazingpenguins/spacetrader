@@ -18,6 +18,10 @@ public class StartGamePanel extends JPanel {
         ngl.gc = gc;
         newGame.addActionListener(ngl);
         savedGame = new JButton("Load Game");
+        savedGame = new JButton("Load Game");
+        OtherListener listener = new OtherListener();
+        listener.gc = gc;
+        savedGame.addActionListener(listener);
         howToPlay = new JButton("How To Play");
 
         this.setLayout(new BorderLayout());
@@ -40,7 +44,7 @@ public class StartGamePanel extends JPanel {
         protected GameController gc;
 
         public void actionPerformed(ActionEvent event) {
-
+            gc.goToState(GameController.State.GAMEPANEL);
         }
     }
 }
