@@ -47,8 +47,8 @@ public class MarketPanel extends JPanel {
 
             JPanel itemPanel = new JPanel();
 
-            sellButton.addActionListener(new GoodListener(false, good));
-            buyButton.addActionListener(new GoodListener(true, good));
+            sellButton.addActionListener(new GoodListener(false, good, quantity));
+            buyButton.addActionListener(new GoodListener(true, good, quantity));
 
 			itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.X_AXIS));
 			itemPanel.add(typeLabel);
@@ -68,22 +68,24 @@ public class MarketPanel extends JPanel {
 
         private boolean buyButton;
         private TradeGood tg;
+        private JLabel quantityLabel;
 
-        public GoodListener(boolean buyButton, TradeGood tg) {
+        public GoodListener(boolean buyButton, TradeGood tg, JLabel quantityLabel) {
             this.buyButton = buyButton;
             this.tg = tg;
+            this.quantityLabel = quantityLabel;
         }
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if(buyButton) {
                 market.marketSell(plr, tg, 1);
-                ((JLabel)((JButton)actionEvent.getSource()).getParent().getComponent(2)).setText("amount: " + market.getQuantity(tg));
+                quantityLabel.setText("amount: " + market.getQuantity(tg));
                 System.out.println(market.getQuantity(tg));
             }
             else {
                 market.marketBuy(plr, tg, 1);
-                ((JLabel)((JButton)actionEvent.getSource()).getParent().getComponent(2)).setText("amount: " + market.getQuantity(tg));
+                quantityLabel.setText("amount: " + market.getQuantity(tg));
                 System.out.println(market.getQuantity(tg));
             }
         }
