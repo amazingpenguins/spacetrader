@@ -1,5 +1,4 @@
 import java.util.concurrent.CountDownLatch;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.util.*;
 
@@ -46,7 +45,6 @@ public class GameController implements InitViewDelegate {
     }
 
     private int runGame() {
-        //TODO Finish the game states.
         switch(state) {
             case INIT:
                 this.setupMainGUI();
@@ -117,7 +115,7 @@ public class GameController implements InitViewDelegate {
 
         plr = new Player(plrStats);
         plr.setShip(new SpaceShip(SpaceShip.GNAT));
-
+        marketPanel.setPlayer(plr);
         difficulty = view.getDifficulty();
     }
 
