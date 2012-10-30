@@ -37,14 +37,14 @@ public class GamePanel extends JPanel{
 
         public void actionPerformed(ActionEvent e){
 
-            if (e.getSource() == market) {
+        //TODO Fix Market button
 
-                Object planet = (Planet)choosePlanet.getSelectedItem();
+           //Object planet = (Planet)choosePlanet.getSelectedItem();
 
-                //gc.switchToMarketPanel(planet.getGovernment(), planet.getEnvironment(), planet.getTechLevel());
-                //gc.switchToMarketPanel(1, 1, 1);
-                gc.goToState(GameController.State.MARKETPANEL);
-            }
+           //gc.switchToMarketPanel(planet.getGovernment(), planet.getEnvironment(), planet.getTechLevel());
+           //gc.switchToMarketPanel(1, 1, 1);
+           gc.goToState(GameController.State.MARKETPANEL);
+
         }
 
     }

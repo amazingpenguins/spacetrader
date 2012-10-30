@@ -18,16 +18,18 @@ public class StartGamePanel extends JPanel {
         ngl.gc = gc;
         newGame.addActionListener(ngl);
         savedGame = new JButton("Load Game");
-        savedGame = new JButton("Load Game");
         OtherListener listener = new OtherListener();
         listener.gc = gc;
         savedGame.addActionListener(listener);
-        howToPlay = new JButton("How To Play");
+        marketButton = new JButton("Market Test");
+        TestListener test = new TestListener();
+        test.gc = gc;
+        marketButton.addActionListener(test);
 
         this.setLayout(new BorderLayout());
         this.add(newGame, BorderLayout.NORTH);
         this.add(savedGame, BorderLayout.CENTER);
-        this.add(howToPlay, BorderLayout.SOUTH);
+        this.add(marketButton, BorderLayout.SOUTH);
     }      
 
     private class NewGameListener implements ActionListener {
@@ -45,6 +47,14 @@ public class StartGamePanel extends JPanel {
 
         public void actionPerformed(ActionEvent event) {
             gc.goToState(GameController.State.GAMEPANEL);
+        }
+    }
+
+    private class TestListener implements ActionListener {
+        protected GameController gc;
+
+        public void actionPerformed(ActionEvent event) {
+            gc.goToState(GameController.State.MARKETPANEL);
         }
     }
 }

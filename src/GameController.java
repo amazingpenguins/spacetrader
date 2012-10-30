@@ -63,7 +63,6 @@ public class GameController implements InitViewDelegate {
                 break;
             case NEWPLAYER:
                 this.displayInitConfigScreen();
-                //generateUniverse();
                 state = State.MAINMENU;
                 break;
             case GAMEPANEL:

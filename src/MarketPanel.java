@@ -1,5 +1,5 @@
 import javax.swing.*;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
@@ -11,13 +11,16 @@ public class MarketPanel extends JPanel {
 	private ArrayList<JPanel> itemPanels;
 	public ArrayList<TradeGood> dummyData;
 	private boolean dummy;
+    private JLabel credits;
+    private JButton backButton;
 
 	public MarketPanel(Market market, Player p) {
 		this.setLayout(new GridLayout(0, 2));
 		dummy = false;
 		this.market = market;
         this.plr = p;
-		this.setupDisplay();
+
+        this.setupDisplay();
 	}
 
     public void setPlayer(Player plr) {
@@ -37,9 +40,17 @@ public class MarketPanel extends JPanel {
 
 	private void setupDisplay() {
 		itemPanels = new ArrayList<JPanel>();
-		for (TradeGood good : market.getMarketGoods()) {
+
+        /*   Need to be added to layout
+        credits = new JLabel("Credits: $"+plr.getCredits());
+        JButton backButton = new JButton("Back to Universe");
+        backButton.addActionListener(new BackListener());
+        */
+
+        for (TradeGood good : market.getMarketGoods()) {
 			JButton sellButton = new JButton("Sell");
 			JButton buyButton = new JButton("Buy");
+
 
 			JLabel typeLabel = new JLabel(good.toString());
 			JLabel priceLabel = new JLabel("price: $" + market.getPrice(good));
@@ -82,12 +93,23 @@ public class MarketPanel extends JPanel {
                 market.marketSell(plr, tg, 1);
                 quantityLabel.setText("amount: " + market.getQuantity(tg));
                 System.out.println(market.getQuantity(tg));
+                //credits.setText(new String("Credits: $"+plr.getCredits()));
+
             }
             else {
                 market.marketBuy(plr, tg, 1);
                 quantityLabel.setText("amount: " + market.getQuantity(tg));
                 System.out.println(market.getQuantity(tg));
+                //credits.setText(new String("Credits: $"+plr.getCredits()));
             }
+        }
+    }
+
+    private class BackListener implements ActionListener {
+        protected GameController gc;
+
+        public void actionPerformed(ActionEvent event) {
+            gc.goToState(GameController.State.GAMEPANEL);
         }
     }
 }
