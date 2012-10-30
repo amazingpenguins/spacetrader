@@ -4,7 +4,8 @@ import java.awt.event.*;
 import java.util.concurrent.CountDownLatch;
 
 public class StartGamePanel extends JPanel {
-    private JButton newGame, savedGame, howToPlay, marketButton;
+    private JButton newGame, savedGame, howToPlay;
+    public JButton marketButton;
     
     private CountDownLatch latch;
 
@@ -30,6 +31,13 @@ public class StartGamePanel extends JPanel {
         this.add(newGame, BorderLayout.NORTH);
         this.add(savedGame, BorderLayout.CENTER);
         this.add(marketButton, BorderLayout.SOUTH);
+
+        if (gc.getPlayer() == null) {
+            marketButton.setEnabled(false);
+        }
+        else {
+            marketButton.setEnabled(true);
+        }
     }      
 
     private class NewGameListener implements ActionListener {

@@ -58,6 +58,9 @@ public class GameController implements InitViewDelegate {
                 state = State.MAINMENU;
                 break;
             case MAINMENU:
+                if (plr != null) {
+                    startPanel.marketButton.setEnabled(true);
+                }
                 mainGUI.displayPanel(startPanel);
                 this.await();
                 break;
@@ -111,6 +114,10 @@ public class GameController implements InitViewDelegate {
 
     public void setupMainGUI() {
         mainGUI = new MainGUI(panels);  
+    }
+
+    public Player getPlayer(){
+        return plr;
     }
 
     private void await() {
