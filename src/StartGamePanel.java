@@ -34,6 +34,7 @@ public class StartGamePanel extends JPanel {
 
         if (gc.getPlayer() == null) {
             marketButton.setEnabled(false);
+            marketButton.setToolTipText("Start a new game to visit the market");
         }
         else {
             marketButton.setEnabled(true);

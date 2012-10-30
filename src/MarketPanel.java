@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 public class MarketPanel extends JPanel {
-	private JPanel mainPanel;
+	private JPanel mainPanel, cargoPanel;
 	private Market market;
     private Player plr;
 	private ArrayList<JPanel> itemPanels;
@@ -13,9 +13,12 @@ public class MarketPanel extends JPanel {
 	private boolean dummy;
     private JLabel credits;
     private JButton backButton;
+    GameController gc;
 
-	public MarketPanel(Market market, Player p) {
-		this.setLayout(new GridLayout(0, 2));
+	public MarketPanel(Market market, Player p, GameController gc) {
+		this.setLayout(new BorderLayout());
+        this.gc = gc;
+
 		dummy = false;
 		this.market = market;
         this.plr = p;
@@ -41,11 +44,32 @@ public class MarketPanel extends JPanel {
 	private void setupDisplay() {
 		itemPanels = new ArrayList<JPanel>();
 
-        /*   Need to be added to layout
-        credits = new JLabel("Credits: $"+plr.getCredits());
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(0, 2));
+        this.add(mainPanel, BorderLayout.WEST);
+
+        cargoPanel = new JPanel();
+        this.add(cargoPanel, BorderLayout.EAST);
+        cargoPanel.setBorder(BorderFactory.createTitledBorder("Cargo Hold"));
+        JLabel cargo = new JLabel("Cargo goes here");
+        cargoPanel.add(cargo);
+        if (plr != null) {
+            credits = new JLabel("Credits: $"+plr.getCredits());
+            cargoPanel.add(credits);
+        }
+
+        JPanel topPanel = new JPanel();
+        this.add(topPanel, BorderLayout.NORTH);
         JButton backButton = new JButton("Back to Universe");
+
+        BackListener back = new BackListener();
+        back.gc = gc;
         backButton.addActionListener(new BackListener());
-        */
+        backButton.setEnabled(false);
+        backButton.setToolTipText("Not working; null pointer error");
+
+        topPanel.add(backButton);
+
 
         for (TradeGood good : market.getMarketGoods()) {
 			JButton sellButton = new JButton("Sell");
@@ -71,7 +95,8 @@ public class MarketPanel extends JPanel {
 			itemPanel.add(buyButton);
 			itemPanel.add(sellButton);
 			itemPanels.add(itemPanel);
-			this.add(itemPanel);
+			//this.add(itemPanel);
+            mainPanel.add(itemPanel, BorderLayout.WEST);
 		}
 	}
 
@@ -109,7 +134,7 @@ public class MarketPanel extends JPanel {
         protected GameController gc;
 
         public void actionPerformed(ActionEvent event) {
-            gc.goToState(GameController.State.GAMEPANEL);
+            gc.goToState(GameController.State.MAINMENU);
         }
     }
 }

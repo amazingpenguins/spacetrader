@@ -45,7 +45,7 @@ public class GameController implements InitViewDelegate {
         // if using the below syntax to both assign to the instance variable and add to the panels array, be sure to use proper parenthesis
         panels.add((startPanel = new StartGamePanel(this, mainScreenLatch)));
         panels.add((gamePanel = new GamePanel(this, mainScreenLatch)));
-        panels.add((marketPanel = new MarketPanel(new Market(1,2,3), plr)));
+        panels.add((marketPanel = new MarketPanel(new Market(1,2,3), plr, this)));
         panels.add(initView = new InitView(this));
         mainScreenLatch = new CountDownLatch(1);
     }
@@ -101,7 +101,7 @@ public class GameController implements InitViewDelegate {
 
 
     public void switchToMarketPanel(int gov, int env, int tech){
-        MarketPanel market = new MarketPanel(new Market(gov,env,tech), plr);
+        MarketPanel market = new MarketPanel(new Market(gov,env,tech), plr, this);
         panels.add(market);
         mainGUI.displayPanel(market);
     }
