@@ -2,11 +2,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.concurrent.CountDownLatch;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -22,19 +20,13 @@ import javax.swing.event.ChangeListener;
  * difficulty. The errorLabel can be set to some string if the user doesn't input values correctly.
  */
 public class InitView extends JPanel{
-
-    private JPanel headingPanel, namePanel, pilotPanel, traderPanel,
-            fighterPanel, engineerPanel, difficultyPanel, startPanel, errorPanel;
     private JTextField name;
     private JSpinner pilotS, traderS, fighterS, engineerS;
     private SpinnerNumberModel pilotSkill, traderSkill, fighterSkill, engineerSkill;
     private ButtonGroup difficulties;
-    private JRadioButton beginner, easy, normal, hard, impossible;
     private JButton start;
-    private JLabel heading, nameLabel, pilotLabel, traderLabel, fighterLabel,
-            engineerLabel, errorLabel;
+    private JLabel errorLabel;
     private InitViewDelegate delegate;
-    private CountDownLatch initLatch;
     private GameController gc;
 
     //TODO move this.
@@ -47,24 +39,24 @@ public class InitView extends JPanel{
         pointsLeft = MAXSTATVAL;
         
         // header
-        headingPanel = new JPanel();
+        JPanel headingPanel = new JPanel();
         headingPanel.setPreferredSize(new Dimension(500, 50));
-        heading = new JLabel(
+        JLabel heading = new JLabel(
                 "Choose a name, distribute 16 attribute points, and choose a difficulty");
         headingPanel.add(heading);
 
         // name
-        namePanel = new JPanel();
+        JPanel namePanel = new JPanel();
         namePanel.setPreferredSize(new Dimension(500, 40));
-        nameLabel = new JLabel("Character Name:  ");
+        JLabel nameLabel = new JLabel("Character Name:  ");
         name = new JTextField(20);
         namePanel.add(nameLabel);
         namePanel.add(name);
 
         // pilot
-        pilotPanel = new JPanel();
+        JPanel pilotPanel = new JPanel();
         pilotPanel.setPreferredSize(new Dimension(500, 30));
-        pilotLabel = new JLabel("Pilot:           ");
+        JLabel pilotLabel = new JLabel("Pilot:           ");
         pilotSkill = new SpinnerNumberModel(0,0,MAXSTATVAL,1);
         pilotS = new JSpinner(pilotSkill);
         ((JSpinner.DefaultEditor)pilotS.getEditor()).getTextField().setColumns(2);
@@ -79,9 +71,9 @@ public class InitView extends JPanel{
         pilotPanel.add(pilotS);
         
         // trader
-        traderPanel = new JPanel();
+        JPanel traderPanel = new JPanel();
         traderPanel.setPreferredSize(new Dimension(500, 30));
-        traderLabel = new JLabel("Trader:       ");
+        JLabel traderLabel = new JLabel("Trader:       ");
         traderSkill = new SpinnerNumberModel(0,0,MAXSTATVAL,1);
         traderS = new JSpinner(traderSkill);
         ((JSpinner.DefaultEditor)traderS.getEditor()).getTextField().setColumns(2);
@@ -96,9 +88,9 @@ public class InitView extends JPanel{
         traderPanel.add(traderS);
         
         // fighter
-        fighterPanel = new JPanel();
+        JPanel fighterPanel = new JPanel();
         fighterPanel.setPreferredSize(new Dimension(500, 30));
-        fighterLabel = new JLabel("Fighter:       ");
+        JLabel fighterLabel = new JLabel("Fighter:       ");
         fighterSkill = new SpinnerNumberModel(0,0,MAXSTATVAL,1);
         fighterS = new JSpinner(fighterSkill);
         ((JSpinner.DefaultEditor)fighterS.getEditor()).getTextField().setColumns(2);
@@ -113,9 +105,9 @@ public class InitView extends JPanel{
         fighterPanel.add(fighterS);
         
         // engineer
-        engineerPanel = new JPanel();
+        JPanel engineerPanel = new JPanel();
         engineerPanel.setPreferredSize(new Dimension(500, 40));
-        engineerLabel = new JLabel("Engineer:   ");
+        JLabel engineerLabel = new JLabel("Engineer:   ");
         engineerSkill = new SpinnerNumberModel(0,0,MAXSTATVAL,1);
         engineerS = new JSpinner(engineerSkill);
         ((JSpinner.DefaultEditor)engineerS.getEditor()).getTextField().setColumns(2);
@@ -130,19 +122,19 @@ public class InitView extends JPanel{
         engineerPanel.add(engineerS);
         
         // difficulty
-        difficultyPanel = new JPanel();
+        JPanel difficultyPanel = new JPanel();
         difficultyPanel.setPreferredSize(new Dimension(500, 40));
         difficulties = new ButtonGroup();
 
-        beginner = new JRadioButton("Beginner");
+        JRadioButton beginner = new JRadioButton("Beginner");
         beginner.setActionCommand("Beginner");
-        easy = new JRadioButton("Easy");
+        JRadioButton easy = new JRadioButton("Easy");
         easy.setActionCommand("Easy");
-        normal = new JRadioButton("Normal");
+        JRadioButton normal = new JRadioButton("Normal");
         normal.setActionCommand("Normal");
-        hard = new JRadioButton("Hard");
+        JRadioButton hard = new JRadioButton("Hard");
         hard.setActionCommand("Hard");
-        impossible = new JRadioButton("Impossible");
+        JRadioButton impossible = new JRadioButton("Impossible");
         impossible.setActionCommand("Impossible");
 
         difficulties.add(beginner);
@@ -161,14 +153,14 @@ public class InitView extends JPanel{
         
 
         // start
-        startPanel = new JPanel();
+        JPanel startPanel = new JPanel();
         startPanel.setPreferredSize(new Dimension(500, 40));
         start = new JButton("Start");
         start.addActionListener(new StartButtonListener(this));
         startPanel.add(start);
         
         // error
-        errorPanel = new JPanel();
+        JPanel errorPanel = new JPanel();
         errorPanel.setPreferredSize(new Dimension(500, 30));
         errorLabel = new JLabel("");
         errorLabel.setForeground(Color.red);
@@ -269,7 +261,7 @@ public class InitView extends JPanel{
         public void actionPerformed(ActionEvent e) {
             if (view.verifyInput()) {
                 delegate.doneConfiguring(view);
-                gc.goToState(GameController.State.MAINMENU);
+                gc.goToState(GameController.State.GAMEPANEL);
             } else {
                 // In the future, something can be done to display an error message to the user. 
                 // Not for Milestone 6 though...

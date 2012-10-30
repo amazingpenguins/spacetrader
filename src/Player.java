@@ -1,4 +1,3 @@
-
 public class Player {
     private final int INITCREDITS = 1000;
 

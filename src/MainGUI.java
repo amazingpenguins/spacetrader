@@ -18,7 +18,6 @@ public class MainGUI {
 
 	/**
 	* Constructor for MainGUI
-	* @param latch Countdown latch to make sure the main thread waits properly. 
 	*/
 	public MainGUI(ArrayList<JPanel> cards) {
 		frame = new JFrame();

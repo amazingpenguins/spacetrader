@@ -37,14 +37,15 @@ public class GameController implements InitViewDelegate {
     public GameController() {
         planets = new ArrayList<Planet>();
         generateUniverse();
-        difficulty = "Beginner"; // default to this, but the player can change it in the InitView
+        difficulty = "Beginner";
         //TODO Implement saved games.
 
         panels = new ArrayList<JPanel>();
         // add panels here to the array in the order they should show up in the game
-        // if using the below syntax to both assign to the instance variable and add to the panels array, be sure to use proper parenthesis
-        panels.add((startPanel = new StartGamePanel(this, mainScreenLatch)));
-        panels.add((gamePanel = new GamePanel(this, mainScreenLatch)));
+        // if using the below syntax to both assign to the instance variable and add to the panels array
+        // be sure to use proper parenthesis
+        panels.add((startPanel = new StartGamePanel(this)));
+        panels.add((gamePanel = new GamePanel(this)));
         panels.add((marketPanel = new MarketPanel(new Market(1,2,3), plr, this)));
         panels.add(initView = new InitView(this));
         mainScreenLatch = new CountDownLatch(1);
@@ -53,30 +54,21 @@ public class GameController implements InitViewDelegate {
     private int runGame() {
         switch(state) {
             case INIT:
-
                 this.setupMainGUI();
-                state = State.MAINMENU;
-                break;
             case MAINMENU:
-                if (plr != null) {
-                    startPanel.marketButton.setEnabled(true);
-                }
                 mainGUI.displayPanel(startPanel);
                 this.await();
                 break;
             case NEWPLAYER:
                 this.displayInitConfigScreen();
-                state = State.MAINMENU;
                 break;
             case GAMEPANEL:
                 mainGUI.displayPanel(gamePanel);
                 this.await();
-                state = State.MAINMENU;
                 break;
             case MARKETPANEL:
                 mainGUI.displayPanel(marketPanel);
                 this.await();
-                state = State.MAINMENU;
                 break;
             default:
                 System.out.println("skipped states...");
@@ -94,16 +86,16 @@ public class GameController implements InitViewDelegate {
             }
         }
     }
-    public ArrayList<Planet> getPlanets() {
-        return planets;
+    public Planet[] getPlanets() {
+        Planet[] p = new Planet[planets.size()];
+        for (int i = 0; i < planets.size(); i++){
+            p[i] = planets.get(i);
+        }
+        return p;
     }
 
-
-
-    public void switchToMarketPanel(int gov, int env, int tech){
-        MarketPanel market = new MarketPanel(new Market(gov,env,tech), plr, this);
-        panels.add(market);
-        mainGUI.displayPanel(market);
+    public void updateMarketPanel(Planet pl) {
+        marketPanel.setPlanet(pl);
     }
 
     public void displayInitConfigScreen() {
@@ -114,10 +106,6 @@ public class GameController implements InitViewDelegate {
 
     public void setupMainGUI() {
         mainGUI = new MainGUI(panels);  
-    }
-
-    public Player getPlayer(){
-        return plr;
     }
 
     private void await() {

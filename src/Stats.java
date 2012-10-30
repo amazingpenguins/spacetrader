@@ -1,9 +1,9 @@
 public class Stats implements Cloneable {
     private boolean amNPC; // PC or Player?
     private short pilot,
-            trader,
-            fighter,
-            engineer;
+                  trader,
+                  fighter,
+                  engineer;
     private int credits;
     private String name;
 
