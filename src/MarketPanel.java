@@ -20,6 +20,9 @@ public class MarketPanel extends JPanel {
 		this.setupDisplay();
 	}
 
+    public void setPlayer(Player plr) {
+        this.plr = plr;
+    }
 
 	private void setupDummyData() {
 		Random rand = new Random();
@@ -74,16 +77,15 @@ public class MarketPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if(buyButton) {
-                market.marketBuy(plr, tg, 1);
+                market.marketSell(plr, tg, 1);
+                ((JLabel)((JButton)actionEvent.getSource()).getParent().getComponent(2)).setText("amount: " + market.getQuantity(tg));
                 System.out.println(market.getQuantity(tg));
             }
             else {
-                market.marketSell(plr, tg, 1);
+                market.marketBuy(plr, tg, 1);
+                ((JLabel)((JButton)actionEvent.getSource()).getParent().getComponent(2)).setText("amount: " + market.getQuantity(tg));
                 System.out.println(market.getQuantity(tg));
             }
-
-            revalidate();
-            repaint();
         }
     }
 }
