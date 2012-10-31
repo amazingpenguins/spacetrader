@@ -8,14 +8,9 @@ public class UniversePanel extends JPanel {
 
 	private SolarSystem[][] universe;
 
-	public UniversePanel() {
+	public UniversePanel(SolarSystem[][] universe) {
 		setPreferredSize(new Dimension(5*TILE_SIZE, 5*TILE_SIZE));
-		universe = new SolarSystem[5][5];
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                universe[i][j] = new SolarSystem();
-            }
-        }
+        this.universe = universe;
     }
 
     public void paint(Graphics g) {

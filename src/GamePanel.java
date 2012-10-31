@@ -4,23 +4,22 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
-    private JComboBox choosePlanet;
+    private UniversePanel universePanel;
     protected GameController gc;
 
-    public GamePanel(GameController gc) {
+    public GamePanel(GameController gc, SolarSystem[][] universe) {
         this.gc = gc;
+        universePanel = new UniversePanel(universe);
         JButton market = new JButton("Market");
         JLabel placeholder = new JLabel("Lots of other stuff to come...");
-        choosePlanet = new JComboBox(gc.getPlanets());
-
 
         this.setLayout(new BorderLayout());
         this.add(market, BorderLayout.WEST);
-        this.add(choosePlanet, BorderLayout.CENTER);
+        this.add(universePanel, BorderLayout.CENTER);
         this.add(placeholder, BorderLayout.EAST);
-        market.addActionListener(new ButtonListener());
+        //market.addActionListener(new ButtonListener());
     }
-
+/*
     private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -29,4 +28,5 @@ public class GamePanel extends JPanel {
            gc.goToState(GameController.State.MARKETPANEL);
         }
     }
+*/
 }
