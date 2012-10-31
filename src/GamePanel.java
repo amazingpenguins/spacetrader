@@ -11,7 +11,7 @@ public class GamePanel extends JPanel {
         this.gc = gc;
         JButton market = new JButton("Market");
         JLabel placeholder = new JLabel("Lots of other stuff to come...");
-        choosePlanet = new JComboBox<Planet>(gc.getPlanets());
+        choosePlanet = new JComboBox(gc.getPlanets());
 
 
         this.setLayout(new BorderLayout());
@@ -27,7 +27,6 @@ public class GamePanel extends JPanel {
            Planet planet = (Planet)choosePlanet.getSelectedItem();
            gc.updateMarketPanel(planet);
            gc.goToState(GameController.State.MARKETPANEL);
-
         }
     }
 }
