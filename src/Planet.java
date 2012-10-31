@@ -1,8 +1,13 @@
+import java.awt.Graphics;
+import java.awt.Color;
+import java.util.*;
+
 public class Planet {
     private String name;
     private int environment;
     private int government;
     private int techLevel;
+    private Color color;
 
     /* Planet Environment */
     private final short ENVCOUNT = 12;
@@ -215,4 +220,38 @@ public class Planet {
     public String toString() {
         return name;
     }
+
+    /*
+    * Methods for drawing the Planet in a GUI
+    */
+
+    /**
+    * Method to draw a planet at a location. Creates a random colored Planet. 
+    * Planet radius will be 10 pixels.
+    * @param g Graphics context to draw in 
+    * @param x the x coordinate of the upper left corner of the planet to be displayed.
+    * @param y the y coordinate of the upper left corner of the planet to be displayed.
+    */
+    public void draw(Graphics g, int x, int y) {
+        // generate random values for rgb
+        if (this.color == null) {
+            Random random = new Random();
+            float red = random.nextFloat();
+            float green = random.nextFloat();
+            float blue = random.nextFloat();
+
+            // create color 
+            this.color = new Color(red,green,blue);
+        }
+        g.setColor(this.color);
+        // fill the circle for the planet
+        g.fillOval(x, y, 20, 20);
+
+        g.setColor(Color.BLACK);
+        g.drawString(name, x, y);
+    }
+
+
+
 }
+
