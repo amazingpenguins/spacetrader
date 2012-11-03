@@ -229,6 +229,12 @@ public class SpaceShip {
                 (cargoBay.get(tg) >= quantity));
     }
 
+    public int getCargoCount(TradeGood tg) {
+        if(!cargoBay.containsKey(tg))
+            return 0;
+        return cargoBay.get(tg);
+    }
+
     /**
      * Check to see if the cargo is full.
      * @return Is the cargo full?
@@ -238,6 +244,6 @@ public class SpaceShip {
     }
 
     public String toString() {
-        return NAME;
+        return String.format("Spaceship: " + NAME);
     }
 }

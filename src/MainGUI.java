@@ -2,7 +2,6 @@ import java.awt.Font;
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.*;
-import java.util.concurrent.CountDownLatch;
 import java.util.*;
 
 /**
@@ -13,7 +12,7 @@ import java.util.*;
 
 public class MainGUI {
 	private JFrame frame;
-	private JPanel mainPanel, titlePanel, displayPanel, contentPanel;
+	private JPanel mainPanel, titlePanel, contentPanel;
 	private HashMap<JPanel, String> cardMap;
 
 	/**
@@ -22,6 +21,7 @@ public class MainGUI {
 	public MainGUI(ArrayList<JPanel> cards) {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
+        frame.setPreferredSize(new Dimension(800, 500));
 		mainPanel = new JPanel();
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new CardLayout());

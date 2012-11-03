@@ -10,6 +10,7 @@
         <!-- Define our directories -->
         <property name="apidoc.dir"  location="apidoc"/>
         <property name="bin.dir"     location="bin"/>
+        <property name="images.dir"  location="images"/>
         <property name="jar.dir"     location="${bin.dir}/jar"/>
         <property name="src.dir"     location="src"/>
         <property name="jarfile"     value="${basedir}/spacetrader.jar"/>
@@ -53,6 +54,7 @@
     <target name="jar" depends="compile"
             description="Generate a jar file of the project ">
         <jar basedir="${bin.dir}" destfile="${jarfile}">
+            <zipfileset dir="${images.dir}" prefix="images"/>
             <manifest>
                 <attribute name="Main-Class" value="GameController"/>
                 <attribute name="Class-Path" value="java.class.path" />

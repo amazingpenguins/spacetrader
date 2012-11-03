@@ -96,6 +96,7 @@ public class GameController implements InitViewDelegate {
 
     public void updateMarketPanel(Planet pl) {
         marketPanel.setPlanet(pl);
+        marketPanel.setPlayer(plr);
     }
 
     public void displayInitConfigScreen() {
