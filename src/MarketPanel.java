@@ -1,5 +1,3 @@
-import sun.awt.image.BufferedImageDevice;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -63,7 +61,8 @@ public class MarketPanel extends JPanel {
         /* Main Panel */
         JPanel mainPanel = new JPanel();
         mainPanel.setOpaque(false);
-        mainPanel.setLayout(new GridLayout(0, 4));
+        mainPanel.setLayout(null);
+        mainPanel.setPreferredSize(new Dimension(400, 400));
         this.add(mainPanel, BorderLayout.CENTER);
 
         /* Top Panel */
@@ -77,6 +76,7 @@ public class MarketPanel extends JPanel {
         backButton.setBorder(BorderFactory.createEmptyBorder());
         backButton.setContentAreaFilled(false);
         backButton.setToolTipText("Go to the main game screen.");
+        backButton.setForeground(Color.WHITE);
 
         topPanel.add(backButton);
 
@@ -140,20 +140,32 @@ public class MarketPanel extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(background, 0, 0, null);
+        g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), null);
         super.paint(g);
-        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
-        String cred = "Player Credits: " + player.getCredits();
-        g.drawString(cred, (super.getWidth() / 2) - (cred.length() * 5), super.getHeight() - 20);
 
-        g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        /* We need Graphics2D for smooth drawings. */
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        /* Set the correct font */
+        g2d.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        g2d.setColor(Color.WHITE);
+
+        /* Draw Player Info */
+        int plX = (super.getWidth() / 2) - 80;
+        int plY = super.getHeight() - 70;
+        g2d.drawString("Player:      " + player.getName(), plX, plY);
+        g2d.drawString("Spaceship:   " + player.getShip(), plX, plY + 12);
+        g2d.drawString("Credits:     " + player.getCredits(), plX, plY + 24);
+        g2d.drawString("Cargo Space: " + player.getShip().getCargoSpace(), plX, plY + 36);
+
+        /* Draw all of the items and their quantities */
         for(TradeGood tg : itemMap.keySet()) {
             MarketItem mi = itemMap.get(tg);
-            g.drawImage(mi.bimg, mi.loc.x, mi.loc.y, null);
-            g.setColor(Color.BLACK);
-            g.drawString("$" + market.getPrice(tg), mi.loc.x, mi.loc.y + 60);
-            g.drawString("Market: " + market.getQuantity(tg), mi.loc.x, mi.loc.y - 25);
-            g.drawString("Player: " + player.getShip().getCargoCount(tg), mi.loc.x, mi.loc.y - 10);
+            g2d.drawImage(mi.bimg, mi.loc.x, mi.loc.y, null);
+            g2d.drawString("$" + market.getPrice(tg), mi.loc.x, mi.loc.y + 60);
+            g2d.drawString("Market: " + market.getQuantity(tg), mi.loc.x, mi.loc.y - 25);
+            g2d.drawString("Player: " + player.getShip().getCargoCount(tg), mi.loc.x, mi.loc.y - 10);
         }
     }
 

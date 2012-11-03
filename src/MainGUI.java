@@ -21,6 +21,7 @@ public class MainGUI {
 	public MainGUI(ArrayList<JPanel> cards) {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
+        frame.setMinimumSize(new Dimension(800, 500));
         frame.setPreferredSize(new Dimension(800, 500));
 		mainPanel = new JPanel();
 		contentPanel = new JPanel();
@@ -62,7 +63,7 @@ public class MainGUI {
 		titlePanel = new JPanel();
 		titlePanel.setPreferredSize(new Dimension(500, 50));
 		JLabel titleLabel = new JLabel("Spacetrader");
-		Font font = new Font("Helvetica", Font.PLAIN, 32);
+		Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 32);
 		titleLabel.setFont(font);
 		titlePanel.add(titleLabel);
 	}

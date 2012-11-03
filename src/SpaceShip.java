@@ -235,6 +235,10 @@ public class SpaceShip {
         return cargoBay.get(tg);
     }
 
+    public int getCargoSpace() {
+        return CARGOSIZE - curCargoCount;
+    }
+
     /**
      * Check to see if the cargo is full.
      * @return Is the cargo full?
@@ -244,6 +248,6 @@ public class SpaceShip {
     }
 
     public String toString() {
-        return String.format("Spaceship: " + NAME);
+        return NAME;
     }
 }
