@@ -10,8 +10,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel(GameController gc, SolarSystem[][] universe) {
         this.gc = gc;
-        universePanel = new UniversePanel(universe);
-        JButton market = new JButton("Market");
+        universePanel = new UniversePanel(universe, this.gc);
 
         playerArea = new JTextArea();
         playerArea.setEditable(false);
@@ -19,10 +18,8 @@ public class GamePanel extends JPanel {
 
 
         this.setLayout(new BorderLayout());
-        this.add(market, BorderLayout.WEST);
         this.add(universePanel, BorderLayout.CENTER);
         this.add(playerArea, BorderLayout.EAST);
-        market.addActionListener(new ButtonListener());
     }
 
     public void updatePlayer(Player p) {

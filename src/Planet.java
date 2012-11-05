@@ -9,6 +9,8 @@ public class Planet {
     private int techLevel;
     private Color color;
 
+    public final static int PLANET_SIZE = 20;
+
     /* Planet Environment */
     private final short ENVCOUNT = 12;
     public static final short NORESOURCES    = 0,
@@ -245,7 +247,7 @@ public class Planet {
         }
         g.setColor(this.color);
         // fill the circle for the planet
-        g.fillOval(x, y, 20, 20);
+        g.fillOval(x, y, PLANET_SIZE, PLANET_SIZE);
 
         g.setColor(Color.BLACK);
         g.drawString(name, x, y);

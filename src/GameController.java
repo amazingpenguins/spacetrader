@@ -33,6 +33,7 @@ public class GameController implements InitViewDelegate {
     private CountDownLatch mainScreenLatch;
     private InitView initView;
 
+    public static final int UNIVERSE_SIZE = 5;
 
     public GameController() {
         planets = new ArrayList<Planet>();
@@ -45,6 +46,9 @@ public class GameController implements InitViewDelegate {
         // if using the below syntax to both assign to the instance variable and add to the panels array
         // be sure to use proper parenthesis
         panels.add((startPanel = new StartGamePanel(this)));
+        if (universe != null) {
+            System.out.println("Yeah... it's there...");
+        }
         panels.add((gamePanel = new GamePanel(this, universe)));
         panels.add((marketPanel = new MarketPanel(new Market(1,2,3), plr, this)));
         panels.add(initView = new InitView(this));
@@ -78,9 +82,9 @@ public class GameController implements InitViewDelegate {
     }
 
     private void generateUniverse() {
-        universe = new SolarSystem[20][20];
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
+        universe = new SolarSystem[UNIVERSE_SIZE][UNIVERSE_SIZE];
+        for (int i = 0; i < UNIVERSE_SIZE; i++) {
+            for (int j = 0; j < UNIVERSE_SIZE; j++) {
                 universe[i][j] = new SolarSystem();
                 planets.add(universe[i][j].getPlanet());
             }

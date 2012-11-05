@@ -7,18 +7,32 @@ public class UniversePanel extends JPanel {
 	public final int PLANET_OFFSET = 20;
 
 	private SolarSystem[][] universe;
+    private Player player;
+    private GameController gc;
 
-	public UniversePanel(SolarSystem[][] universe) {
+	public UniversePanel(SolarSystem[][] universe, GameController gc) {
+        this.gc = gc;
 		setPreferredSize(new Dimension(5*TILE_SIZE, 5*TILE_SIZE));
+        setLayout(new GridLayout(GameController.UNIVERSE_SIZE, GameController.UNIVERSE_SIZE));
         this.universe = universe;
-    }
-
-    public void paint(Graphics g) {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                universe[i][j].getPlanet().draw(g,j * TILE_SIZE + PLANET_OFFSET,
-                								  i * TILE_SIZE + PLANET_OFFSET);
+        for (int i = 0; i < GameController.UNIVERSE_SIZE; i++) {
+            for (int j = 0; j < GameController.UNIVERSE_SIZE; j++) {
+                this.add(new PlanetButton(this.universe[i][j].getPlanet(), 
+                    new Dimension(40, 40), this));
             }
         }
     }
+
+
+    private void setPlayer(Player p) {
+        this.player = p;
+        repaint();
+    }
+
+    public void goToPlanet(Planet p) {
+        gc.updateMarketPanel(p);
+        gc.goToState(GameController.State.MARKETPANEL);
+    }
+
+
 }
