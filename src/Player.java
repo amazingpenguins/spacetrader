@@ -1,12 +1,16 @@
+import java.awt.*;
+
 public class Player {
     private final int INITCREDITS = 1000;
 
     private Stats s;
     private SpaceShip ship;
+    private Point location;
 
     public Player(Stats s) {
         this.s = s.clone();
         this.s.setCredits(INITCREDITS);
+        location = new Point(0, 0);
     }
 
     public SpaceShip getShip() {
@@ -29,15 +33,17 @@ public class Player {
         return s.getCredits();
     }
 
+    public String getName() {
+        return (s.getName() == null) ? "null" : s.getName();
+    }
+
 	public String toString() {
-		return String.format("Player {\n" +
-				             "\tName:     " + s.getName()     + "\n" +
-				             "\tCredits:  " + s.getCredits()  + "\n" +
-				             "\tShip:     " + getShip()       + "\n" +
-				             "\tPilot:    " + s.getPilot()    + "\n" +
-				             "\tTrader:   " + s.getTrader()   + "\n" +
-				             "\tFighter:  " + s.getFighter()  + "\n" +
-				             "\tEngineer: " + s.getEngineer() + "\n" +
-				             "}");
+		return String.format("Name:     " + s.getName()     + "\n" +
+				             "Credits:  " + s.getCredits()  + "\n" +
+				             "Pilot:    " + s.getPilot()    + "\n" +
+				             "Trader:   " + s.getTrader()   + "\n" +
+				             "Fighter:  " + s.getFighter()  + "\n" +
+				             "Engineer: " + s.getEngineer() + "\n" +
+                             "Location: (" + location.x + ", " + location.y + ")");
 	}
 }
