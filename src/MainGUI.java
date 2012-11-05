@@ -38,9 +38,8 @@ public class MainGUI {
 		}
 
 		// display title, buttons, etc. then pack the frame and display to user
-		this.setupTitle();
-		mainPanel.add(titlePanel);
-		frame.add(mainPanel, BorderLayout.NORTH);
+		//this.setupTitle();
+		//mainPanel.add(titlePanel);
 		frame.add(contentPanel, BorderLayout.CENTER);
 		this.packageAndDisplay();
 	}
