@@ -1,4 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.awt.*;
 
@@ -10,8 +14,15 @@ public class UniversePanel extends JPanel {
     private Player player;
     private GameController gc;
     private PlanetButton[][] planetButtons;
+    private BufferedImage universeBackground;
 
 	public UniversePanel(SolarSystem[][] universe, GameController gc) {
+        try{
+            universeBackground = ImageIO.read(new File("images/UniverseBackground.png"));
+        } catch(IOException ioe) {
+            System.err.println("Error getting images/UniverseBackground.png");
+            universeBackground = null;
+        }
         this.gc = gc;
 		setPreferredSize(new Dimension(5*TILE_SIZE, 5*TILE_SIZE));
         setLayout(new GridLayout(GameController.UNIVERSE_SIZE, GameController.UNIVERSE_SIZE));
@@ -40,5 +51,9 @@ public class UniversePanel extends JPanel {
         // then call the repaint on the button 
     }
 
-
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(universeBackground, 0, 0, this.getWidth(), this.getHeight(), null);
+    }
 }

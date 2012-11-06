@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,11 +18,23 @@ public class PlanetButton extends JButton {
 		this.size = size;
 		this.planet = p;
 		this.addActionListener(new PlanetButtonListener());
+        this.setBorder(BorderFactory.createEmptyBorder());
+        this.setContentAreaFilled(false);
+        this.setOpaque(false);
+
+        BufferedImage myImage;
+        try {
+            myImage = ImageIO.read(new File("images/planets/" + planet.toString() + ".png"));
+        } catch(IOException ioe) {
+            System.err.println("Error locating image: images/planets/" + planet.toString() + ".png");
+            myImage = null;
+        }
+        this.setIcon(new ImageIcon(myImage));
 	}
 
 	public void paintComponent(Graphics g) {
-		this.planet.draw(g, (this.size.width - Planet.PLANET_SIZE)/2, 
-			(this.size.height - Planet.PLANET_SIZE)/2);
+        super.paintComponent(g);
+		this.planet.draw(g, (this.size.width - (planet.toString().length() * 4))/2, (this.size.height));
 		if (isHere) {
 			try {
             	g.drawImage(ImageIO.read(new File("images/Star.jpg")),

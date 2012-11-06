@@ -1,5 +1,9 @@
+import javax.imageio.ImageIO;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Planet {
@@ -237,21 +241,7 @@ public class Planet {
     * @param y the y coordinate of the upper left corner of the planet to be displayed.
     */
     public void draw(Graphics g, int x, int y) {
-        // generate random values for rgb
-        if (this.color == null) {
-            Random random = new Random();
-            float red = random.nextFloat();
-            float green = random.nextFloat();
-            float blue = random.nextFloat();
-
-            // create color 
-            this.color = new Color(red,green,blue);
-        }
-        g.setColor(this.color);
-        // fill the circle for the planet
-        g.fillOval(x, y, PLANET_SIZE, PLANET_SIZE);
-
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.drawString(name, x, y);
     }
 
