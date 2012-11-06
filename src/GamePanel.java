@@ -23,7 +23,7 @@ public class GamePanel extends JPanel {
     }
 
     public void updatePlayer(Player p) {
-        playerArea.setText(String.format(p + "\n" + p.getShip()));
+        universePanel.setPlayer(p);
     }
 
     private class ButtonListener implements ActionListener {

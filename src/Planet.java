@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.Point;
 import java.util.*;
 
 public class Planet {
@@ -13,6 +14,7 @@ public class Planet {
     private int government;
     private int techLevel;
     private Color color;
+    private Point location;
 
     public final static int PLANET_SIZE = 20;
 
@@ -162,11 +164,12 @@ public class Planet {
      * @param government Planet government (should mirror SolarSystem parent).
      * @param techLevel Planet tech level (should mirror SolarSystem parent).
      */
-    public Planet(String name, int environment, int government, int techLevel) {
+    public Planet(String name, int environment, int government, int techLevel, Point location) {
         this.name = name;
         this.environment = environment;
         this.government  = government;
         this.techLevel   = techLevel;
+        this.location = location;
     }
 
     /**
@@ -174,12 +177,13 @@ public class Planet {
      * @param government SolarSystem parent's government.
      * @param techLevel SolarSystem parent's tech level.
      */
-    public Planet(int government, int techLevel) {
+    public Planet(int government, int techLevel, Point location) {
         this.government = government;
         this.techLevel = techLevel;
         environment = (int)(Math.random() * ENVCOUNT);
         name = planetName[(int)(Math.random() * planetName.length)];
         market = new Market(this.government, this.environment, this.techLevel);
+        this.location = location;
     }
 
     public int getEnvironment() {
@@ -249,5 +253,9 @@ public class Planet {
         return market;
     }
 
+    
+    public Point getLocation() {
+    	return location;
+    }
 }
 

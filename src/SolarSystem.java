@@ -53,11 +53,12 @@ public class SolarSystem {
     /**
      * Generates a random SolarSystem.
      */
-    public SolarSystem() {
+    public SolarSystem(Point location) {
+    	myLocation = location;
         generatePlanets();
         government = (int)(Math.random() * GOVCOUNT);
         techLevel  = (int)(Math.random() * TECHCOUNT);
-        myLocation = new Point((int)(Math.random() * 100), (int)(Math.random() * 100));
+        
     }
 
     public int getGovernment() {
@@ -69,7 +70,7 @@ public class SolarSystem {
     }
 
     public void generatePlanets() {
-        myPlanet = new Planet(government, techLevel);
+        myPlanet = new Planet(government, techLevel, myLocation);
     }
     public Planet getPlanet(){
         return myPlanet;

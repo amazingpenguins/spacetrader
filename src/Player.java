@@ -46,4 +46,12 @@ public class Player {
 				             "Engineer: " + s.getEngineer() + "\n" +
                              "Location: (" + location.x + ", " + location.y + ")");
 	}
+	public Point getLocation(){
+		return location;
+	
+	}
+	
+	public void setLocation(Point location){
+		this.location = location;
+	}
 }

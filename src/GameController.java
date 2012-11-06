@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.util.concurrent.CountDownLatch;
 import javax.swing.JPanel;
 import java.util.*;
@@ -82,7 +83,7 @@ public class GameController implements InitViewDelegate {
         universe = new SolarSystem[UNIVERSE_SIZE][UNIVERSE_SIZE];
         for (int i = 0; i < UNIVERSE_SIZE; i++) {
             for (int j = 0; j < UNIVERSE_SIZE; j++) {
-                universe[i][j] = new SolarSystem();
+                universe[i][j] = new SolarSystem(new Point(i, j));
                 planets.add(universe[i][j].getPlanet());
             }
         }
@@ -136,6 +137,7 @@ public class GameController implements InitViewDelegate {
         plr = new Player(plrStats);
         plr.setShip(new SpaceShip(SpaceShip.GNAT));
         marketPanel.setPlayer(plr);
+        gamePanel.updatePlayer(plr);
         difficulty = view.getDifficulty();
     }
 
