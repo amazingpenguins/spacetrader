@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.util.*;
 
 public class Planet {
+    private Market market;
     private String name;
     private int environment;
     private int government;
@@ -174,6 +175,7 @@ public class Planet {
         this.techLevel = techLevel;
         environment = (int)(Math.random() * ENVCOUNT);
         name = planetName[(int)(Math.random() * planetName.length)];
+        market = new Market(this.government, this.environment, this.techLevel);
     }
 
     public int getEnvironment() {
@@ -253,7 +255,9 @@ public class Planet {
         g.drawString(name, x, y);
     }
 
-
+    public Market getMarket() {
+        return market;
+    }
 
 }
 

@@ -44,7 +44,7 @@ public class MarketPanel extends JPanel {
     }
 
     public void setPlanet(Planet p) {
-        this.market = new Market(p.getGovernment(), p.getEnvironment(), p.getTechLevel());
+        this.market = p.getMarket();
     }
 
     private void setupDisplay() {
@@ -154,6 +154,7 @@ public class MarketPanel extends JPanel {
         /* Draw Player Info */
         int plX = (super.getWidth() / 2) - 80;
         int plY = super.getHeight() - 70;
+        g2d.drawRect(plX - 5, plY - 15, 200, 60);
         g2d.drawString("Player:      " + player.getName(), plX, plY);
         g2d.drawString("Spaceship:   " + player.getShip(), plX, plY + 12);
         g2d.drawString("Credits:     " + player.getCredits(), plX, plY + 24);
@@ -163,7 +164,7 @@ public class MarketPanel extends JPanel {
         for(TradeGood tg : itemMap.keySet()) {
             MarketItem mi = itemMap.get(tg);
             g2d.drawImage(mi.bimg, mi.loc.x, mi.loc.y, null);
-            g2d.drawString("$" + market.getPrice(tg), mi.loc.x, mi.loc.y + 60);
+            g2d.drawString(tg.toString() +  " $" + market.getPrice(tg), mi.loc.x, mi.loc.y + 60);
             g2d.drawString("Market: " + market.getQuantity(tg), mi.loc.x, mi.loc.y - 25);
             g2d.drawString("Player: " + player.getShip().getCargoCount(tg), mi.loc.x, mi.loc.y - 10);
         }
