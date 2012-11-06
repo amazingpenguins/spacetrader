@@ -43,7 +43,7 @@ public class PlanetButton extends JButton {
         super.paintComponent(g);
 		this.planet.draw(g, (this.size.width - (planet.toString().length() * 4))/2, (this.size.height));
 		if (isHere)
-			g.drawImage(playerImage, this.size.width + 25, this.size.height / 2, 30, 30, null);
+			g.drawImage(playerImage, this.size.width + 25, this.size.height / 2, null);
 	}
 
 	public void setHere(boolean here) {
