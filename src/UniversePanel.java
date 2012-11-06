@@ -47,11 +47,11 @@ public class UniversePanel extends JPanel {
     	if (!playerNearPlanet(p)){
     		return;
     	}
-    	//planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].setHere(false);
-    	//planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].repaint();
+        planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].setHere(false);
+        planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].repaint();
     	player.setLocation(p.getLocation());
-    	//planetButtons[(int) p.getLocation().getX()][(int) p.getLocation().getY()].setHere(true);
-    	//planetButtons[(int) p.getLocation().getX()][(int) p.getLocation().getY()].repaint();
+    	planetButtons[(int) p.getLocation().getX()][(int) p.getLocation().getY()].setHere(true);
+    	planetButtons[(int) p.getLocation().getX()][(int) p.getLocation().getY()].repaint();
         gc.updateMarketPanel(p);
         gc.goToState(GameController.State.MARKETPANEL);
         // so, when you need to change the current location

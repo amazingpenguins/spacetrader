@@ -10,7 +10,8 @@ public class PlanetButton extends JButton {
 	private Planet planet;
 	private Dimension size;
 	protected UniversePanel up;
-	private boolean isHere; 
+    private BufferedImage playerImage;
+	private boolean isHere;
 
 	public PlanetButton(Planet p, Dimension size, UniversePanel up) {
 		setPreferredSize(size);
@@ -22,6 +23,12 @@ public class PlanetButton extends JButton {
         this.setContentAreaFilled(false);
         this.setOpaque(false);
 
+        try {
+            playerImage = ImageIO.read(new File("images/SpaceShip.png"));
+        } catch(IOException ioe) {
+            System.err.println("Error locating images/SpaceShip.png");
+            playerImage = null;
+        }
         BufferedImage myImage;
         try {
             myImage = ImageIO.read(new File("images/planets/" + planet.toString() + ".png"));
@@ -35,14 +42,8 @@ public class PlanetButton extends JButton {
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
 		this.planet.draw(g, (this.size.width - (planet.toString().length() * 4))/2, (this.size.height));
-		if (isHere) {
-			try {
-            	g.drawImage(ImageIO.read(new File("images/Star.jpg")),
-			 0, 0, 15, 15, null);
-        	} catch(IOException IOE) {
-            	IOE.printStackTrace();
-			}
-		}
+		if (isHere)
+			g.drawImage(playerImage, this.size.width + 25, this.size.height / 2, 30, 30, null);
 	}
 
 	public void setHere(boolean here) {
