@@ -10,20 +10,22 @@ public class UniversePanel extends JPanel {
 	public final int TILE_SIZE = 60;
 	public final int PLANET_OFFSET = 20;
 
+    private GamePanel gamePanel;
 	private SolarSystem[][] universe;
     private Player player;
     private GameController gc;
     private PlanetButton[][] planetButtons;
     private BufferedImage universeBackground;
 
-	public UniversePanel(SolarSystem[][] universe, GameController gc) {
+	public UniversePanel(SolarSystem[][] universe, GameController gc, GamePanel gamePanel) {
         try{
-            universeBackground = ImageIO.read(new File("images/UniverseBackground.png"));
+            universeBackground = ImageIO.read(new File("images/star_background.jpg"));
         } catch(IOException ioe) {
             System.err.println("Error getting images/UniverseBackground.png");
             universeBackground = null;
         }
         this.gc = gc;
+        this.gamePanel = gamePanel;
 		setPreferredSize(new Dimension(5*TILE_SIZE, 5*TILE_SIZE));
         setLayout(new GridLayout(GameController.UNIVERSE_SIZE, GameController.UNIVERSE_SIZE));
         this.universe = universe;
@@ -44,15 +46,28 @@ public class UniversePanel extends JPanel {
     }
 
     public void goToPlanet(Planet p) {
-    	if (!playerNearPlanet(p)){
-    		return;
+
+        /**if (!playerNearPlanet(p)){
+            JOptionPane.showMessageDialog(this, "Planet too far away.");
+            return;
     	}
+         */
+
+        if (!sufficientFuel(p)){
+            JOptionPane.showMessageDialog(this, "Not enough fuel.");
+            return;
+        }
+        //fuel cost
+        SpaceShip ship = player.getShip();
+        double newFuel = ship.getFuel()-(Math.abs(player.getLocation().getX() - p.getLocation().getX()))-(Math.abs(player.getLocation().getY() - p.getLocation().getY()));
+        ship.setFuel((int)newFuel);
         planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].setHere(false);
         planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].repaint();
     	player.setLocation(p.getLocation());
     	planetButtons[(int) p.getLocation().getX()][(int) p.getLocation().getY()].setHere(true);
     	planetButtons[(int) p.getLocation().getX()][(int) p.getLocation().getY()].repaint();
         gc.updateMarketPanel(p);
+        gamePanel.fuel.setText("Fuel Level: "+(int)newFuel);
         gc.goToState(GameController.State.MARKETPANEL);
         // so, when you need to change the current location
         // all you need to do is setHere on the button that corresponds to the location they are going to 
@@ -71,8 +86,21 @@ public class UniversePanel extends JPanel {
 	  if (Math.abs(player.getLocation().getX() - p.getLocation().getX()) < 2  && Math.abs(player.getLocation().getY() - p.getLocation().getY()) < 2){
 		  return true;
 	  }
+
 	return false;
 	  
   }
+
+    private boolean sufficientFuel(Planet p){
+
+        SpaceShip ship = player.getShip();
+
+        if (ship.getFuel() >= (Math.abs(player.getLocation().getX() - p.getLocation().getX()))-(player.getLocation().getY() - p.getLocation().getY())){
+            return true;
+        }
+
+        return false;
+
+    }
 
 }

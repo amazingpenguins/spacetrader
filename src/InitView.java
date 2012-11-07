@@ -2,15 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -251,6 +243,7 @@ public class InitView extends JPanel{
     }
 
 
+
     private class StartButtonListener implements ActionListener {
         private InitView view;
 
@@ -263,8 +256,17 @@ public class InitView extends JPanel{
                 delegate.doneConfiguring(view);
                 gc.goToState(GameController.State.GAMEPANEL);
             } else {
-                // In the future, something can be done to display an error message to the user. 
-                // Not for Milestone 6 though...
+
+                if (view.name.getText().length() == 0){
+                    JOptionPane.showMessageDialog(view, "Please enter a player name.");
+
+                }
+                else if (view.pointsLeft > 0){
+                    JOptionPane.showMessageDialog(view, "Please allocate 16 skill points.");
+                }
+
+
+
             }
         }
     }

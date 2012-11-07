@@ -5,25 +5,35 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
     private UniversePanel universePanel;
-    private JTextArea playerArea;
+    private JPanel playerPanel;
+    public JLabel fuel;
     protected GameController gc;
+    private Player player;
 
     public GamePanel(GameController gc, SolarSystem[][] universe) {
         this.gc = gc;
-        universePanel = new UniversePanel(universe, this.gc);
+        universePanel = new UniversePanel(universe, this.gc, this);
+        this.player = player;
 
-        playerArea = new JTextArea();
-        playerArea.setEditable(false);
-        playerArea.setMinimumSize(new Dimension(20, 20));
+        playerPanel = new JPanel();
 
 
         this.setLayout(new BorderLayout());
         this.add(universePanel, BorderLayout.CENTER);
-        this.add(playerArea, BorderLayout.EAST);
+        this.add(playerPanel, BorderLayout.WEST);
     }
 
     public void updatePlayer(Player p) {
         universePanel.setPlayer(p);
+        player = p;
+
+       setupPlayerPanel();
+    }
+
+    private void setupPlayerPanel(){
+        fuel = new JLabel();
+        fuel.setText("Fuel Level: " + player.getShip().getFuel());
+        playerPanel.add(fuel);
     }
 
     private class ButtonListener implements ActionListener {

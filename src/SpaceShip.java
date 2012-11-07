@@ -29,6 +29,8 @@ public class SpaceShip {
     @SuppressWarnings("unused")
     private final int PRICE;
     private final String NAME;
+
+    private int currentFuel;
     private ArrayList<Player> crew;
 
     /**
@@ -156,6 +158,7 @@ public class SpaceShip {
         }
         cargoBay = new HashMap<TradeGood, Integer>();
         curCargoCount = 0;
+        currentFuel = FUELSIZE;
     }
 
     /**
@@ -245,6 +248,18 @@ public class SpaceShip {
      */
     public boolean cargoFull() {
         return curCargoCount >= CARGOSIZE;
+    }
+
+    public int getMaxFuel(){
+        return FUELSIZE;
+    }
+
+    public void setFuel(int fuel){
+        currentFuel = fuel;
+    }
+
+    public int getFuel(){
+        return currentFuel;
     }
 
     public String toString() {
