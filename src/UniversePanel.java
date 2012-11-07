@@ -47,11 +47,11 @@ public class UniversePanel extends JPanel {
 
     public void goToPlanet(Planet p) {
 
-        /**if (!playerNearPlanet(p)){
+        if (!playerNearPlanet(p)){
             JOptionPane.showMessageDialog(this, "Planet too far away.");
             return;
     	}
-         */
+
 
         if (!sufficientFuel(p)){
             JOptionPane.showMessageDialog(this, "Not enough fuel.");
@@ -68,7 +68,10 @@ public class UniversePanel extends JPanel {
     	planetButtons[(int) p.getLocation().getX()][(int) p.getLocation().getY()].repaint();
         gc.updateMarketPanel(p);
         gamePanel.fuel.setText("Fuel Level: "+(int)newFuel);
-        gc.goToState(GameController.State.MARKETPANEL);
+        player.setPlanet(p);
+        gamePanel.updatePlayerPanel();
+        //gc.goToState(GameController.State.MARKETPANEL);
+
         // so, when you need to change the current location
         // all you need to do is setHere on the button that corresponds to the location they are going to 
         // then call the repaint on the button 
@@ -95,7 +98,7 @@ public class UniversePanel extends JPanel {
 
         SpaceShip ship = player.getShip();
 
-        if (ship.getFuel() >= (Math.abs(player.getLocation().getX() - p.getLocation().getX()))-(player.getLocation().getY() - p.getLocation().getY())){
+        if (ship.getFuel() >= (Math.abs(player.getLocation().getX() - p.getLocation().getX()))-(player.getLocation().getY() - p.getLocation().getY()) && ship.getFuel() >= 0){
             return true;
         }
 

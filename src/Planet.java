@@ -15,6 +15,7 @@ public class Planet {
     private int techLevel;
     private Color color;
     private Point location;
+    private SolarSystem solarSystem;
 
     public final static int PLANET_SIZE = 20;
 
@@ -164,12 +165,13 @@ public class Planet {
      * @param government Planet government (should mirror SolarSystem parent).
      * @param techLevel Planet tech level (should mirror SolarSystem parent).
      */
-    public Planet(String name, int environment, int government, int techLevel, Point location) {
+    public Planet(String name, int environment, int government, int techLevel, Point location, SolarSystem solarSystem) {
         this.name = name;
         this.environment = environment;
         this.government  = government;
         this.techLevel   = techLevel;
         this.location = location;
+        this.solarSystem = solarSystem;
     }
 
     /**
@@ -177,13 +179,14 @@ public class Planet {
      * @param government SolarSystem parent's government.
      * @param techLevel SolarSystem parent's tech level.
      */
-    public Planet(int government, int techLevel, Point location) {
+    public Planet(int government, int techLevel, Point location, SolarSystem solarSystem) {
         this.government = government;
         this.techLevel = techLevel;
         environment = (int)(Math.random() * ENVCOUNT);
         name = planetName[(int)(Math.random() * planetName.length)];
         market = new Market(this.government, this.environment, this.techLevel);
         this.location = location;
+        this.solarSystem = solarSystem;
     }
 
     public int getEnvironment() {
@@ -197,6 +200,10 @@ public class Planet {
     public int getTechLevel() {
         return techLevel;
     }
+    public SolarSystem getSolarSystem() {
+        return solarSystem;
+    }
+
 
     public String envString() {
         switch(environment) {

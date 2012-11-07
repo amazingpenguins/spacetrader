@@ -80,6 +80,7 @@ public class MarketPanel extends JPanel {
 
         topPanel.add(backButton);
 
+
         for (TradeGood good : market.getMarketGoods()) {
             BufferedImage im = null;
             Point p = new Point();
@@ -193,6 +194,7 @@ public class MarketPanel extends JPanel {
     private class BackListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
+
             gc.goToState(GameController.State.GAMEPANEL);
         }
     }

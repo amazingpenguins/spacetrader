@@ -70,7 +70,7 @@ public class SolarSystem {
     }
 
     public void generatePlanets() {
-        myPlanet = new Planet(government, techLevel, myLocation);
+        myPlanet = new Planet(government, techLevel, myLocation, this);
     }
     public Planet getPlanet(){
         return myPlanet;

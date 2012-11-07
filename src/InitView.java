@@ -1,7 +1,10 @@
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -20,12 +23,18 @@ public class InitView extends JPanel{
     private JLabel errorLabel;
     private InitViewDelegate delegate;
     private GameController gc;
+    private BufferedImage bg;
 
     //TODO move this.
     private final short MAXSTATVAL = 16;
     private int pointsLeft;
     public InitView(GameController gc) {
         this.gc = gc;
+        try {
+            this.bg = ImageIO.read(new File("images/Background.png"));
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
 
         // assign pointsLeft
         pointsLeft = MAXSTATVAL;

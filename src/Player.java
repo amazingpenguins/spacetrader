@@ -6,6 +6,7 @@ public class Player {
     private Stats s;
     private SpaceShip ship;
     private Point location;
+    private Planet currentPlanet;
 
     public Player(Stats s) {
         this.s = s.clone();
@@ -33,6 +34,8 @@ public class Player {
         return s.getCredits();
     }
 
+
+
     public String getName() {
         return (s.getName() == null) ? "null" : s.getName();
     }
@@ -54,4 +57,11 @@ public class Player {
 	public void setLocation(Point location){
 		this.location = location;
 	}
+
+    public Planet getPlanet(){
+        return currentPlanet;
+    }
+    public void setPlanet(Planet p){
+       currentPlanet = p;
+    }
 }

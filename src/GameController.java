@@ -65,6 +65,9 @@ public class GameController implements InitViewDelegate {
                 this.displayInitConfigScreen();
                 break;
             case GAMEPANEL:
+                if(plr.getPlanet() != null){
+                    gamePanel.updatePlayerPanel();
+                }
                 mainGUI.displayPanel(gamePanel);
                 this.await();
                 break;
