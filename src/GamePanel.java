@@ -12,7 +12,7 @@ public class GamePanel extends JPanel {
     private JPanel playerPanel;
     public JLabel fuel, name, ship, credits, cargo,
                   planetName, env, tech, loc, gov;
-    private JButton market, shipYard, refuel;
+    private JButton market, shipYard, refuel, save;
     protected GameController gc;
     private Player player;
     private BufferedImage bg;
@@ -63,10 +63,12 @@ public class GamePanel extends JPanel {
         JButton market = new JButton("Market");
         JButton shipYard = new JButton("Ship Yard");
         JButton refuel = new JButton("Refuel");
+        JButton save = new JButton("Save Game");
         shipYard.setEnabled(false);
         shipYard.setToolTipText("Under construction");
         market.addActionListener(new MarketListener());
         refuel.addActionListener(new FuelListener());
+        save.addActionListener(new SaveListener());
 
         playerPanel.add(name);
         playerPanel.add(planetName);
@@ -82,6 +84,7 @@ public class GamePanel extends JPanel {
         playerPanel.add(refuel);
         playerPanel.add(fuel);
         playerPanel.add(loc);
+        playerPanel.add(save);
 
 
     }
@@ -145,6 +148,14 @@ public class GamePanel extends JPanel {
 
             refuel();
             updatePlayerPanel();
+        }
+    }
+    
+    private class SaveListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            gc.saveGame();
         }
     }
 
