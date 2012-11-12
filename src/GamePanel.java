@@ -17,7 +17,7 @@ public class GamePanel extends JPanel {
     private Player player;
     private BufferedImage bg;
     private Planet p;
-    private int data =0;
+    private int data = 0;
 
     public GamePanel(GameController gc, SolarSystem[][] universe) {
         this.gc = gc;
@@ -102,12 +102,9 @@ public class GamePanel extends JPanel {
         tech.setText("Tech Level: " + p.getSolarSystem().techString());
         env.setText("Environment: " + p.envString());
         loc.setText("Location: " + (int)p.getLocation().getX()+", "+(int)p.getLocation().getY());
-
-
-
     }
 
-    private void refuel(){
+    private void refuel() {
         SpaceShip ship = player.getShip();
         int max =  ship.getMaxFuel();
 
@@ -121,16 +118,18 @@ public class GamePanel extends JPanel {
         }
     }
 
-
-
-    private class ButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-           Planet planet = gc.getPlanets()[0];
-           gc.updateMarketPanel(planet);
-           gc.goToState(GameController.State.MARKETPANEL);
-        }
-
+    /**
+     * Thanks to CardLayout, we have to re-initialize when player is loading a game.
+     * @param universe The universe to use for this panel.
+     */
+    public void setUniverse(SolarSystem[][] universe) {
+        universePanel = new UniversePanel(universe, this.gc, this);
+        universePanel.setPlayer(player);
+        this.removeAll();
+        this.revalidate();
+        this.setLayout(new BorderLayout());
+        this.add(universePanel, BorderLayout.CENTER);
+        this.add(playerPanel, BorderLayout.SOUTH);
     }
 
     private class MarketListener implements ActionListener {

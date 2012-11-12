@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /**
  * User: ryree0
  * Date: 10/22/12 | Time: 12:10 PM
  */
-public class TradeGood implements Cloneable {
+public class TradeGood implements Cloneable, Serializable {
     public static final short ITEMCOUNT = 10;
     public static final short WATER     = 0,
                               FURS      = 1,

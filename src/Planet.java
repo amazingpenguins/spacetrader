@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.awt.Point;
 import java.util.*;
 
-public class Planet {
+public class Planet implements java.io.Serializable {
     private Market market;
     private String name;
     private int environment;

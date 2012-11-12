@@ -149,38 +149,41 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
         difficulty = view.getDifficulty();
     }
 
+    /**
+     * Utilize the SerialSaver class in order to save all of the game objects and data.
+     */
+    public void saveGame() {
+        HashMap<Class<?>, Object> storeMap = new HashMap<Class<?>, Object>();
+        SerialSaver ss = new SerialSaver();
+        storeMap.put(Player.class, plr);
+        storeMap.put(SolarSystem.class, universe);
+        storeMap.put(Planet.class, planets);
+        storeMap.put(String.class, difficulty);
+        storeMap.put(State.class, state);
+        ss.serializeToDisk(storeMap);
+    }
+
+    /**
+     * Utilize the SerialSave class to load all of the saved game objects and data.
+     */
+    public void loadGame() {
+        SerialSaver ss = new SerialSaver();
+        HashMap<Class<?>, Object> storeMap = ss.serializeFromDisk();
+        plr = (Player)storeMap.get(Player.class);
+        universe = (SolarSystem[][])storeMap.get(SolarSystem.class);
+        planets = (ArrayList<Planet>)storeMap.get(Planet.class);
+        difficulty = (String)storeMap.get(String.class);
+        state = (State)storeMap.get(State.class);
+        marketPanel.setPlayer(plr);
+        gamePanel.updatePlayer(plr);
+        gamePanel.setUniverse(universe);
+        goToState(state);
+    }
+
     public static void main(String[] args) {
         GameController gc = new GameController();
         while(gc.runGame() == 0);
 
         System.exit(0);
-    }
-    
-    public void saveGame(){
-        String gameInfo = "";
-        gameInfo+=plr.getName()+"\n";
-        gameInfo+=plr.getStats().getEngineer()+"\n";
-        gameInfo+=plr.getStats().getFighter()+"\n";
-        gameInfo+=plr.getStats().getTrader()+"\n";
-        gameInfo+=plr.getStats().getPilot()+"\n";
-        gameInfo+=plr.getStats().getCredits()+"\n";
-        gameInfo+=difficulty+"\n";
-        gameInfo+=plr.getShip().toString()+"\n";
-        gameInfo+=plr.getShip().getFuel()+"\n";
-        //for cargo bay, go through hash map
-            //signal end with ;
-        //for planets and info about them, go through array of planets
-            //signal end with ;
-
-        File f = new File("gameSave.txt");
-        try {
-            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(f)));
-            writer.println(gameInfo);
-            writer.flush();
-            writer.close();
-        }
-        catch(IOException e) {
-            
-        }
     }
 }

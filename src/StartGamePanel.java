@@ -30,6 +30,7 @@ public class StartGamePanel extends JPanel {
 
         /* Saved Button */
         JButton savedGame = new JButton("Load Game");
+        savedGame.addActionListener(new LoadGameListener());
         savedGame.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 38));
         savedGame.setForeground(Color.WHITE);
         savedGame.setBorder(BorderFactory.createEmptyBorder());
@@ -47,8 +48,16 @@ public class StartGamePanel extends JPanel {
     }
 
     private class NewGameListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent event) {
             gc.goToState(GameController.State.NEWPLAYER);
+        }
+    }
+
+    private class LoadGameListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            gc.loadGame();
         }
     }
 

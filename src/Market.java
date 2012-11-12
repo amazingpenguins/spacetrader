@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +18,7 @@ public class Market implements java.io.Serializable {
     private int techLevel;
     private Map<TradeGood, MarketItem> myItems;
 
-    private class MarketItem {
+    private class MarketItem implements Serializable {
         private int value;
         private int quantity;
 
