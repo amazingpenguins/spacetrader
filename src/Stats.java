@@ -1,4 +1,8 @@
-public class Stats implements Cloneable {
+public class Stats implements Cloneable, java.io.Serializable {
+
+    // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    public static final long serialVersionUID = 8678497835531038348L;
+
     private boolean amNPC; // PC or Player?
     private short pilot,
                   trader,

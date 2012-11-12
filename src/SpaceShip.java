@@ -2,7 +2,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SpaceShip {
+public class SpaceShip implements java.io.Serializable {
+
+    // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    public static final long serialVersionUID = 4490691815582148282L;
+
     public static final short FLEA      = 0,
                               GNAT      = 1,
                               FIREFLY   = 2,

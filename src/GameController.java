@@ -4,7 +4,11 @@ import javax.swing.JPanel;
 import java.util.*;
 import java.io.*;
 
-public class GameController implements InitViewDelegate {
+public class GameController implements InitViewDelegate, java.io.Serializable {
+
+    // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    static final long serialVersionUID = -4592216675779618168L;
+
     // Game State
     public enum State {
         INIT(0),

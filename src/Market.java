@@ -6,7 +6,12 @@ import java.util.Set;
  * User: ryree0
  * Date: 10/22/12 | Time: 12:10 PM
  */
-public class Market {
+public class Market implements java.io.Serializable {
+
+    // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    public static final long serialVersionUID = -983351089925190472L;
+
+
     private int government;
     private int environment;
     private int techLevel;

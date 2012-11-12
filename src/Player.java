@@ -1,6 +1,10 @@
 import java.awt.*;
 
-public class Player {
+public class Player implements java.io.Serializable {
+
+    // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    public static final long serialVersionUID = 3344125658693803362L;
+
     private final int INITCREDITS = 1000;
 
     private Stats s;

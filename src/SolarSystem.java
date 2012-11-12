@@ -1,6 +1,10 @@
 import java.awt.*;
 
-public class SolarSystem {
+public class SolarSystem implements java.io.Serializable {
+
+    // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    public static final long serialVersionUID = -7550559303342254510L;
+
     private int government;
     private int techLevel;
     private Planet myPlanet;
