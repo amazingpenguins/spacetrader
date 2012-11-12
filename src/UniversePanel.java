@@ -42,6 +42,8 @@ public class UniversePanel extends JPanel {
 
     public void setPlayer(Player p) {
         this.player = p;
+        planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].setHere(true);
+        planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].repaint();
         repaint();
     }
 
