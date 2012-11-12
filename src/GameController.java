@@ -2,6 +2,7 @@ import java.awt.Point;
 import java.util.concurrent.CountDownLatch;
 import javax.swing.JPanel;
 import java.util.*;
+import java.io.*;
 
 public class GameController implements InitViewDelegate {
     // Game State
@@ -149,5 +150,33 @@ public class GameController implements InitViewDelegate {
         while(gc.runGame() == 0);
 
         System.exit(0);
+    }
+    
+    public void saveGame(){
+        String gameInfo = "";
+        gameInfo+=plr.getName()+"\n";
+        gameInfo+=plr.getStats().getEngineer()+"\n";
+        gameInfo+=plr.getStats().getFighter()+"\n";
+        gameInfo+=plr.getStats().getTrader()+"\n";
+        gameInfo+=plr.getStats().getPilot()+"\n";
+        gameInfo+=plr.getStats().getCredits()+"\n";
+        gameInfo+=difficulty+"\n";
+        gameInfo+=plr.getShip().toString()+"\n";
+        gameInfo+=plr.getShip().getFuel()+"\n";
+        //for cargo bay, go through hash map
+            //signal end with ;
+        //for planets and info about them, go through array of planets
+            //signal end with ;
+
+        File f = new File("gameSave.txt");
+        try {
+            PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(f)));
+            writer.println(gameInfo);
+            writer.flush();
+            writer.close();
+        }
+        catch(IOException e) {
+            
+        }
     }
 }
