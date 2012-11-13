@@ -157,7 +157,6 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
         HashMap<Class<?>, Object> storeMap = ss.serializeFromDisk();
         plr = (Player)storeMap.get(Player.class);
         universe = (SolarSystem[][])storeMap.get(SolarSystem.class);
-        @SuppressWarnings("unchecked")
         planets = (ArrayList<Planet>)storeMap.get(Planet.class);
         difficulty = (String)storeMap.get(String.class);
         state = (State)storeMap.get(State.class);
