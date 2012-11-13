@@ -22,10 +22,11 @@ public class StartGamePanel extends JPanel {
         JButton newGame = new JButton("New Game");
         newGame.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 38));
         newGame.setForeground(Color.WHITE);
-        newGame.setBorder(BorderFactory.createEmptyBorder());
-        newGame.setContentAreaFilled(false);
+        newGame.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        newGame.setBackground(new Color(255, 255, 255, 85));
         newGame.setFocusable(false);
-        newGame.setMaximumSize(new Dimension(100, 20));
+        newGame.setRolloverEnabled(false);
+        newGame.setMaximumSize(new Dimension(50, 20));
         NewGameListener ngl = new NewGameListener();
         newGame.addActionListener(ngl);
 
@@ -34,19 +35,17 @@ public class StartGamePanel extends JPanel {
         savedGame.addActionListener(new LoadGameListener());
         savedGame.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 38));
         savedGame.setForeground(Color.WHITE);
-        savedGame.setBorder(BorderFactory.createEmptyBorder());
         savedGame.setFocusable(false);
-        savedGame.setContentAreaFilled(false);
-        savedGame.setMaximumSize(new Dimension(100, 20));
+        savedGame.setRolloverEnabled(false);
+        savedGame.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        savedGame.setBackground(new Color(255, 255, 255, 85));
+        savedGame.setMaximumSize(new Dimension(0, 0));
 
-        this.setLayout(new BorderLayout());
-        JPanel buttonPanel = new JPanel(new GridLayout(0, 1));
-        buttonPanel.setOpaque(false);
-        buttonPanel.add(new JLabel());
-        buttonPanel.add(newGame);
-        buttonPanel.add(savedGame);
-        buttonPanel.add(new JLabel());
-        this.add(buttonPanel, BorderLayout.CENTER);
+        this.setLayout(null);
+        newGame.setBounds(290, 200, 200, 50);
+        savedGame.setBounds(285, 280, 211, 50);
+        this.add(newGame);
+        this.add(savedGame);
     }
 
     private class NewGameListener implements ActionListener {
