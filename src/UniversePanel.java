@@ -86,7 +86,7 @@ public class UniversePanel extends JPanel {
     private boolean sufficientFuel(Planet p) {
         SpaceShip ship = player.getShip();
         return ship.getFuel() >=
-                (Math.abs(player.getLocation().getX() - p.getLocation().getX()) -
+                Math.abs(Math.abs(player.getLocation().getX() - p.getLocation().getX()) -
                 (player.getLocation().getY() - p.getLocation().getY()));
 
     }
