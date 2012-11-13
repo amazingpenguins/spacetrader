@@ -42,6 +42,65 @@ public class UniversePanel extends JPanel {
         repaint();
     }
 
+    public void randomEvent(){
+        int numEvent = 5;
+        int whichEvent = (int)(Math.random() * numEvent);
+
+        int random = (int)(Math.random() * 10);
+        if (random <= 2) {
+            events(whichEvent);
+        }
+    }
+
+    public void events(int i){
+        switch (i){
+            case 1:
+                JOptionPane.showMessageDialog(this, "You discovered a fuel leak en route. The damage was successfully " +
+                        "repaired, but your ship lost 5 units of fuel.");
+
+                if (player.getShip().getFuel() - 5 >= 0){
+                    player.getShip().setFuel(player.getShip().getFuel() - 5);
+                }
+                else {
+                    player.getShip().setFuel(0);
+                }
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(this, "You successfully maneuvered through a treacherous asteroid belt. " +
+                        "You earned a pilot skill point.");
+
+                player.s.setPilot((short) (player.s.getPilot() + 1));
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(this, "Your ship was ambushed by pirates who pillaged your goods. " +
+                        "Check your cargo bay to assess your losses.");
+
+                player.getShip().clearCargo();
+                break;
+            case 4:
+                JOptionPane.showMessageDialog(this, "You responded to a distress signal and assisted a stranded Bumblebee ship and its crew. " +
+                        "You were offered 3 units of narcotics for your trouble.");
+
+                if (player.getShip().getCargoSpace() > 2){
+                    TradeGood tg = new TradeGood(TradeGood.NARCOTICS);
+                    player.getShip().addCargo(tg, 3);
+                }
+                break;
+
+            case 5:
+                JOptionPane.showMessageDialog(this, "Your ship was damaged while navigating through an asteroid belt. " +
+                        "The damages were repaired at the nearest starport, for a price of 500 credits.");
+
+                if (player.getCredits() >= 500){
+                    player.addCredits(-500);
+                }
+                else {
+                    player.addCredits(-(player.getCredits()));
+                }
+                break;
+        }
+    }
+
     public void goToPlanet(Planet p) {
         if (!playerNearPlanet(p)) {
             JOptionPane.showMessageDialog(this, "That planet is too far away.");
@@ -60,6 +119,9 @@ public class UniversePanel extends JPanel {
         planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].setHere(false);
         planetButtons[(int) player.getLocation().getX()][(int) player.getLocation().getY()].repaint();
     	player.setLocation(p.getLocation());
+
+        randomEvent();
+
     	planetButtons[(int) p.getLocation().getX()][(int) p.getLocation().getY()].setHere(true);
     	planetButtons[(int) p.getLocation().getX()][(int) p.getLocation().getY()].repaint();
         gc.updateMarketPanel(p);

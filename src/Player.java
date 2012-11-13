@@ -5,7 +5,7 @@ public class Player implements java.io.Serializable {
     // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
     public static final long serialVersionUID = 3344125658693803362L;
 
-    private final Stats s;
+    public final Stats s;
     private SpaceShip ship;
     private Point location;
     private Planet currentPlanet;

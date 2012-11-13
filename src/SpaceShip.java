@@ -206,6 +206,14 @@ public class SpaceShip implements java.io.Serializable {
     }
 
     /**
+     * Removes all TradeGood(s) from the cargoBay
+     */
+
+    public void clearCargo(){
+        cargoBay.clear();
+    }
+
+    /**
      * Checks the cargo for a certain quantity of a TradeGood.
      * @param tg The TradeGood to check for in the cargo.
      * @param quantity Number of TradeGoods we need.
