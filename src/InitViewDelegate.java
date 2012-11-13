@@ -1,3 +1,9 @@
-public interface InitViewDelegate {
-    public void doneConfiguring(InitView view);
+/**
+ */
+interface InitViewDelegate {
+    /**
+     * Method doneConfiguring.
+     * @param view InitView
+     */
+    void doneConfiguring(InitView view);
 }

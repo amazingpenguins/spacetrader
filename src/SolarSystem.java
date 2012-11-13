@@ -1,16 +1,101 @@
 import java.awt.*;
 
+/**
+ */
 public class SolarSystem implements java.io.Serializable {
 
     // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    /**
+     * Field serialVersionUID.
+     * (value is -7550559303342254510)
+     */
     public static final long serialVersionUID = -7550559303342254510L;
 
+    /**
+     * Field government.
+     */
     private int government;
+
+    /**
+     * Field techLevel.
+     */
     private int techLevel;
+
+    /**
+     * Field myLocation.
+     */
     private final Point myLocation;
+
+    /**
+     * Field myPlanet.
+     */
     private Planet myPlanet;
 
-    private static final short ANARCHY      = 0,
+    /**
+     * Field THEOCRACY.
+     * (value is 15)
+     */
+    /**
+     * Field TECHNOCRACY.
+     * (value is 14)
+     */
+    /**
+     * Field SATORI.
+     * (value is 13)
+     */
+    /**
+     * Field SOCIALIST.
+     * (value is 12)
+     */
+    /**
+     * Field PACIFIST.
+     * (value is 11)
+     */
+    /**
+     * Field MONARCHY.
+     * (value is 10)
+     */
+    /**
+     * Field MILITARY.
+     * (value is 9)
+     */
+    /**
+     * Field FEUDAL.
+     * (value is 8)
+     */
+    /**
+     * Field FASCIST.
+     * (value is 7)
+     */
+    /**
+     * Field DICTATORSHIP.
+     * (value is 6)
+     */
+    /**
+     * Field CYBERNETIC.
+     * (value is 5)
+     */
+    /**
+     * Field CORPORATE.
+     * (value is 4)
+     */
+    /**
+     * Field CONFEDERACY.
+     * (value is 3)
+     */
+    /**
+     * Field COMMUNIST.
+     * (value is 2)
+     */
+    /**
+     * Field CAPITALIST.
+     * (value is 1)
+     */
+    /**
+     * Field ANARCHY.
+     * (value is 0)
+     */
+    public static final short ANARCHY      = 0,
                               CAPITALIST   = 1,
                               COMMUNIST    = 2,
                               CONFEDERACY  = 3,
@@ -27,6 +112,38 @@ public class SolarSystem implements java.io.Serializable {
                               TECHNOCRACY  = 14,
                               THEOCRACY    = 15;
 
+    /**
+     * Field HITECH.
+     * (value is 7)
+     */
+    /**
+     * Field POSTINDUSTRIAL.
+     * (value is 6)
+     */
+    /**
+     * Field INDUSTRIAL.
+     * (value is 5)
+     */
+    /**
+     * Field EARLYINDUSTRIAL.
+     * (value is 4)
+     */
+    /**
+     * Field RENAISSANCE.
+     * (value is 3)
+     */
+    /**
+     * Field MEDIEVAL.
+     * (value is 2)
+     */
+    /**
+     * Field AGRICULTURE.
+     * (value is 1)
+     */
+    /**
+     * Field PREAGRICULTURE.
+     * (value is 0)
+     */
     public static final short PREAGRICULTURE  = 0,
                               AGRICULTURE     = 1,
                               MEDIEVAL        = 2,
@@ -41,6 +158,7 @@ public class SolarSystem implements java.io.Serializable {
      * @param government SolarSystem government.
      * @param techLevel SolarSystem techLevel.
      * @param p Planet contained within this SolarSystem.
+     * @param mp Point
      */
     public SolarSystem(short government, short techLevel, Planet p, Point mp) {
         this.government = government;
@@ -51,32 +169,53 @@ public class SolarSystem implements java.io.Serializable {
 
     /**
      * Generates a random SolarSystem.
+     * @param location Point
      */
     public SolarSystem(Point location) {
-        short GOVCOUNT = 16;
-        short TECHCOUNT = 8;
+        final short GOVCOUNT = 16;
+        final short TECHCOUNT = 8;
     	myLocation = location;
         generatePlanets();
-        government = (int)(Math.random() * GOVCOUNT);
-        techLevel  = (int)(Math.random() * TECHCOUNT);
+        government = (int) (Math.random() * GOVCOUNT);
+        techLevel  = (int) (Math.random() * TECHCOUNT);
         
     }
 
+    /**
+     * Method getGovernment.
+     * @return int
+     */
     public int getGovernment() {
         return government;
     }
 
+    /**
+     * Method getTechLevel.
+     * @return int
+     */
     public int getTechLevel() {
         return techLevel;
     }
 
+    /**
+     * Method generatePlanets.
+     */
     public void generatePlanets() {
         myPlanet = new Planet(government, techLevel, myLocation, this);
     }
+
+    /**
+     * Method getPlanet.
+     * @return Planet
+     */
     public Planet getPlanet(){
         return myPlanet;
     }
 
+    /**
+     * Method govString.
+     * @return String
+     */
     public String govString() {
         switch(government) {
             case ANARCHY:
@@ -116,6 +255,10 @@ public class SolarSystem implements java.io.Serializable {
         }
     }
 
+    /**
+     * Method techString.
+     * @return String
+     */
     public String techString() {
         switch(techLevel) {
             case PREAGRICULTURE:
@@ -139,6 +282,10 @@ public class SolarSystem implements java.io.Serializable {
         }
     }
 
+    /**
+     * Method toString.
+     * @return String
+     */
     public String toString() {
         return String.format("SolarSystem {\n" +
                              "\tLocation:   " + "(" + myLocation.getX() + ","  +

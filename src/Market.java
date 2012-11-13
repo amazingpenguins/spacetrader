@@ -1,4 +1,3 @@
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -6,45 +5,100 @@ import java.util.Set;
 /**
  * User: ryree0
  * Date: 10/22/12 | Time: 12:10 PM
+ * @author ryree0
+ * @version $Revision: 1.0 $
  */
 public class Market implements java.io.Serializable {
 
     // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    /**
+     * Field serialVersionUID.
+     * (value is -983351089925190472)
+     */
     public static final long serialVersionUID = -983351089925190472L;
 
-
+    /**
+     * Field environment.
+     */
     private final int environment;
+
+    /**
+     * Field government.
+     */
+    private final int government;
+
+    /**
+     * Field techLevel.
+     */
+    private final int techLevel;
+
+    /**
+     * Field myItems.
+     */
     private final Map<TradeGood, MarketItem> myItems;
 
-    private class MarketItem implements Serializable {
-        private int value;
+    /**
+     */
+    private static class MarketItem implements java.io.Serializable {
+        /**
+         * Field serialVersionUID.
+         * (value is -5884235755886394603)
+         */
+        private static final long serialVersionUID = -5884235755886394603L;
+
+        /**
+         * Field value.
+         */
+        private final int value;
+
+        /**
+         * Field quantity.
+         */
         private int quantity;
 
+        /**
+         * Constructor for MarketItem.
+         * @param value int
+         * @param quantity int
+         */
         private MarketItem(int value, int quantity) {
             this.value = value;
             this.quantity = quantity;
         }
     }
 
+    /**
+     * Constructor for Market.
+     * @param government int
+     * @param environment int
+     * @param techLevel int
+     */
     public Market(int government, int environment, int techLevel) {
+        this.government = government;
         this.environment = environment;
+        this.techLevel = techLevel;
         myItems = new HashMap<TradeGood,MarketItem>();
         for(int i = 0; i < TradeGood.ITEMCOUNT; i++) {
-            TradeGood curGood = new TradeGood((short)i);
-            myItems.put(curGood, new MarketItem(myPrice(curGood), (int)(Math.random() * 20)));
+            TradeGood curGood = new TradeGood((short) i);
+            myItems.put(curGood, new MarketItem(myPrice(curGood), (int) (Math.random() * 20)));
         }
     }
 
     /**
      * Calculate the price of a TradeGood.
      * @param t The TradeGood to price.
-     * @return TradeGood's value.
-     */
+    
+     * @return TradeGood's value. */
     public int getPrice(TradeGood t) {
         return myItems.containsKey(t) ?
                 myItems.get(t).value : 0;
     }
 
+    /**
+     * Method getQuantity.
+     * @param t TradeGood
+     * @return int
+     */
     public int getQuantity(TradeGood t) {
         return myItems.containsKey(t) ?
                 myItems.get(t).quantity : 0;
@@ -57,11 +111,12 @@ public class Market implements java.io.Serializable {
      * @param quantity Number of TradeGood(s) to buy.
      */
     public void marketBuy(Player p, TradeGood t, int quantity) {
-        if(!myItems.containsKey(t) || (p == null))
+        if(!myItems.containsKey(t) || (p == null)) {
             return;
+        }
 
-        if(p.getShip().containsCargo(t, quantity)) {
-            if(p.getShip().removeCargo(t, quantity)) {
+        if(p.getShip().doesContainCargo(t, quantity)) {
+            if(p.getShip().didRemoveCargo(t, quantity)) {
                 p.addCredits(myItems.get(t).value * quantity);
                 myItems.get(t).quantity += quantity;
             }
@@ -75,13 +130,14 @@ public class Market implements java.io.Serializable {
      * @param quantity The amount of TradeGood(s) to sell.
      */
     public void marketSell(Player p, TradeGood t, int quantity) {
-        if(!myItems.containsKey(t) || (p == null))
+        if(!myItems.containsKey(t) || (p == null)) {
             return;
+        }
 
-        if(!p.getShip().cargoFull() &&
+        if(!p.getShip().isCargoFull() &&
                 (p.getCredits() >= (myItems.get(t).value * quantity)) &&
                 (myItems.get(t).quantity >= quantity)) {
-            p.getShip().addCargo(t, quantity);
+            p.getShip().didAddCargo(t, quantity);
             p.addCredits(-(myItems.get(t).value * quantity));
             myItems.get(t).quantity -= quantity;
         }
@@ -89,65 +145,99 @@ public class Market implements java.io.Serializable {
 
     /**
     * Getter for the TradeGoods map in the market.. 
-    * @return Map Map of tradegoods
+   
     *
-    */
+    * @return Map Map of tradegoods */
     public Set<TradeGood> getMarketGoods() {
         return this.myItems.keySet();
     }
 
-
     /**
      * Calculate how much we value a TradeGood.
      * @param tg The TradeGood to price.
-     * @return Our current value of the TradeGood.
-     */
+    
+     * @return Our current value of the TradeGood. */
     private int myPrice(TradeGood tg) {
         switch(tg.getType()) {
             case TradeGood.WATER:
-                if(environment == Planet.DESERT)
-                    return tg.getValue() * 4;
-                else if(environment == Planet.LOTSOFWATER)
+                if(environment == Planet.DESERT){
+                    return tg.getValue() * 10;
+                } else if(environment == Planet.LOTSOFWATER) {
                     return tg.getValue() / 3;
+                }
                 break;
             case TradeGood.FURS:
-                if(environment == Planet.RICHFAUNA)
+                if(environment == Planet.RICHFAUNA) {
                     return tg.getValue() / 10;
+                } else if(environment == Planet.DESERT) {
+                    return tg.getValue() * 6;
+                } else if(techLevel == SolarSystem.PREAGRICULTURE) {
+                    return tg.getValue() * 4;
+                }
+                break;
             case TradeGood.FOOD:
-                if(environment == Planet.RICHSOIL)
+                if(environment == Planet.RICHSOIL) {
                     return tg.getValue() / 5;
+                }
                 break;
             case TradeGood.ORE:
-                if(environment == Planet.WARLIKE)
+                if(environment == Planet.WARLIKE) {
                     return tg.getValue() * 30;
-                else if(environment == Planet.MINERALRICH)
+                } else if(environment == Planet.MINERALRICH) {
                     return tg.getValue() / 20;
+                }
                 break;
             case TradeGood.GAMES:
-                if(environment == Planet.ARTISTIC)
+                if(environment == Planet.ARTISTIC) {
                     return tg.getValue() / 5;
+                } else if(techLevel == SolarSystem.HITECH) {
+                    return tg.getValue() * 15;
+                }
                     break;
             case TradeGood.FIREARMS:
-                if(environment == Planet.WARLIKE)
+                if(environment == Planet.WARLIKE) {
                     return tg.getValue() / 100;
+                } else if(government == SolarSystem.FEUDAL) {
+                    return tg.getValue() * 40;
+                }
                 break;
             case TradeGood.MEDICINE:
-                if(environment == Planet.LOTSOFHERBS)
+                if(environment == Planet.LOTSOFHERBS) {
                     return tg.getValue() / 10;
+                } else if(environment == Planet.WARLIKE) {
+                    return tg.getValue() * 40;
+                }
                 break;
             case TradeGood.MACHINES:
+                if(environment == Planet.LIFELESS) {
+                    return tg.getValue() / 100;
+                } else if(government == SolarSystem.CAPITALIST) {
+                    return tg.getValue() * 30;
+                } else if(techLevel == SolarSystem.INDUSTRIAL) {
+                    return tg.getValue() * 10;
+                }
                 break;
             case TradeGood.NARCOTICS:
-                if(environment == Planet.WEIRDMUSHROOMS)
+                if(environment == Planet.WEIRDMUSHROOMS) {
                    return tg.getValue() / 150;
+                } else if(techLevel == SolarSystem.THEOCRACY) {
+                    return tg.getValue() * 15;
+                } else if(environment == Planet.ARTISTIC) {
+                    return tg.getValue() * 15;
+                }
                 break;
             case TradeGood.ROBOTS:
+                if(techLevel == SolarSystem.HITECH) {
+                    return tg.getValue() / 20;
+                } else if(government == SolarSystem.INDUSTRIAL) {
+                    return tg.getValue() * 10;
+                } else if(techLevel == SolarSystem.AGRICULTURE) {
+                    return tg.getValue() * 10;
+                }
                 break;
             default:
                 return tg.getValue();
         }
         return tg.getValue();
     }
-
-
 }

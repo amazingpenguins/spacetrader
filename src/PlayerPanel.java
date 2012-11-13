@@ -7,13 +7,65 @@ import java.awt.event.ActionListener;
  * User: ryree0
  * Date: 11/7/12
  * Time: 12:23 PM
+ * @author ryree0
+ * @version $Revision: 1.0 $
  */
 public class PlayerPanel extends JPanel {
+    /**
+     * Field serialVersionUID.
+     * (value is 4040927144118839467)
+     */
+    private static final long serialVersionUID = 4040927144118839467L;
+
+    /**
+     * Field gc.
+     */
     private final GameController gc;
+
+    /**
+     * Field gov.
+     */
+    /**
+     * Field loc.
+     */
+    /**
+     * Field tech.
+     */
+    /**
+     * Field env.
+     */
+    /**
+     * Field planetName.
+     */
+    /**
+     * Field cargo.
+     */
+    /**
+     * Field credits.
+     */
+    /**
+     * Field ship.
+     */
+    /**
+     * Field name.
+     */
+    /**
+     * Field fuel.
+     */
     private JLabel fuel, name, ship, credits, cargo,
             planetName, env, tech, loc, gov;
+
+    /**
+     * Field player.
+     */
     private Player player;
 
+    /**
+     * Constructor for PlayerPanel.
+     * @param s GameController.State
+     * @param p Player
+     * @param gc GameController
+     */
     public PlayerPanel(GameController.State s, Player p, GameController gc) {
         this.player = p;
         this.gc = gc;
@@ -29,13 +81,21 @@ public class PlayerPanel extends JPanel {
         }
     }
 
+    /**
+     * Method updatePlayer.
+     * @param p Player
+     */
     public void updatePlayer(Player p) {
         player = p;
         updatePlayerPanel();
     }
 
+    /**
+     * Method setupPlayerPanel.
+     * @param onMarket boolean
+     */
     private void setupPlayerPanel(boolean onMarket) {
-        this.setLayout(new GridLayout(5,3));
+        this.setLayout(new GridLayout(5, 3));
         this.setPreferredSize(new Dimension(650, 150));
         //this.setBackground(new Color(255, 255, 255, 90));
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
@@ -47,7 +107,6 @@ public class PlayerPanel extends JPanel {
         credits = new JLabel("  Credits: ");
         cargo = new JLabel("  Cargo space: ");
 
-
         //planet info
         planetName = new JLabel("Planet Name: ");
         gov = new JLabel("Government: ");
@@ -55,13 +114,13 @@ public class PlayerPanel extends JPanel {
         env = new JLabel("Environment: ");
         loc = new JLabel("Location: ");
 
-
         /* Navigation Button */
         JButton navigationButton;
-        if(onMarket)
+        if(onMarket) {
             navigationButton = new JButton("Universe");
-        else
+        } else {
             navigationButton = new JButton("Market");
+        }
 
         navigationButton.setBackground(new Color(255, 255, 255, 80));
         navigationButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
@@ -70,7 +129,7 @@ public class PlayerPanel extends JPanel {
         navigationButton.addActionListener(new ButtonListener(onMarket));
 
         /* Ship Yard Button */
-        JButton shipYard = new JButton("Ship Yard");
+        final JButton shipYard = new JButton("Ship Yard");
         shipYard.setBackground(new Color(255, 255, 255, 80));
         shipYard.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         shipYard.setRolloverEnabled(false);
@@ -79,7 +138,7 @@ public class PlayerPanel extends JPanel {
         shipYard.setToolTipText("Under construction");
 
         /* Refuel Button */
-        JButton refuel = new JButton("Refuel");
+        final JButton refuel = new JButton("Refuel");
         refuel.setBackground(new Color(255, 255, 255, 80));
         refuel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         refuel.setRolloverEnabled(false);
@@ -87,7 +146,7 @@ public class PlayerPanel extends JPanel {
         refuel.addActionListener(new FuelListener());
 
         /* Save Game Button */
-        JButton save = new JButton("Save Game");
+        final JButton save = new JButton("Save Game");
         save.setBackground(new Color(255, 255, 255, 80));
         save.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         save.setRolloverEnabled(false);
@@ -111,6 +170,9 @@ public class PlayerPanel extends JPanel {
         this.add(save);
     }
 
+    /**
+     * Method updatePlayerPanel.
+     */
     public void updatePlayerPanel() {
         fuel.setText("  Fuel Level: " + player.getShip().getFuel());
         name.setText("  Name: " + player.getName());
@@ -118,7 +180,7 @@ public class PlayerPanel extends JPanel {
         credits.setText("  Credits: " + player.getCredits());
         cargo.setText("  Cargo space: " + player.getShip().getCargoSpace());
 
-        Planet curPlanet = player.getPlanet();
+        final Planet curPlanet = player.getPlanet();
         if (curPlanet != null) {
             planetName.setText("Planet Name: " + curPlanet.toString());
             gov.setText("Government: " + curPlanet.getSolarSystem().govString());
@@ -134,9 +196,12 @@ public class PlayerPanel extends JPanel {
         }
     }
 
+    /**
+     * Method refuel.
+     */
     private void refuel() {
-        SpaceShip ship = player.getShip();
-        int max =  ship.getMaxFuel();
+        final SpaceShip ship = player.getShip();
+        final int max =  ship.getMaxFuel();
 
         int price = (max - ship.getFuel()) * 10;
         if (player.getCredits() >= price){
@@ -147,11 +212,27 @@ public class PlayerPanel extends JPanel {
         }
     }
 
+    /**
+     */
     private class ButtonListener implements ActionListener {
-        private boolean onMarket;
+        /**
+         * Field onMarket.
+         */
+        private final boolean onMarket;
+
+        /**
+         * Constructor for ButtonListener.
+         * @param onMarket boolean
+         */
         private ButtonListener(boolean onMarket) {
             this.onMarket = onMarket;
         }
+
+        /**
+         * Method actionPerformed.
+         * @param e ActionEvent
+         * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             if(onMarket) {
@@ -163,7 +244,14 @@ public class PlayerPanel extends JPanel {
         }
     }
 
+    /**
+     */
     private class FuelListener implements ActionListener {
+        /**
+         * Method actionPerformed.
+         * @param e ActionEvent
+         * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             refuel();
@@ -171,7 +259,14 @@ public class PlayerPanel extends JPanel {
         }
     }
 
+    /**
+     */
     private class SaveListener implements ActionListener {
+        /**
+         * Method actionPerformed.
+         * @param e ActionEvent
+         * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
 

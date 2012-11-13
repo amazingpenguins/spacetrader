@@ -3,9 +3,62 @@ import java.io.Serializable;
 /**
  * User: ryree0
  * Date: 10/22/12 | Time: 12:10 PM
+ * @author ryree0
+ * @version $Revision: 1.0 $
  */
 public class TradeGood implements Cloneable, Serializable {
+    /**
+     * Field serialVersionUID.
+     * (value is -3138429268487822800)
+     */
+    private static final long serialVersionUID = -3138429268487822800L;
+
+    /**
+     * Field ITEMCOUNT.
+     * (value is 10)
+     */
     public static final short ITEMCOUNT = 10;
+
+    /**
+     * Field ROBOTS.
+     * (value is 9)
+     */
+    /**
+     * Field NARCOTICS.
+     * (value is 8)
+     */
+    /**
+     * Field MACHINES.
+     * (value is 7)
+     */
+    /**
+     * Field MEDICINE.
+     * (value is 6)
+     */
+    /**
+     * Field FIREARMS.
+     * (value is 5)
+     */
+    /**
+     * Field GAMES.
+     * (value is 4)
+     */
+    /**
+     * Field ORE.
+     * (value is 3)
+     */
+    /**
+     * Field FOOD.
+     * (value is 2)
+     */
+    /**
+     * Field FURS.
+     * (value is 1)
+     */
+    /**
+     * Field WATER.
+     * (value is 0)
+     */
     public static final short WATER     = 0,
                               FURS      = 1,
                               FOOD      = 2,
@@ -16,7 +69,15 @@ public class TradeGood implements Cloneable, Serializable {
                               MACHINES  = 7,
                               NARCOTICS = 8,
                               ROBOTS    = 9;
+
+    /**
+     * Field value.
+     */
     private final int value;
+
+    /**
+     * Field type.
+     */
     private final short type;
 
     /**
@@ -61,35 +122,60 @@ public class TradeGood implements Cloneable, Serializable {
         }
     }
 
+    /**
+     * Method getValue.
+     * @return int
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * Method getType.
+     * @return short
+     */
     public short getType() {
         return type;
     }
 
+    /**
+     * Method clone.
+     * @return TradeGood
+     */
     @Override
-    public TradeGood clone() throws CloneNotSupportedException {
+    public TradeGood clone() {
         try {
-            return (TradeGood)super.clone();
+            return (TradeGood) super.clone();
         } catch(CloneNotSupportedException CNSE) {
             CNSE.printStackTrace();
         }
-        return new TradeGood((short)-1);
+        return new TradeGood((short) -1);
     }
 
+    /**
+     * Method hashCode.
+     * @return int
+     */
     @Override
     public int hashCode() {
         return type;
     }
 
+    /**
+     * Method equals.
+     * @param obj Object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object obj) {
         return (obj instanceof TradeGood) &&
                 this.type == ((TradeGood) obj).getType();
     }
 
+    /**
+     * Method toString.
+     * @return String
+     */
     @Override
     public String toString() {
         switch(type) {

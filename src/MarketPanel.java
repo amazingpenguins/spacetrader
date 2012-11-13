@@ -11,20 +11,69 @@ import java.util.HashMap;
  * User: ryree0
  * Date: 11/2/12
  * Time: 4:10 PM
+ * @author ryree0
+ * @version $Revision: 1.0 $
  */
 public class MarketPanel extends JPanel {
+    /**
+     * Field serialVersionUID.
+     * (value is 5382543667056746920)
+     */
+    private static final long serialVersionUID = 5382543667056746920L;
+
+    /**
+     * Field gc.
+     */
     private final GameController gc;
+
+    /**
+     * Field background.
+     */
     private BufferedImage background;
+
+    /**
+     * Field itemMap.
+     */
     private HashMap<TradeGood, MarketItem> itemMap;
+
+    /**
+     * Field market.
+     */
     private Market market;
+
+    /**
+     * Field player.
+     */
     private Player player;
+
+    /**
+     * Field playerPanel.
+     */
     private PlayerPanel playerPanel;
 
-    private class MarketItem {
-        private BufferedImage bimg;
-        private Point loc;
-        private Point dloc;
+    /**
+     */
+    private static class MarketItem {
+        /**
+         * Field bimg.
+         */
+        private final BufferedImage bimg;
 
+        /**
+         * Field loc.
+         */
+        private final Point loc;
+
+        /**
+         * Field dloc.
+         */
+        private final Point dloc;
+
+        /**
+         * Constructor for MarketItem.
+         * @param loc Point
+         * @param bimg BufferedImage
+         */
         private MarketItem(Point loc, BufferedImage bimg) {
             this.loc = loc;
             this.bimg = bimg;
@@ -32,6 +81,12 @@ public class MarketPanel extends JPanel {
         }
     }
 
+    /**
+     * Constructor for MarketPanel.
+     * @param market Market
+     * @param p Player
+     * @param gc GameController
+     */
     public MarketPanel(Market market, Player p, GameController gc) {
         this.setLayout(new BorderLayout());
         this.gc = gc;
@@ -40,15 +95,26 @@ public class MarketPanel extends JPanel {
         this.setupDisplay();
     }
 
+    /**
+     * Method setPlayer.
+     * @param plr Player
+     */
     public void setPlayer(Player plr) {
         this.player = plr;
         playerPanel.updatePlayer(plr);
     }
 
+    /**
+     * Method setPlanet.
+     * @param p Planet
+     */
     public void setPlanet(Planet p) {
         this.market = p.getMarket();
     }
 
+    /**
+     * Method setupDisplay.
+     */
     private void setupDisplay() {
         itemMap = new HashMap<TradeGood, MarketItem>();
         background = null;
@@ -61,7 +127,7 @@ public class MarketPanel extends JPanel {
         this.setOpaque(false);
 
         /* Main Panel */
-        JPanel mainPanel = new JPanel();
+        final JPanel mainPanel = new JPanel();
         mainPanel.setOpaque(false);
         mainPanel.setLayout(null);
         mainPanel.setPreferredSize(new Dimension(400, 400));
@@ -71,10 +137,9 @@ public class MarketPanel extends JPanel {
         playerPanel = new PlayerPanel(GameController.State.MARKETPANEL, player, gc);
         this.add(playerPanel, BorderLayout.SOUTH);
 
-
         for (TradeGood good : market.getMarketGoods()) {
             BufferedImage im = null;
-            Point p = new Point();
+            Point location = new Point();
             try {
                 im = ImageIO.read(new File("images/" + good + ".png"));
             } catch(Exception e) {
@@ -82,61 +147,65 @@ public class MarketPanel extends JPanel {
             }
             switch(good.getType()) {
                 case TradeGood.WATER:
-                    p.x = 50;
-                    p.y = 80;
+                    location.x = 50;
+                    location.y = 80;
                     break;
                 case TradeGood.FOOD:
-                    p.x = 200;
-                    p.y = 80;
+                    location.x = 200;
+                    location.y = 80;
                     break;
                 case TradeGood.FURS:
-                    p.x = 350;
-                    p.y = 80;
+                    location.x = 350;
+                    location.y = 80;
                     break;
                 case TradeGood.GAMES:
-                    p.x = 500;
-                    p.y = 80;
+                    location.x = 500;
+                    location.y = 80;
                     break;
                 case TradeGood.ORE:
-                    p.x = 650;
-                    p.y = 80;
+                    location.x = 650;
+                    location.y = 80;
                     break;
                 case TradeGood.FIREARMS:
-                    p.x = 50;
-                    p.y = 200;
+                    location.x = 50;
+                    location.y = 200;
                     break;
                 case TradeGood.MEDICINE:
-                    p.x = 200;
-                    p.y = 200;
+                    location.x = 200;
+                    location.y = 200;
                     break;
                 case TradeGood.MACHINES:
-                    p.x = 350;
-                    p.y = 200;
+                    location.x = 350;
+                    location.y = 200;
                     break;
                 case TradeGood.NARCOTICS:
-                    p.x = 500;
-                    p.y = 200;
+                    location.x = 500;
+                    location.y = 200;
                     break;
                 case TradeGood.ROBOTS:
-                    p.x = 650;
-                    p.y = 200;
+                    location.x = 650;
+                    location.y = 200;
                     break;
                 default :
-                    p.x = 800;
-                    p.y = 200;
+                    location.x = 800;
+                    location.y = 200;
                     break;
             }
-            itemMap.put(good, new MarketItem(p, im));
+            itemMap.put(good, new MarketItem(location, im));
         }
     }
 
+    /**
+     * Method paint.
+     * @param g Graphics
+     */
     @Override
     public void paint(Graphics g) {
         g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), null);
         super.paint(g);
 
         /* We need Graphics2D for smooth drawings. */
-        Graphics2D g2d = (Graphics2D) g;
+        final Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         g2d.setColor(Color.WHITE);
@@ -151,11 +220,18 @@ public class MarketPanel extends JPanel {
         }
     }
 
+    /**
+     */
     private class BuyListener extends MouseAdapter {
+        /**
+         * Method mousePressed.
+         * @param e MouseEvent
+         * @see java.awt.event.MouseListener#mousePressed(MouseEvent)
+         */
         @Override
         public void mousePressed(MouseEvent e) {
-            int x = e.getX();
-            int y = e.getY();
+            final int x = e.getX();
+            final int y = e.getY();
 
             for(TradeGood tg : itemMap.keySet()) {
                 MarketItem mi = itemMap.get(tg);

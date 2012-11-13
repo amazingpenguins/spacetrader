@@ -2,15 +2,98 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Point;
 
+/**
+ */
 public class Planet implements java.io.Serializable {
+    /**
+     * Field serialVersionUID.
+     * (value is 5751844421646783820)
+     */
+    private static final long serialVersionUID = 5751844421646783820L;
+
+    /**
+     * Field name.
+     */
     private final String name;
+
+    /**
+     * Field environment.
+     */
     private final int environment;
+
+    /**
+     * Field government.
+     */
     private final int government;
+
+    /**
+     * Field techLevel.
+     */
     private final int techLevel;
+
+    /**
+     * Field location.
+     */
     private final Point location;
+
+    /**
+     * Field solarSystem.
+     */
     private final SolarSystem solarSystem;
+
+    /**
+     * Field market.
+     */
     private Market market;
 
+    /**
+     * Field WARLIKE.
+     * (value is 11)
+     */
+    /**
+     * Field ARTISTIC.
+     * (value is 10)
+     */
+    /**
+     * Field LOTSOFHERBS.
+     * (value is 9)
+     */
+    /**
+     * Field WEIRDMUSHROOMS.
+     * (value is 8)
+     */
+    /**
+     * Field LIFELESS.
+     * (value is 7)
+     */
+    /**
+     * Field RICHFAUNA.
+     * (value is 6)
+     */
+    /**
+     * Field RICHSOIL.
+     * (value is 5)
+     */
+    /**
+     * Field LOTSOFWATER.
+     * (value is 4)
+     */
+    /**
+     * Field DESERT.
+     * (value is 3)
+     */
+    /**
+     * Field MINERALPOOR.
+     * (value is 2)
+     */
+    /**
+     * Field MINERALRICH.
+     * (value is 1)
+     */
+    /**
+     * Field NORESOURCES.
+     * (value is 0)
+     */
     public static final short NORESOURCES    = 0,
                               MINERALRICH    = 1,
                               MINERALPOOR    = 2,
@@ -25,7 +108,10 @@ public class Planet implements java.io.Serializable {
                               WARLIKE        = 11;
 
     /* Planet Names */
-    String[] planetName = new String[] {
+    /**
+     * Field planetName.
+     */
+    private final String[] planetName = new String[] {
             "Acamar",
             "Adahn",
             "Aldea",
@@ -154,6 +240,8 @@ public class Planet implements java.io.Serializable {
      * @param environment Planet environment.
      * @param government Planet government (should mirror SolarSystem parent).
      * @param techLevel Planet tech level (should mirror SolarSystem parent).
+     * @param location Point
+     * @param solarSystem SolarSystem
      */
     public Planet(String name, int environment, int government, int techLevel, Point location, SolarSystem solarSystem) {
         this.name = name;
@@ -168,34 +256,56 @@ public class Planet implements java.io.Serializable {
      * Generate a random planet.
      * @param government SolarSystem parent's government.
      * @param techLevel SolarSystem parent's tech level.
+     * @param location Point
+     * @param solarSystem SolarSystem
      */
     public Planet(int government, int techLevel, Point location, SolarSystem solarSystem) {
         this.government = government;
         this.techLevel = techLevel;
-        short ENVCOUNT = 12;
-        environment = (int)(Math.random() * ENVCOUNT);
-        name = planetName[(int)(Math.random() * planetName.length)];
+        final short ENVCOUNT = 12;
+        environment = (int) (Math.random() * ENVCOUNT);
+        name = planetName[(int) (Math.random() * planetName.length)];
         market = new Market(this.government, this.environment, this.techLevel);
         this.location = location;
         this.solarSystem = solarSystem;
     }
 
+    /**
+     * Method getEnvironment.
+     * @return int
+     */
     public int getEnvironment() {
         return environment;
     }
 
+    /**
+     * Method getGovernment.
+     * @return int
+     */
     public int getGovernment() {
         return government;
     }
 
+    /**
+     * Method getTechLevel.
+     * @return int
+     */
     public int getTechLevel() {
         return techLevel;
     }
+
+    /**
+     * Method getSolarSystem.
+     * @return SolarSystem
+     */
     public SolarSystem getSolarSystem() {
         return solarSystem;
     }
 
-
+    /**
+     * Method envString.
+     * @return String
+     */
     public String envString() {
         switch(environment) {
             case NORESOURCES:
@@ -227,13 +337,13 @@ public class Planet implements java.io.Serializable {
         }
     }
 
+    /**
+     * Method toString.
+     * @return String
+     */
     public String toString() {
         return name;
     }
-
-    /*
-    * Methods for drawing the Planet in a GUI
-    */
 
     /**
     * Method to draw a planet at a location. Creates a random colored Planet. 
@@ -247,11 +357,18 @@ public class Planet implements java.io.Serializable {
         g.drawString(name, x, y);
     }
 
+    /**
+     * Method getMarket.
+     * @return Market
+     */
     public Market getMarket() {
         return market;
     }
 
-    
+    /**
+     * Method getLocation.
+     * @return Point
+     */
     public Point getLocation() {
     	return location;
     }

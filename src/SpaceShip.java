@@ -1,17 +1,82 @@
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ */
 public class SpaceShip implements java.io.Serializable {
 
     // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    /**
+     * Field serialVersionUID.
+     * (value is 4490691815582148282)
+     */
     public static final long serialVersionUID = 4490691815582148282L;
 
+    /**
+     * Field BUMBLEBEE.
+     * (value is 4)
+     */
+    /**
+     * Field MOSQUITO.
+     * (value is 3)
+     */
+    /**
+     * Field FIREFLY.
+     * (value is 2)
+     */
+    /**
+     * Field GNAT.
+     * (value is 1)
+     */
+    /**
+     * Field FLEA.
+     * (value is 0)
+     */
     public static final short FLEA      = 0,
                               GNAT      = 1,
                               FIREFLY   = 2,
                               MOSQUITO  = 3,
                               BUMBLEBEE = 4;
 
+    /**
+     * Field SIZE.
+     */
+    /**
+     * Field REPAIRCOST.
+     */
+    /**
+     * Field HULLSTRENGTH.
+     */
+    /**
+     * Field OCCURENCE.
+     */
+    /**
+     * Field BOUNTY.
+     */
+    /**
+     * Field FUELCOST.
+     */
+    /**
+     * Field TECHLEVEL.
+     */
+    /**
+     * Field FUELSIZE.
+     */
+    /**
+     * Field CREWSIZE.
+     */
+    /**
+     * Field GADGETSLOTS.
+     */
+    /**
+     * Field SHIELDSLOTS.
+     */
+    /**
+     * Field WEAPONSLOTS.
+     */
+    /**
+     * Field CARGOSIZE.
+     */
     @SuppressWarnings("unused")
     private final short CARGOSIZE,
                         WEAPONSLOTS,
@@ -27,12 +92,30 @@ public class SpaceShip implements java.io.Serializable {
                         REPAIRCOST,
                         SIZE;
     
+    /**
+     * Field cargoBay.
+     */
     private final Map<TradeGood, Integer> cargoBay;
+
+    /**
+     * Field curCargoCount.
+     */
     private int curCargoCount;
+
+    /**
+     * Field PRICE.
+     */
     @SuppressWarnings("unused")
     private final int PRICE;
+
+    /**
+     * Field NAME.
+     */
     private final String NAME;
 
+    /**
+     * Field currentFuel.
+     */
     private int currentFuel;
 
     /**
@@ -167,15 +250,18 @@ public class SpaceShip implements java.io.Serializable {
      * Add TradeGood(s) to the cargoBay
      * @param tg TradeGood to be added to cargoBay
      * @param quantity Number of the type of TradeGood being added to cargoBay
+     * @return boolean
      */
-    public boolean addCargo(TradeGood tg, int quantity){
-        if(tg == null)
+    public boolean didAddCargo(TradeGood tg, int quantity){
+        if(tg == null) {
             return false;
+        }
 
         if((curCargoCount + quantity) <= CARGOSIZE) {
             int curAmt = 0;
-            if(cargoBay.containsKey(tg))
+            if(cargoBay.containsKey(tg)) {
                 curAmt = cargoBay.get(tg);
+            }
 
             curCargoCount += quantity;
             cargoBay.put(tg, curAmt + quantity);
@@ -188,15 +274,16 @@ public class SpaceShip implements java.io.Serializable {
      * Remove TradeGood(s) from the cargoBay
      * @param tg TradeGood to be removed from cargoBay
      * @param quantity Number of the type of TradeGood being removed from cargoBay
-     * @return TradeGood removed from cargoBay
-     */
-    public boolean removeCargo(TradeGood tg, int quantity) {
-        if(tg == null)
+    
+     * @return TradeGood removed from cargoBay */
+    public boolean didRemoveCargo(TradeGood tg, int quantity) {
+        if(tg == null) {
             return false;
+        }
 
         if(cargoBay.containsKey(tg) &&
                 (cargoBay.get(tg) >= quantity)) {
-            int curAmt = cargoBay.get(tg);
+            final int curAmt = cargoBay.get(tg);
             curCargoCount -= quantity;
             cargoBay.put(tg, curAmt - quantity);
             return true;
@@ -217,43 +304,69 @@ public class SpaceShip implements java.io.Serializable {
      * Checks the cargo for a certain quantity of a TradeGood.
      * @param tg The TradeGood to check for in the cargo.
      * @param quantity Number of TradeGoods we need.
-     * @return Whether or not the cargo contains enough of that TradeGood.
-     */
-    public boolean containsCargo(TradeGood tg, int quantity) {
+    
+     * @return Whether or not the cargo contains enough of that TradeGood. */
+    public boolean doesContainCargo(TradeGood tg, int quantity) {
         return (cargoBay.containsKey(tg) &&
                 (cargoBay.get(tg) >= quantity));
     }
 
+    /**
+     * Method getCargoCount.
+     * @param tg TradeGood
+     * @return int
+     */
     public int getCargoCount(TradeGood tg) {
-        if(!cargoBay.containsKey(tg))
+        if(!cargoBay.containsKey(tg)) {
             return 0;
+        }
         return cargoBay.get(tg);
     }
 
+    /**
+     * Method getCargoSpace.
+     * @return int
+     */
     public int getCargoSpace() {
         return CARGOSIZE - curCargoCount;
     }
 
     /**
      * Check to see if the cargo is full.
-     * @return Is the cargo full?
-     */
-    public boolean cargoFull() {
+    
+     * @return Is the cargo full? */
+    public boolean isCargoFull() {
         return curCargoCount >= CARGOSIZE;
     }
 
+    /**
+     * Method getMaxFuel.
+     * @return int
+     */
     public int getMaxFuel(){
         return FUELSIZE;
     }
 
+    /**
+     * Method setFuel.
+     * @param fuel int
+     */
     public void setFuel(int fuel){
         currentFuel = fuel;
     }
 
+    /**
+     * Method getFuel.
+     * @return int
+     */
     public int getFuel(){
         return currentFuel;
     }
 
+    /**
+     * Method toString.
+     * @return String
+     */
     public String toString() {
         return NAME;
     }

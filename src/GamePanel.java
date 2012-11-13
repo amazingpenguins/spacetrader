@@ -1,12 +1,43 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author ryree0
+ * @version $Revision: 1.0 $
+ */
 public class GamePanel extends JPanel {
+    
+    /**
+     * Field serialVersionUID.
+     * (value is 3442496102257946170)
+     */
+    private static final long serialVersionUID = 3442496102257946170L;
+    
+    /**
+     * Field universePanel.
+     */
     private UniversePanel universePanel;
-    private PlayerPanel playerPanel;
+    
+    /**
+     * Field playerPanel.
+     */
+    private final PlayerPanel playerPanel;
+    
+    /**
+     * Field gc.
+     */
     private GameController gc;
+    
+    /**
+     * Field player.
+     */
     private Player player;
 
+    /**
+     * Constructor for GamePanel.
+     * @param gc GameController
+     * @param universe SolarSystem[][]
+     */
     public GamePanel(GameController gc, SolarSystem[][] universe) {
         this.gc = gc;
         universePanel = new UniversePanel(universe, this.gc, this);
@@ -18,12 +49,19 @@ public class GamePanel extends JPanel {
         this.add(playerPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Method updatePlayer.
+     * @param p Player
+     */
     public void updatePlayer(Player p) {
         player = p;
         playerPanel.updatePlayer(p);
         universePanel.setPlayer(p);
     }
 
+    /**
+     * Method updatePlayerPanel.
+     */
     public void updatePlayerPanel() {
         playerPanel.updatePlayerPanel();
     }
