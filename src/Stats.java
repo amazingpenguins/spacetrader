@@ -62,19 +62,16 @@ public class Stats implements Cloneable, java.io.Serializable {
         this.pilot = pilot;
     }
 
-    public boolean isAmNPC() {
-        return amNPC;
-    }
-
     public void setAmNPC(boolean amNPC) {
         this.amNPC = amNPC;
     }
 
+    @Override
     public Stats clone() {
         try {
             return (Stats)super.clone();
         } catch (CloneNotSupportedException CNSE) {
-            CNSE.printStackTrace();
+            System.err.println("Error cloning stats");
         }
         return new Stats();
     }

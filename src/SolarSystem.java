@@ -7,13 +7,10 @@ public class SolarSystem implements java.io.Serializable {
 
     private int government;
     private int techLevel;
+    private final Point myLocation;
     private Planet myPlanet;
-    private Point myLocation;
 
-    //NOTE this is EC
-    /* Government Types */
-    private final short GOVCOUNT = 16;
-    public static final short ANARCHY      = 0,
+    private static final short ANARCHY      = 0,
                               CAPITALIST   = 1,
                               COMMUNIST    = 2,
                               CONFEDERACY  = 3,
@@ -30,8 +27,6 @@ public class SolarSystem implements java.io.Serializable {
                               TECHNOCRACY  = 14,
                               THEOCRACY    = 15;
 
-    /* Tech Levels */
-    private final short TECHCOUNT = 8;
     public static final short PREAGRICULTURE  = 0,
                               AGRICULTURE     = 1,
                               MEDIEVAL        = 2,
@@ -58,6 +53,8 @@ public class SolarSystem implements java.io.Serializable {
      * Generates a random SolarSystem.
      */
     public SolarSystem(Point location) {
+        short GOVCOUNT = 16;
+        short TECHCOUNT = 8;
     	myLocation = location;
         generatePlanets();
         government = (int)(Math.random() * GOVCOUNT);
@@ -78,14 +75,6 @@ public class SolarSystem implements java.io.Serializable {
     }
     public Planet getPlanet(){
         return myPlanet;
-    }
-
-    public void setTechLevel(int techLevel) {
-        this.techLevel = techLevel;
-    }
-
-    public void setGovernment(int government) {
-        this.government = government;
     }
 
     public String govString() {

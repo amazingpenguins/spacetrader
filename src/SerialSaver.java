@@ -34,6 +34,7 @@ public class SerialSaver  {
         try {
             FileInputStream fis = new FileInputStream(GAMEDATALOC);
             ObjectInputStream ois = new ObjectInputStream(fis);
+            @SuppressWarnings("Unchecked")
             HashMap<Class<?>, Object> storeMap = (HashMap<Class<?>, Object>)ois.readObject();
             ois.close();
             return storeMap;

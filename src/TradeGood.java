@@ -16,8 +16,8 @@ public class TradeGood implements Cloneable, Serializable {
                               MACHINES  = 7,
                               NARCOTICS = 8,
                               ROBOTS    = 9;
-    private int value;
-    private short type;
+    private final int value;
+    private final short type;
 
     /**
      * Instantiate a TradeGood of a given type.
@@ -70,7 +70,7 @@ public class TradeGood implements Cloneable, Serializable {
     }
 
     @Override
-    public TradeGood clone() {
+    public TradeGood clone() throws CloneNotSupportedException {
         try {
             return (TradeGood)super.clone();
         } catch(CloneNotSupportedException CNSE) {

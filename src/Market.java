@@ -13,10 +13,8 @@ public class Market implements java.io.Serializable {
     public static final long serialVersionUID = -983351089925190472L;
 
 
-    private int government;
-    private int environment;
-    private int techLevel;
-    private Map<TradeGood, MarketItem> myItems;
+    private final int environment;
+    private final Map<TradeGood, MarketItem> myItems;
 
     private class MarketItem implements Serializable {
         private int value;
@@ -29,9 +27,7 @@ public class Market implements java.io.Serializable {
     }
 
     public Market(int government, int environment, int techLevel) {
-        this.government = government;
         this.environment = environment;
-        this.techLevel = techLevel;
         myItems = new HashMap<TradeGood,MarketItem>();
         for(int i = 0; i < TradeGood.ITEMCOUNT; i++) {
             TradeGood curGood = new TradeGood((short)i);

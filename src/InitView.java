@@ -15,15 +15,14 @@ import javax.swing.event.ChangeListener;
  * difficulty. The errorLabel can be set to some string if the user doesn't input values correctly.
  */
 public class InitView extends JPanel{
-    private JTextField name;
-    private JSpinner pilotS, traderS, fighterS, engineerS;
-    private SpinnerNumberModel pilotSkill, traderSkill, fighterSkill, engineerSkill;
-    private ButtonGroup difficulties;
-    private JButton start;
-    private JLabel errorLabel;
+    private final JTextField name;
+    private final JSpinner pilotS, traderS, fighterS, engineerS;
+    private final SpinnerNumberModel pilotSkill, traderSkill, fighterSkill, engineerSkill;
+    private final ButtonGroup difficulties;
+    private final JButton start;
+    private final JLabel errorLabel;
+    private final GameController gc;
     private InitViewDelegate delegate;
-    private GameController gc;
-    private BufferedImage bg;
 
     //TODO move this.
     private final short MAXSTATVAL = 16;
@@ -31,7 +30,7 @@ public class InitView extends JPanel{
     public InitView(GameController gc) {
         this.gc = gc;
         try {
-            this.bg = ImageIO.read(new File("images/Background.png"));
+            BufferedImage bg = ImageIO.read(new File("images/Background.png"));
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
@@ -181,10 +180,6 @@ public class InitView extends JPanel{
         this.add(errorPanel);
     }
 
-    public Object getDelegate() {
-        return delegate;
-    }
-
     public void setDelegate(InitViewDelegate delegate) {
         this.delegate = delegate;
     }
@@ -226,22 +221,6 @@ public class InitView extends JPanel{
      */
     public String getDifficulty() {
         return difficulties.getSelection().getActionCommand();
-    }
-    
-    /*
-     * Getter for the start button
-     * @return the JButton used to start the game
-     */
-    public JButton getStart() {
-        return start;
-    }
-    
-    /*
-     * Setter for the error text
-     * @param text The text to display
-     */
-    public void setError(String text) {
-        errorLabel.setText(text);
     }
     
     /**

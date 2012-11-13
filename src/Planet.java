@@ -1,26 +1,16 @@
-import javax.imageio.ImageIO;
 import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.awt.Point;
-import java.util.*;
 
 public class Planet implements java.io.Serializable {
+    private final String name;
+    private final int environment;
+    private final int government;
+    private final int techLevel;
+    private final Point location;
+    private final SolarSystem solarSystem;
     private Market market;
-    private String name;
-    private int environment;
-    private int government;
-    private int techLevel;
-    private Color color;
-    private Point location;
-    private SolarSystem solarSystem;
 
-    public final static int PLANET_SIZE = 20;
-
-    /* Planet Environment */
-    private final short ENVCOUNT = 12;
     public static final short NORESOURCES    = 0,
                               MINERALRICH    = 1,
                               MINERALPOOR    = 2,
@@ -182,6 +172,7 @@ public class Planet implements java.io.Serializable {
     public Planet(int government, int techLevel, Point location, SolarSystem solarSystem) {
         this.government = government;
         this.techLevel = techLevel;
+        short ENVCOUNT = 12;
         environment = (int)(Math.random() * ENVCOUNT);
         name = planetName[(int)(Math.random() * planetName.length)];
         market = new Market(this.government, this.environment, this.techLevel);

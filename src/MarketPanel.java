@@ -13,11 +13,12 @@ import java.util.HashMap;
  * Time: 4:10 PM
  */
 public class MarketPanel extends JPanel {
-    protected GameController gc;
+    private final GameController gc;
     private BufferedImage background;
+    private HashMap<TradeGood, MarketItem> itemMap;
     private Market market;
     private Player player;
-    private HashMap<TradeGood, MarketItem> itemMap;
+    private PlayerPanel playerPanel;
 
     private class MarketItem {
         private BufferedImage bimg;
@@ -41,6 +42,7 @@ public class MarketPanel extends JPanel {
 
     public void setPlayer(Player plr) {
         this.player = plr;
+        playerPanel.updatePlayer(plr);
     }
 
     public void setPlanet(Planet p) {
@@ -65,20 +67,9 @@ public class MarketPanel extends JPanel {
         mainPanel.setPreferredSize(new Dimension(400, 400));
         this.add(mainPanel, BorderLayout.CENTER);
 
-        /* Top Panel */
-        JPanel topPanel = new JPanel();
-        topPanel.setOpaque(false);
-        this.add(topPanel, BorderLayout.NORTH);
-
-        /* Back Button */
-        JButton backButton = new JButton("Back to Universe");
-        backButton.addActionListener(new BackListener());
-        backButton.setBorder(BorderFactory.createEmptyBorder());
-        backButton.setContentAreaFilled(false);
-        backButton.setToolTipText("Go to the main game screen.");
-        backButton.setForeground(Color.WHITE);
-
-        topPanel.add(backButton);
+        /* Player Panel */
+        playerPanel = new PlayerPanel(GameController.State.MARKETPANEL, player, gc);
+        this.add(playerPanel, BorderLayout.SOUTH);
 
 
         for (TradeGood good : market.getMarketGoods()) {
@@ -147,19 +138,8 @@ public class MarketPanel extends JPanel {
         /* We need Graphics2D for smooth drawings. */
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        /* Set the correct font */
         g2d.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         g2d.setColor(Color.WHITE);
-
-        /* Draw Player Info */
-        int plX = (super.getWidth() / 2) - 80;
-        int plY = super.getHeight() - 70;
-        g2d.drawRect(plX - 5, plY - 15, 200, 60);
-        g2d.drawString("Player:      " + player.getName(), plX, plY);
-        g2d.drawString("Spaceship:   " + player.getShip(), plX, plY + 12);
-        g2d.drawString("Credits:     " + player.getCredits(), plX, plY + 24);
-        g2d.drawString("Cargo Space: " + player.getShip().getCargoSpace(), plX, plY + 36);
 
         /* Draw all of the items and their quantities */
         for(TradeGood tg : itemMap.keySet()) {
@@ -180,22 +160,16 @@ public class MarketPanel extends JPanel {
             for(TradeGood tg : itemMap.keySet()) {
                 MarketItem mi = itemMap.get(tg);
                 if((x >= mi.loc.x && y >= mi.loc.y) && (x <= mi.dloc.x && y <= mi.dloc.y)) {
-                    if(e.getButton() == MouseEvent.BUTTON3)
+                    if(e.getButton() == MouseEvent.BUTTON3) {
                         market.marketBuy(player, tg, 1);
-                    else
+                        playerPanel.updatePlayerPanel();
+                    } else {
                         market.marketSell(player, tg, 1);
-
+                        playerPanel.updatePlayerPanel();
+                    }
                     repaint();
                 }
             }
-        }
-    }
-
-    private class BackListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent event) {
-
-            gc.goToState(GameController.State.GAMEPANEL);
         }
     }
 }

@@ -5,15 +5,14 @@ public class Player implements java.io.Serializable {
     // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
     public static final long serialVersionUID = 3344125658693803362L;
 
-    private final int INITCREDITS = 1000;
-
-    private Stats s;
+    private final Stats s;
     private SpaceShip ship;
     private Point location;
     private Planet currentPlanet;
 
     public Player(Stats s) {
         this.s = s.clone();
+        int INITCREDITS = 1000;
         this.s.setCredits(INITCREDITS);
         location = new Point(0, 0);
     }
@@ -26,10 +25,6 @@ public class Player implements java.io.Serializable {
         this.ship = ship;
     }
 
-    public Stats getStats() {
-        return s.clone();
-    }
-
     public void addCredits(int dCredits) {
         s.setCredits(s.getCredits() + dCredits);
     }
@@ -37,8 +32,6 @@ public class Player implements java.io.Serializable {
     public int getCredits() {
         return s.getCredits();
     }
-
-
 
     public String getName() {
         return (s.getName() == null) ? "null" : s.getName();

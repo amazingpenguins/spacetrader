@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class StartGamePanel extends JPanel {
-    protected GameController gc;
+    private final GameController gc;
     private BufferedImage bg;
     
     public StartGamePanel(GameController gc) {
@@ -24,6 +24,7 @@ public class StartGamePanel extends JPanel {
         newGame.setForeground(Color.WHITE);
         newGame.setBorder(BorderFactory.createEmptyBorder());
         newGame.setContentAreaFilled(false);
+        newGame.setFocusable(false);
         newGame.setMaximumSize(new Dimension(100, 20));
         NewGameListener ngl = new NewGameListener();
         newGame.addActionListener(ngl);
@@ -34,6 +35,7 @@ public class StartGamePanel extends JPanel {
         savedGame.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 38));
         savedGame.setForeground(Color.WHITE);
         savedGame.setBorder(BorderFactory.createEmptyBorder());
+        savedGame.setFocusable(false);
         savedGame.setContentAreaFilled(false);
         savedGame.setMaximumSize(new Dimension(100, 20));
 

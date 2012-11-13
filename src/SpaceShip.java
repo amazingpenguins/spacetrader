@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,14 +27,13 @@ public class SpaceShip implements java.io.Serializable {
                         REPAIRCOST,
                         SIZE;
     
-    private Map<TradeGood, Integer> cargoBay;
+    private final Map<TradeGood, Integer> cargoBay;
     private int curCargoCount;
     @SuppressWarnings("unused")
     private final int PRICE;
     private final String NAME;
 
     private int currentFuel;
-    private ArrayList<Player> crew;
 
     /**
      * This constructor generates a SpaceShip with all of the correct
@@ -165,24 +163,6 @@ public class SpaceShip implements java.io.Serializable {
         currentFuel = FUELSIZE;
     }
 
-    /**
-     * Add a crew member to the spaceship.
-     * @param crewMem Crew member to add.
-     * @return boolean: Was the addition successful?
-     */
-    public boolean addCrew(Player crewMem) {
-        return crew.add(crewMem);
-    }
-
-    /**
-     * Remove a crew member from the spaceship.
-     * @param crewMem Crew member to remove.
-     * @return boolean: Was the removal successful?
-     */
-    public boolean removeCrew(Player crewMem) {
-        return crew.remove(crewMem);
-    }
-    
     /**
      * Add TradeGood(s) to the cargoBay
      * @param tg TradeGood to be added to cargoBay

@@ -7,13 +7,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class PlanetButton extends JButton {
-	private Planet planet;
-	private Dimension size;
-	protected UniversePanel up;
-    private BufferedImage playerImage;
+	private final Planet planet;
+	private final Dimension size;
+	private final UniversePanel up;
 	private boolean isHere;
+    private BufferedImage playerImage;
 
-	public PlanetButton(Planet p, Dimension size, UniversePanel up) {
+    public PlanetButton(Planet p, Dimension size, UniversePanel up) {
 		setPreferredSize(size);
 		this.up = up;
 		this.size = size;
@@ -21,6 +21,7 @@ public class PlanetButton extends JButton {
 		this.addActionListener(new PlanetButtonListener());
         this.setBorder(BorderFactory.createEmptyBorder());
         this.setContentAreaFilled(false);
+        this.setFocusable(false);
         this.setOpaque(false);
 
         try {
@@ -39,6 +40,7 @@ public class PlanetButton extends JButton {
         this.setIcon(new ImageIcon(myImage));
 	}
 
+    @Override
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
 		this.planet.draw(g, (this.size.width - (planet.toString().length() * 4))/2, (this.size.height));
@@ -50,11 +52,8 @@ public class PlanetButton extends JButton {
 		this.isHere = here;
 	}
 
-	public boolean isHere() {
-		return this.isHere;
-	}
-
 	private class PlanetButtonListener implements ActionListener {
+        @Override
 		public void actionPerformed(ActionEvent event) {
 			up.goToPlanet(planet);
 		}

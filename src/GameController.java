@@ -2,7 +2,6 @@ import java.awt.Point;
 import java.util.concurrent.CountDownLatch;
 import javax.swing.JPanel;
 import java.util.*;
-import java.io.*;
 
 public class GameController implements InitViewDelegate, java.io.Serializable {
 
@@ -11,18 +10,12 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
 
     // Game State
     public enum State {
-        INIT(0),
-        MAINMENU(1),
-        NEWPLAYER(2),
-        GAMEPANEL(3),
-        MARKETPANEL(4),
-        NEXTSTATE(5);
-
-        @SuppressWarnings("unused")
-        private int index;
-        private State(int index) {
-            this.index = index;
-        }
+        INIT,
+        MAINMENU,
+        NEWPLAYER,
+        GAMEPANEL,
+        MARKETPANEL,
+        NEXTSTATE;
     }
 
     private Player plr;
@@ -96,26 +89,19 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
             }
         }
     }
-    public Planet[] getPlanets() {
-        Planet[] p = new Planet[planets.size()];
-        for (int i = 0; i < planets.size(); i++){
-            p[i] = planets.get(i);
-        }
-        return p;
-    }
 
     public void updateMarketPanel(Planet pl) {
         marketPanel.setPlanet(pl);
         marketPanel.setPlayer(plr);
     }
 
-    public void displayInitConfigScreen() {
+    protected void displayInitConfigScreen() {
         initView.setDelegate(this);
         mainGUI.displayPanel(initView);
         this.await();
     }
 
-    public void setupMainGUI() {
+    protected void setupMainGUI() {
         mainGUI = new MainGUI(panels);  
     }
 
@@ -171,6 +157,7 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
         HashMap<Class<?>, Object> storeMap = ss.serializeFromDisk();
         plr = (Player)storeMap.get(Player.class);
         universe = (SolarSystem[][])storeMap.get(SolarSystem.class);
+        @SuppressWarnings("unchecked")
         planets = (ArrayList<Planet>)storeMap.get(Planet.class);
         difficulty = (String)storeMap.get(String.class);
         state = (State)storeMap.get(State.class);
