@@ -1,6 +1,11 @@
-import java.awt.*;
+/**
+ * Player
+ */
+import java.awt.Point;
 
 /**
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class Player implements java.io.Serializable {
 
@@ -36,9 +41,9 @@ public class Player implements java.io.Serializable {
      * @param s Stats
      */
     public Player(Stats s) {
-        this.s = s.clone();
-        final int INITCREDITS = 1000;
-        this.s.setCredits(INITCREDITS);
+        this.s = s;
+        final int initcredits = 1000;
+        this.s.setCredits(initcredits);
         location = new Point(0, 0);
     }
 

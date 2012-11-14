@@ -1,9 +1,12 @@
-import javax.swing.*;
-import java.awt.*;
+/**
+ * GamePanel
+ */
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 
 /**
- * @author ryree0
- * @version $Revision: 1.0 $
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class GamePanel extends JPanel {
     
@@ -26,7 +29,7 @@ public class GamePanel extends JPanel {
     /**
      * Field gc.
      */
-    private GameController gc;
+    private final GameController gc;
     
     /**
      * Field player.
@@ -41,12 +44,17 @@ public class GamePanel extends JPanel {
     public GamePanel(GameController gc, SolarSystem[][] universe) {
         this.gc = gc;
         universePanel = new UniversePanel(universe, this.gc, this);
-
         playerPanel = new PlayerPanel(GameController.State.GAMEPANEL, player, gc);
-
-        this.setLayout(new BorderLayout());
-        this.add(universePanel, BorderLayout.CENTER);
-        this.add(playerPanel, BorderLayout.SOUTH);
+        setupPanel();
+    }
+    
+    /**
+     * Sets up the GamePanel
+     */
+    private void setupPanel() {
+        setLayout(new BorderLayout());
+        add(universePanel, BorderLayout.CENTER);
+        add(playerPanel, BorderLayout.SOUTH);
     }
 
     /**
@@ -73,10 +81,10 @@ public class GamePanel extends JPanel {
     public void setUniverse(SolarSystem[][] universe) {
         universePanel = new UniversePanel(universe, this.gc, this);
         universePanel.setPlayer(player);
-        this.removeAll();
-        this.revalidate();
-        this.setLayout(new BorderLayout());
-        this.add(universePanel, BorderLayout.CENTER);
-        this.add(playerPanel, BorderLayout.SOUTH);
+        removeAll();
+        revalidate();
+        setLayout(new BorderLayout());
+        add(universePanel, BorderLayout.CENTER);
+        add(playerPanel, BorderLayout.SOUTH);
     }
 }

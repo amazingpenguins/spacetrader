@@ -1,12 +1,13 @@
+/**
+ * Trade Good
+ */
 import java.io.Serializable;
 
 /**
- * User: ryree0
- * Date: 10/22/12 | Time: 12:10 PM
- * @author ryree0
- * @version $Revision: 1.0 $
+ * @author AmazingPenguins
+ * @version 0.01
  */
-public class TradeGood implements Cloneable, Serializable {
+public class TradeGood implements Serializable {
     /**
      * Field serialVersionUID.
      * (value is -3138429268487822800)
@@ -139,20 +140,6 @@ public class TradeGood implements Cloneable, Serializable {
     }
 
     /**
-     * Method clone.
-     * @return TradeGood
-     */
-    @Override
-    public TradeGood clone() {
-        try {
-            return (TradeGood) super.clone();
-        } catch(CloneNotSupportedException CNSE) {
-            CNSE.printStackTrace();
-        }
-        return new TradeGood((short) -1);
-    }
-
-    /**
      * Method hashCode.
      * @return int
      */
@@ -169,7 +156,7 @@ public class TradeGood implements Cloneable, Serializable {
     @Override
     public boolean equals(Object obj) {
         return (obj instanceof TradeGood) &&
-                this.type == ((TradeGood) obj).getType();
+                type == ((TradeGood) obj).getType();
     }
 
     /**

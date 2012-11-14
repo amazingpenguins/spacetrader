@@ -1,18 +1,27 @@
+/**
+ * Market Panel
+ */
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
- * User: ryree0
- * Date: 11/2/12
- * Time: 4:10 PM
- * @author ryree0
- * @version $Revision: 1.0 $
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class MarketPanel extends JPanel {
     /**
@@ -29,12 +38,12 @@ public class MarketPanel extends JPanel {
     /**
      * Field background.
      */
-    private BufferedImage background;
+    private BufferedImage myBackground;
 
     /**
      * Field itemMap.
      */
-    private HashMap<TradeGood, MarketItem> itemMap;
+    private Map<TradeGood,MarketItem> itemMap;
 
     /**
      * Field market.
@@ -52,10 +61,11 @@ public class MarketPanel extends JPanel {
     private PlayerPanel playerPanel;
 
     /**
+     * @author AmazingPenguins
+     * @version 0.01
      */
     private static class MarketItem {
         /**
-         * Field bimg.
          */
         private final BufferedImage bimg;
 
@@ -79,6 +89,15 @@ public class MarketPanel extends JPanel {
             this.bimg = bimg;
             dloc = new Point(loc.x + 45, loc.y + 45);
         }
+        
+        /**
+         * toString
+         * @return String
+         */
+        @Override
+        public String toString() {
+            return "Market Item";
+        }
     }
 
     /**
@@ -88,11 +107,10 @@ public class MarketPanel extends JPanel {
      * @param gc GameController
      */
     public MarketPanel(Market market, Player p, GameController gc) {
-        this.setLayout(new BorderLayout());
         this.gc = gc;
         this.market = market;
         this.player = p;
-        this.setupDisplay();
+        setupDisplay();
     }
 
     /**
@@ -100,7 +118,7 @@ public class MarketPanel extends JPanel {
      * @param plr Player
      */
     public void setPlayer(Player plr) {
-        this.player = plr;
+        player = plr;
         playerPanel.updatePlayer(plr);
     }
 
@@ -109,33 +127,34 @@ public class MarketPanel extends JPanel {
      * @param p Planet
      */
     public void setPlanet(Planet p) {
-        this.market = p.getMarket();
+        market = p.getMarket();
     }
 
     /**
      * Method setupDisplay.
      */
-    private void setupDisplay() {
+    private final void setupDisplay() {
+        setLayout(new BorderLayout());
         itemMap = new HashMap<TradeGood, MarketItem>();
-        background = null;
+        myBackground = null;
         try {
-            this.background = ImageIO.read(new File("images/Background.png"));
-        } catch(IOException IOE) {
-            IOE.printStackTrace();
+            this.myBackground = ImageIO.read(new File("images/Background.png"));
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
         }
-        this.addMouseListener(new BuyListener());
-        this.setOpaque(false);
+        addMouseListener(new BuyListener());
+        setOpaque(false);
 
         /* Main Panel */
         final JPanel mainPanel = new JPanel();
         mainPanel.setOpaque(false);
         mainPanel.setLayout(null);
         mainPanel.setPreferredSize(new Dimension(400, 400));
-        this.add(mainPanel, BorderLayout.CENTER);
+        add(mainPanel, BorderLayout.CENTER);
 
         /* Player Panel */
         playerPanel = new PlayerPanel(GameController.State.MARKETPANEL, player, gc);
-        this.add(playerPanel, BorderLayout.SOUTH);
+        add(playerPanel, BorderLayout.SOUTH);
 
         for (TradeGood good : market.getMarketGoods()) {
             BufferedImage im = null;
@@ -201,12 +220,13 @@ public class MarketPanel extends JPanel {
      */
     @Override
     public void paint(Graphics g) {
-        g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), null);
+        g.drawImage(myBackground, 0, 0, this.getWidth(), this.getHeight(), null);
         super.paint(g);
 
         /* We need Graphics2D for smooth drawings. */
         final Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                                RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         g2d.setColor(Color.WHITE);
 
@@ -214,13 +234,17 @@ public class MarketPanel extends JPanel {
         for(TradeGood tg : itemMap.keySet()) {
             MarketItem mi = itemMap.get(tg);
             g2d.drawImage(mi.bimg, mi.loc.x, mi.loc.y, null);
-            g2d.drawString(tg.toString() +  " $" + market.getPrice(tg), mi.loc.x, mi.loc.y + 60);
+            g2d.drawString(tg.toString() +  " $" + 
+                            market.getPrice(tg), mi.loc.x, mi.loc.y + 60);
             g2d.drawString("Market: " + market.getQuantity(tg), mi.loc.x, mi.loc.y - 25);
-            g2d.drawString("Player: " + player.getShip().getCargoCount(tg), mi.loc.x, mi.loc.y - 10);
+            g2d.drawString("Player: " + player.getShip().getCargoCount(tg),
+                            mi.loc.x, mi.loc.y - 10);
         }
     }
 
     /**
+     * @author AmazingPenguins
+     * @version 0.01
      */
     private class BuyListener extends MouseAdapter {
         /**
@@ -235,7 +259,8 @@ public class MarketPanel extends JPanel {
 
             for(TradeGood tg : itemMap.keySet()) {
                 MarketItem mi = itemMap.get(tg);
-                if((x >= mi.loc.x && y >= mi.loc.y) && (x <= mi.dloc.x && y <= mi.dloc.y)) {
+                if((x >= mi.loc.x && y >= mi.loc.y) && 
+                        (x <= mi.dloc.x && y <= mi.dloc.y)) {
                     if(e.getButton() == MouseEvent.BUTTON3) {
                         market.marketBuy(player, tg, 1);
                         playerPanel.updatePlayerPanel();
@@ -246,6 +271,15 @@ public class MarketPanel extends JPanel {
                     repaint();
                 }
             }
+        }
+        
+        /**
+         * toString
+         * @return String
+         */
+        @Override
+        public String toString() {
+            return "Buy Listener";
         }
     }
 }

@@ -1,6 +1,8 @@
 /**
+ * @author AmazingPenguins
+ * @version 0.01
  */
-public class Stats implements Cloneable, java.io.Serializable {
+public class Stats implements java.io.Serializable {
 
     // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
     /**
@@ -8,11 +10,6 @@ public class Stats implements Cloneable, java.io.Serializable {
      * (value is 8678497835531038348)
      */
     public static final long serialVersionUID = 8678497835531038348L;
-
-    /**
-     * Field amNPC.
-     */
-    private boolean amNPC; // PC or Player?
 
     /**
      * Field engineer.
@@ -136,26 +133,13 @@ public class Stats implements Cloneable, java.io.Serializable {
     public void setPilot(short pilot) {
         this.pilot = pilot;
     }
-
+    
     /**
-     * Method setAmNPC.
-     * @param amNPC boolean
-     */
-    public void setAmNPC(boolean amNPC) {
-        this.amNPC = amNPC;
-    }
-
-    /**
-     * Method clone.
-     * @return Stats
+     * toString
+     * @return String
      */
     @Override
-    public Stats clone() {
-        try {
-            return (Stats) super.clone();
-        } catch (CloneNotSupportedException CNSE) {
-            System.err.println("Error cloning stats");
-        }
-        return new Stats();
+    public String toString() {
+        return "Stats";
     }
 }

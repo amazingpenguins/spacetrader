@@ -1,11 +1,18 @@
+/**
+ * Game Controller
+ * Controls the entire game, and contains the game loop.
+ */
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import javax.swing.JPanel;
-import java.util.*;
 
 /**
- * @author ryree0
- * @version $Revision: 1.0 $
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class GameController implements InitViewDelegate, java.io.Serializable {
 
@@ -16,9 +23,9 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
      */
     public static final long serialVersionUID = -4592216675779618168L;
 
-    // Game State
     /**
-     * @author ryree0
+     * Game State
+     * @author AmazingPenguins
      */
     public enum State {
         /**
@@ -232,6 +239,7 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
      * @param view InitView
     
      * @see InitViewDelegate#doneConfiguring(InitView) */
+    @Override
     public void doneConfiguring(InitView view) {
         final Stats plrStats = new Stats();
         plrStats.setName(view.getName());
@@ -239,7 +247,6 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
         plrStats.setTrader(view.getTrader());
         plrStats.setFighter(view.getFighter());
         plrStats.setEngineer(view.getEngineer());
-        plrStats.setAmNPC(false);
 
         plr = new Player(plrStats);
         plr.setShip(new SpaceShip(SpaceShip.GNAT));
@@ -253,7 +260,7 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
      * Utilize the SerialSaver class in order to save all of the game objects and data.
      */
     public void saveGame() {
-        final HashMap<Class<?>, Object> storeMap = new HashMap<Class<?>, Object>();
+        final Map<Class<?>,Object> storeMap = new HashMap<Class<?>, Object>();
         final SerialSaver ss = new SerialSaver();
         storeMap.put(Player.class, plr);
         storeMap.put(SolarSystem.class, universe);
@@ -269,7 +276,7 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
     @SuppressWarnings("unchecked")
     public void loadGame() {
         final SerialSaver ss = new SerialSaver();
-        final HashMap<Class<?>, Object> storeMap = ss.serializeFromDisk();
+        final Map<Class<?>,Object> storeMap = ss.serializeFromDisk();
         plr = (Player) storeMap.get(Player.class);
         universe = (SolarSystem[][]) storeMap.get(SolarSystem.class);
         planets = (ArrayList<Planet>) storeMap.get(Planet.class);
@@ -279,6 +286,15 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
         gamePanel.updatePlayer(plr);
         gamePanel.setUniverse(universe);
         goToState(state);
+    }
+    
+    /**
+     * toString
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Game Controller";
     }
 
     /**

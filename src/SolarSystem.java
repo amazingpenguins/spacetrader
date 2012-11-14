@@ -1,6 +1,11 @@
-import java.awt.*;
+/**
+ * Solar System
+ */
+import java.awt.Point;
 
 /**
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class SolarSystem implements java.io.Serializable {
 
@@ -31,6 +36,12 @@ public class SolarSystem implements java.io.Serializable {
      */
     private Planet myPlanet;
 
+    /**
+     * Field GOVCOUNT
+     * (value is 16)
+     */
+    private static final short GOVCOUNT = 16;
+    
     /**
      * Field THEOCRACY.
      * (value is 15)
@@ -113,6 +124,12 @@ public class SolarSystem implements java.io.Serializable {
                               THEOCRACY    = 15;
 
     /**
+     * Field TECHCOUNT
+     * (value is 8)
+     */
+    private static final short TECHCOUNT = 8;
+    
+    /**
      * Field HITECH.
      * (value is 7)
      */
@@ -165,6 +182,7 @@ public class SolarSystem implements java.io.Serializable {
         this.techLevel = techLevel;
         myPlanet = p;
         myLocation = mp;
+        setupSolarSystem();
     }
 
     /**
@@ -172,13 +190,17 @@ public class SolarSystem implements java.io.Serializable {
      * @param location Point
      */
     public SolarSystem(Point location) {
-        final short GOVCOUNT = 16;
-        final short TECHCOUNT = 8;
     	myLocation = location;
+    	setupSolarSystem();
+    }
+    
+    /**
+     * 
+     */
+    private void setupSolarSystem() {
         generatePlanets();
         government = (int) (Math.random() * GOVCOUNT);
         techLevel  = (int) (Math.random() * TECHCOUNT);
-        
     }
 
     /**

@@ -1,11 +1,16 @@
+/**
+ * Space Ship
+ */
 import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class SpaceShip implements java.io.Serializable {
 
-    // DO NOT CHANGE THIS! If you do, it will prevent saving and loading. 
+    // DO NOT CHANGE THIS! If you do, it will prevent saving and loading.
     /**
      * Field serialVersionUID.
      * (value is 4490691815582148282)
@@ -39,59 +44,59 @@ public class SpaceShip implements java.io.Serializable {
                               BUMBLEBEE = 4;
 
     /**
-     * Field SIZE.
+     * Field size.
      */
     /**
-     * Field REPAIRCOST.
+     * Field repaircost.
      */
     /**
-     * Field HULLSTRENGTH.
+     * Field hullstrength.
      */
     /**
-     * Field OCCURENCE.
+     * Field occurence.
      */
     /**
-     * Field BOUNTY.
+     * Field bounty.
      */
     /**
-     * Field FUELCOST.
+     * Field fuelcost.
      */
     /**
-     * Field TECHLEVEL.
+     * Field techlevel.
      */
     /**
-     * Field FUELSIZE.
+     * Field fuelsize.
      */
     /**
-     * Field CREWSIZE.
+     * Field crewsize.
      */
     /**
-     * Field GADGETSLOTS.
+     * Field gadgetslots.
      */
     /**
-     * Field SHIELDSLOTS.
+     * Field shieldslots.
      */
     /**
-     * Field WEAPONSLOTS.
+     * Field weaponslots.
      */
     /**
-     * Field CARGOSIZE.
+     * Field cargosize.
      */
     @SuppressWarnings("unused")
-    private final short CARGOSIZE,
-                        WEAPONSLOTS,
-                        SHIELDSLOTS,
-                        GADGETSLOTS,
-                        CREWSIZE,
-                        FUELSIZE,
-                        TECHLEVEL,
-                        FUELCOST,
-                        BOUNTY,
-                        OCCURENCE,
-                        HULLSTRENGTH,
-                        REPAIRCOST,
-                        SIZE;
-    
+    private final short cargosize,
+                        weaponslots,
+                        shieldslots,
+                        gadgetslots,
+                        crewsize,
+                        fuelsize,
+                        techlevel,
+                        fuelcost,
+                        bounty,
+                        occurence,
+                        hullstrength,
+                        repaircost,
+                        size;
+
     /**
      * Field cargoBay.
      */
@@ -103,15 +108,14 @@ public class SpaceShip implements java.io.Serializable {
     private int curCargoCount;
 
     /**
-     * Field PRICE.
+     * Field price.
      */
-    @SuppressWarnings("unused")
-    private final int PRICE;
+    private final int price;
 
     /**
-     * Field NAME.
+     * Field name.
      */
-    private final String NAME;
+    private final String name;
 
     /**
      * Field currentFuel.
@@ -134,130 +138,129 @@ public class SpaceShip implements java.io.Serializable {
         switch(type) {
             case FLEA:
                 //flea
-                NAME = "Flea";
-                CARGOSIZE    = 10;
-                WEAPONSLOTS  = 0;
-                SHIELDSLOTS  = 0;
-                GADGETSLOTS  = 0;
-                CREWSIZE     = 1;
-                FUELSIZE     = 20;
-                TECHLEVEL    = 4;
-                FUELCOST     = 1;
-                BOUNTY       = 5;
-                OCCURENCE    = 2;
-                HULLSTRENGTH = 25;
-                REPAIRCOST   = 1;
-                SIZE         = 0;
-                PRICE        = 2000;
+                name = "Flea";
+                cargosize    = 10;
+                weaponslots  = 0;
+                shieldslots  = 0;
+                gadgetslots  = 0;
+                crewsize     = 1;
+                fuelsize     = 20;
+                techlevel    = 4;
+                fuelcost     = 1;
+                bounty       = 5;
+                occurence    = 2;
+                hullstrength = 25;
+                repaircost   = 1;
+                size         = 0;
+                price        = 2000;
                 break;
             case GNAT:
                 //gnat
-                NAME = "Gnat";
-                CARGOSIZE    = 15;
-                WEAPONSLOTS  = 1;
-                SHIELDSLOTS  = 0;
-                GADGETSLOTS  = 1;
-                CREWSIZE     = 1;
-                FUELSIZE     = 14;
-                TECHLEVEL    = 5;
-                FUELCOST     = 2;
-                BOUNTY       = 50;
-                OCCURENCE    = 28;
-                HULLSTRENGTH = 100;
-                REPAIRCOST   = 1;
-                SIZE         = 1;
-                PRICE        = 10000;
+                name = "Gnat";
+                cargosize    = 15;
+                weaponslots  = 1;
+                shieldslots  = 0;
+                gadgetslots  = 1;
+                crewsize     = 1;
+                fuelsize     = 14;
+                techlevel    = 5;
+                fuelcost     = 2;
+                bounty       = 50;
+                occurence    = 28;
+                hullstrength = 100;
+                repaircost   = 1;
+                size         = 1;
+                price        = 10000;
                 break;
             case FIREFLY:
                 //firefly
-                NAME = "Firefly";
-                CARGOSIZE    = 20;
-                WEAPONSLOTS  = 1;
-                SHIELDSLOTS  = 1;
-                GADGETSLOTS  = 1;
-                CREWSIZE     = 1;
-                FUELSIZE     = 17;
-                TECHLEVEL    = 5;
-                FUELCOST     = 3;
-                BOUNTY       = 75;
-                OCCURENCE    = 20;
-                HULLSTRENGTH = 100;
-                REPAIRCOST   = 1;
-                SIZE         = 1;
-                PRICE        = 25000;
+                name = "Firefly";
+                cargosize    = 20;
+                weaponslots  = 1;
+                shieldslots  = 1;
+                gadgetslots  = 1;
+                crewsize     = 1;
+                fuelsize     = 17;
+                techlevel    = 5;
+                fuelcost     = 3;
+                bounty       = 75;
+                occurence    = 20;
+                hullstrength = 100;
+                repaircost   = 1;
+                size         = 1;
+                price        = 25000;
                 break;
             case MOSQUITO:
                 //mosquito
-                NAME = "Mosquito";
-                CARGOSIZE    = 15;
-                WEAPONSLOTS  = 2;
-                SHIELDSLOTS  = 1;
-                GADGETSLOTS  = 1;
-                CREWSIZE     = 1;
-                FUELSIZE     = 13;
-                TECHLEVEL    = 5;
-                FUELCOST     = 5;
-                BOUNTY       = 100;
-                OCCURENCE    = 20;
-                HULLSTRENGTH = 100;
-                REPAIRCOST   = 1;
-                SIZE         = 1;
-                PRICE        = 30000;
+                name = "Mosquito";
+                cargosize    = 15;
+                weaponslots  = 2;
+                shieldslots  = 1;
+                gadgetslots  = 1;
+                crewsize     = 1;
+                fuelsize     = 13;
+                techlevel    = 5;
+                fuelcost     = 5;
+                bounty       = 100;
+                occurence    = 20;
+                hullstrength = 100;
+                repaircost   = 1;
+                size         = 1;
+                price        = 30000;
                 break;
             case BUMBLEBEE:
                 //bumblebee
-                NAME = "Bumblebee";
-                CARGOSIZE    = 25;
-                WEAPONSLOTS  = 1;
-                SHIELDSLOTS  = 1;
-                GADGETSLOTS  = 2;
-                CREWSIZE     = 2;
-                FUELSIZE     = 15;
-                TECHLEVEL    = 5;
-                FUELCOST     = 7;
-                BOUNTY       = 125;
-                OCCURENCE    = 15;
-                HULLSTRENGTH = 100;
-                REPAIRCOST   = 1;
-                SIZE         = 2;
-                PRICE        = 60000;
+                name = "Bumblebee";
+                cargosize    = 25;
+                weaponslots  = 1;
+                shieldslots  = 1;
+                gadgetslots  = 2;
+                crewsize     = 2;
+                fuelsize     = 15;
+                techlevel    = 5;
+                fuelcost     = 7;
+                bounty       = 125;
+                occurence    = 15;
+                hullstrength = 100;
+                repaircost   = 1;
+                size         = 2;
+                price        = 60000;
                 break;
             default:
                 //gnat
-                NAME = "Gnat";
-                CARGOSIZE    = 15;
-                WEAPONSLOTS  = 1;
-                SHIELDSLOTS  = 0;
-                GADGETSLOTS  = 1;
-                CREWSIZE     = 1;
-                FUELSIZE     = 14;
-                TECHLEVEL    = 5;
-                FUELCOST     = 2;
-                BOUNTY       = 50;
-                OCCURENCE    = 28;
-                HULLSTRENGTH = 100;
-                REPAIRCOST   = 1;
-                SIZE         = 1;
-                PRICE        = 10000;
+                name = "Gnat";
+                cargosize    = 15;
+                weaponslots  = 1;
+                shieldslots  = 0;
+                gadgetslots  = 1;
+                crewsize     = 1;
+                fuelsize     = 14;
+                techlevel    = 5;
+                fuelcost     = 2;
+                bounty       = 50;
+                occurence    = 28;
+                hullstrength = 100;
+                repaircost   = 1;
+                size         = 1;
+                price        = 10000;
                 break;
         }
         cargoBay = new HashMap<TradeGood, Integer>();
         curCargoCount = 0;
-        currentFuel = FUELSIZE;
+        currentFuel = fuelsize;
     }
 
     /**
      * Add TradeGood(s) to the cargoBay
      * @param tg TradeGood to be added to cargoBay
      * @param quantity Number of the type of TradeGood being added to cargoBay
-     * @return boolean
      */
-    public boolean didAddCargo(TradeGood tg, int quantity){
+    public void addCargo(TradeGood tg, int quantity){
         if(tg == null) {
-            return false;
+            return;
         }
 
-        if((curCargoCount + quantity) <= CARGOSIZE) {
+        if((curCargoCount + quantity) <= cargosize) {
             int curAmt = 0;
             if(cargoBay.containsKey(tg)) {
                 curAmt = cargoBay.get(tg);
@@ -265,20 +268,17 @@ public class SpaceShip implements java.io.Serializable {
 
             curCargoCount += quantity;
             cargoBay.put(tg, curAmt + quantity);
-            return true;
         }
-        return false;
     }
-    
+
     /**
      * Remove TradeGood(s) from the cargoBay
      * @param tg TradeGood to be removed from cargoBay
      * @param quantity Number of the type of TradeGood being removed from cargoBay
-    
-     * @return TradeGood removed from cargoBay */
-    public boolean didRemoveCargo(TradeGood tg, int quantity) {
+     */
+    public void removeCargo(TradeGood tg, int quantity) {
         if(tg == null) {
-            return false;
+            return;
         }
 
         if(cargoBay.containsKey(tg) &&
@@ -286,9 +286,6 @@ public class SpaceShip implements java.io.Serializable {
             final int curAmt = cargoBay.get(tg);
             curCargoCount -= quantity;
             cargoBay.put(tg, curAmt - quantity);
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -304,9 +301,9 @@ public class SpaceShip implements java.io.Serializable {
      * Checks the cargo for a certain quantity of a TradeGood.
      * @param tg The TradeGood to check for in the cargo.
      * @param quantity Number of TradeGoods we need.
-    
+
      * @return Whether or not the cargo contains enough of that TradeGood. */
-    public boolean doesContainCargo(TradeGood tg, int quantity) {
+    public boolean hasCargo(TradeGood tg, int quantity) {
         return (cargoBay.containsKey(tg) &&
                 (cargoBay.get(tg) >= quantity));
     }
@@ -328,15 +325,15 @@ public class SpaceShip implements java.io.Serializable {
      * @return int
      */
     public int getCargoSpace() {
-        return CARGOSIZE - curCargoCount;
+        return cargosize - curCargoCount;
     }
 
     /**
      * Check to see if the cargo is full.
-    
+
      * @return Is the cargo full? */
     public boolean isCargoFull() {
-        return curCargoCount >= CARGOSIZE;
+        return curCargoCount >= cargosize;
     }
 
     /**
@@ -344,7 +341,7 @@ public class SpaceShip implements java.io.Serializable {
      * @return int
      */
     public int getMaxFuel(){
-        return FUELSIZE;
+        return fuelsize;
     }
 
     /**
@@ -362,12 +359,20 @@ public class SpaceShip implements java.io.Serializable {
     public int getFuel(){
         return currentFuel;
     }
+    
+    /**
+     * Method getPrice.
+     * @return int
+     */
+    public int getPrice() {
+        return price;
+    }
 
     /**
      * Method toString.
      * @return String
      */
     public String toString() {
-        return NAME;
+        return name;
     }
 }

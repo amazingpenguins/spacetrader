@@ -1,12 +1,23 @@
+/**
+ * Start Game Panel
+ */
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 /**
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class StartGamePanel extends JPanel {
     /**
@@ -31,11 +42,19 @@ public class StartGamePanel extends JPanel {
      */
     public StartGamePanel(GameController gc) {
         this.gc = gc;
+        setupPanel();
+    }
+
+    /**
+     * Setup this Panel.
+     */
+    private void setupPanel() {
         try {
             bg = ImageIO.read(new File("images/MainBackground.png"));
         } catch(IOException ioe) {
             System.err.println("Error loading images/MainBackground.png");
             bg = null;
+            ioe.printStackTrace();
         }
         /* New Game Button */
         final JButton newGame = new JButton("New Game");
@@ -60,14 +79,16 @@ public class StartGamePanel extends JPanel {
         savedGame.setBackground(new Color(255, 255, 255, 85));
         savedGame.setMaximumSize(new Dimension(0, 0));
 
-        this.setLayout(null);
+        setLayout(null);
         newGame.setBounds(290, 200, 200, 50);
         savedGame.setBounds(285, 280, 211, 50);
-        this.add(newGame);
-        this.add(savedGame);
+        add(newGame);
+        add(savedGame);
     }
-
+    
     /**
+     * @author AmazingPenguins
+     * @version 0.01
      */
     private class NewGameListener implements ActionListener {
         /**
@@ -79,9 +100,20 @@ public class StartGamePanel extends JPanel {
         public void actionPerformed(ActionEvent event) {
             gc.goToState(GameController.State.NEWPLAYER);
         }
+        
+        /**
+         * toString
+         * @return String
+         */
+        @Override
+        public String toString() {
+            return "New Game Listener";
+        }
     }
 
     /**
+     * @author AmazingPenguins
+     * @version 0.01
      */
     private class LoadGameListener implements ActionListener {
         /**
@@ -92,6 +124,15 @@ public class StartGamePanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent event) {
             gc.loadGame();
+        }
+        
+        /**
+         * toString
+         * @return String
+         */
+        @Override
+        public String toString() {
+            return "Load Game Listener";
         }
     }
 
@@ -105,4 +146,12 @@ public class StartGamePanel extends JPanel {
         g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), null);
     }
 
+    /**
+     * toString
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Start Game Panel";
+    }
 }

@@ -1,12 +1,13 @@
+/**
+ * Market
+ */
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * User: ryree0
- * Date: 10/22/12 | Time: 12:10 PM
- * @author ryree0
- * @version $Revision: 1.0 $
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class Market implements java.io.Serializable {
 
@@ -38,6 +39,8 @@ public class Market implements java.io.Serializable {
     private final Map<TradeGood, MarketItem> myItems;
 
     /**
+     * @author AmazingPenguins
+     * @version 0.01
      */
     private static class MarketItem implements java.io.Serializable {
         /**
@@ -65,6 +68,15 @@ public class Market implements java.io.Serializable {
             this.value = value;
             this.quantity = quantity;
         }
+        
+        /**
+         * toString
+         * @return String
+         */
+        @Override
+        public String toString() {
+            return "Market Item";
+        }
     }
 
     /**
@@ -80,7 +92,9 @@ public class Market implements java.io.Serializable {
         myItems = new HashMap<TradeGood,MarketItem>();
         for(int i = 0; i < TradeGood.ITEMCOUNT; i++) {
             TradeGood curGood = new TradeGood((short) i);
-            myItems.put(curGood, new MarketItem(myPrice(curGood), (int) (Math.random() * 20)));
+            myItems.put(curGood, 
+                    new MarketItem(myPrice(curGood), 
+                            (int) (Math.random() * 20)));
         }
     }
 
@@ -115,11 +129,10 @@ public class Market implements java.io.Serializable {
             return;
         }
 
-        if(p.getShip().doesContainCargo(t, quantity)) {
-            if(p.getShip().didRemoveCargo(t, quantity)) {
+        if(p.getShip().hasCargo(t, quantity)) {
+                p.getShip().removeCargo(t, quantity);
                 p.addCredits(myItems.get(t).value * quantity);
                 myItems.get(t).quantity += quantity;
-            }
         }
     }
 
@@ -137,9 +150,9 @@ public class Market implements java.io.Serializable {
         if(!p.getShip().isCargoFull() &&
                 (p.getCredits() >= (myItems.get(t).value * quantity)) &&
                 (myItems.get(t).quantity >= quantity)) {
-            p.getShip().didAddCargo(t, quantity);
-            p.addCredits(-(myItems.get(t).value * quantity));
-            myItems.get(t).quantity -= quantity;
+                p.getShip().addCargo(t, quantity);
+                p.addCredits(-(myItems.get(t).value * quantity));
+                myItems.get(t).quantity -= quantity;
         }
     }
 
@@ -172,7 +185,7 @@ public class Market implements java.io.Serializable {
                 } else if(environment == Planet.DESERT) {
                     return tg.getValue() * 6;
                 } else if(techLevel == SolarSystem.PREAGRICULTURE) {
-                    return tg.getValue() * 4;
+                    return tg.getValue() << 2;
                 }
                 break;
             case TradeGood.FOOD:
@@ -239,5 +252,14 @@ public class Market implements java.io.Serializable {
                 return tg.getValue();
         }
         return tg.getValue();
+    }
+    
+    /**
+     * toString
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Market";
     }
 }

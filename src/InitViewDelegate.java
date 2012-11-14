@@ -1,4 +1,6 @@
 /**
+ * @author AmazingPenguins
+ * @version 0.01
  */
 interface InitViewDelegate {
     /**

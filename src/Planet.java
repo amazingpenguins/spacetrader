@@ -1,8 +1,13 @@
+/**
+ * Planet
+ */
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Point;
 
 /**
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class Planet implements java.io.Serializable {
     /**
@@ -44,8 +49,13 @@ public class Planet implements java.io.Serializable {
     /**
      * Field market.
      */
-    private Market market;
+    private final Market market;
 
+    /**
+     * Field ENVCOUNT.
+     */
+    private static final short ENVCOUNT = 12;
+    
     /**
      * Field WARLIKE.
      * (value is 11)
@@ -235,34 +245,16 @@ public class Planet implements java.io.Serializable {
     };
 
     /**
-     * Create a specific planet.
-     * @param name Planet name.
-     * @param environment Planet environment.
-     * @param government Planet government (should mirror SolarSystem parent).
-     * @param techLevel Planet tech level (should mirror SolarSystem parent).
-     * @param location Point
-     * @param solarSystem SolarSystem
-     */
-    public Planet(String name, int environment, int government, int techLevel, Point location, SolarSystem solarSystem) {
-        this.name = name;
-        this.environment = environment;
-        this.government  = government;
-        this.techLevel   = techLevel;
-        this.location = location;
-        this.solarSystem = solarSystem;
-    }
-
-    /**
      * Generate a random planet.
      * @param government SolarSystem parent's government.
      * @param techLevel SolarSystem parent's tech level.
      * @param location Point
      * @param solarSystem SolarSystem
      */
-    public Planet(int government, int techLevel, Point location, SolarSystem solarSystem) {
+    public Planet(int government, int techLevel, 
+                    Point location, SolarSystem solarSystem) {
         this.government = government;
         this.techLevel = techLevel;
-        final short ENVCOUNT = 12;
         environment = (int) (Math.random() * ENVCOUNT);
         name = planetName[(int) (Math.random() * planetName.length)];
         market = new Market(this.government, this.environment, this.techLevel);

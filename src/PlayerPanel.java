@@ -1,14 +1,20 @@
-import javax.swing.*;
-import java.awt.*;
+/**
+ * Player Panel
+ */
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
- * User: ryree0
- * Date: 11/7/12
- * Time: 12:23 PM
- * @author ryree0
- * @version $Revision: 1.0 $
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class PlayerPanel extends JPanel {
     /**
@@ -153,21 +159,21 @@ public class PlayerPanel extends JPanel {
         save.setFocusPainted(false);
         save.addActionListener(new SaveListener());
 
-        this.add(name);
-        this.add(planetName);
-        this.add(navigationButton);
-        this.add(ship);
-        this.add(gov);
-        this.add(shipYard);
-        this.add(credits);
-        this.add(tech);
-        this.add(refuel);
-        this.add(cargo);
-        this.add(env);
-        this.add(new JLabel(""));
-        this.add(fuel);
-        this.add(loc);
-        this.add(save);
+        add(name);
+        add(planetName);
+        add(navigationButton);
+        add(ship);
+        add(gov);
+        add(shipYard);
+        add(credits);
+        add(tech);
+        add(refuel);
+        add(cargo);
+        add(env);
+        add(new JLabel(""));
+        add(fuel);
+        add(loc);
+        add(save);
     }
 
     /**
@@ -186,7 +192,8 @@ public class PlayerPanel extends JPanel {
             gov.setText("Government: " + curPlanet.getSolarSystem().govString());
             tech.setText("Tech Level: " + curPlanet.getSolarSystem().techString());
             env.setText("Environment: " + curPlanet.envString());
-            loc.setText("Location: " + (int) curPlanet.getLocation().getX() + ", " + (int) curPlanet.getLocation().getY());
+            loc.setText("Location: " + (int) curPlanet.getLocation().getX() + ", "
+                                     + (int) curPlanet.getLocation().getY());
         } else {
             planetName.setText("Planet Name: ");
             gov.setText("Government: ");
@@ -213,6 +220,8 @@ public class PlayerPanel extends JPanel {
     }
 
     /**
+     * @author AmazingPenguins
+     * @version 0.01
      */
     private class ButtonListener implements ActionListener {
         /**
@@ -242,9 +251,20 @@ public class PlayerPanel extends JPanel {
                 gc.goToState(GameController.State.MARKETPANEL);
             }
         }
+        
+        /**
+         * toString
+         * @return String
+         */
+        @Override
+        public String toString() {
+            return "Button Listener";
+        }
     }
 
     /**
+     * @author AmazingPenguins
+     * @version 0.01
      */
     private class FuelListener implements ActionListener {
         /**
@@ -257,9 +277,20 @@ public class PlayerPanel extends JPanel {
             refuel();
             updatePlayerPanel();
         }
+        
+        /**
+         * toString
+         * @return String
+         */
+        @Override
+        public String toString() {
+            return "Fuel Listener";
+        }
     }
 
     /**
+     * @author AmazingPenguins
+     * @version 0.01
      */
     private class SaveListener implements ActionListener {
         /**
@@ -269,8 +300,25 @@ public class PlayerPanel extends JPanel {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-
             gc.saveGame();
         }
+        
+        /**
+         * toString
+         * @return String
+         */
+        @Override
+        public String toString() {
+            return "Save Listener";
+        }
+    }
+    
+    /**
+     * toString
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Player Panel";
     }
 }

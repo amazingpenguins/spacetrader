@@ -1,18 +1,34 @@
-import java.awt.*;
+/**
+ * Init View
+ */
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.*;
+
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 
 /*
- * Instantiating this class will create a JFrame that lets the user choose a name, set attributes, and choose a
- * difficulty. The errorLabel can be set to some string if the user doesn't input values correctly.
+ * Instantiating this class will create a JFrame that 
+ * lets the user choose a name, set attributes, and choose a
+ * difficulty. The errorLabel can be set to some string if the
+ * user doesn't input values correctly.
  */
 /**
- * @author ryree0
- * @version $Revision: 1.0 $
+ * @author AmazingPenguins
+ * @version 0.01
  */
 public class InitView extends JPanel {
     
@@ -97,31 +113,59 @@ public class InitView extends JPanel {
      */
     public InitView(GameController gc) {
         this.gc = gc;
+        
+        /* JSpinner Models */
+        pilotSkill    = new SpinnerNumberModel(0, 0, MAXSTATVAL, 1);
+        traderSkill   = new SpinnerNumberModel(0, 0, MAXSTATVAL, 1);
+        fighterSkill  = new SpinnerNumberModel(0, 0, MAXSTATVAL, 1);
+        engineerSkill = new SpinnerNumberModel(0, 0, MAXSTATVAL, 1);
+        
+        /* JSpinners */
+        pilotS    = new JSpinner(pilotSkill);
+        traderS   = new JSpinner(traderSkill);
+        fighterS  = new JSpinner(fighterSkill);
+        engineerS = new JSpinner(engineerSkill);
+        
+        /* Text Fields */
+        name = new JTextField(20);
+        
+        /* Buttons */
+        start = new JButton("Start");
+        difficulties = new ButtonGroup();
+        
+        /* Error Label */
+        errorLabel = new JLabel("");
+        
+        /* Make this panel */
+        setupPanel();
+    }
+    
+    /**
+     * Setup the InitView Panel
+     */
+    private void setupPanel() {
 
-        // assign pointsLeft
+        /* assign pointsLeft */
         pointsLeft = MAXSTATVAL;
         
-        // header
+        /* Header */
         final JPanel headingPanel = new JPanel();
         headingPanel.setPreferredSize(new Dimension(500, 50));
         final JLabel heading = new JLabel(
                 "Choose a name, distribute 16 attribute points, and choose a difficulty");
         headingPanel.add(heading);
 
-        // name
+        /* Name */
         final JPanel namePanel = new JPanel();
         namePanel.setPreferredSize(new Dimension(500, 40));
         final JLabel nameLabel = new JLabel("Character Name:  ");
-        name = new JTextField(20);
         namePanel.add(nameLabel);
         namePanel.add(name);
 
-        // pilot
+        /* Pilot Skill */
         final JPanel pilotPanel = new JPanel();
         pilotPanel.setPreferredSize(new Dimension(500, 30));
         final JLabel pilotLabel = new JLabel("Pilot:           ");
-        pilotSkill = new SpinnerNumberModel(0, 0, MAXSTATVAL, 1);
-        pilotS = new JSpinner(pilotSkill);
         ((JSpinner.DefaultEditor) pilotS.getEditor()).getTextField().setColumns(2);
         pilotS.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -134,12 +178,10 @@ public class InitView extends JPanel {
         pilotPanel.add(pilotLabel);
         pilotPanel.add(pilotS);
         
-        // trader
+        /* Trader Skill */
         final JPanel traderPanel = new JPanel();
         traderPanel.setPreferredSize(new Dimension(500, 30));
         final JLabel traderLabel = new JLabel("Trader:       ");
-        traderSkill = new SpinnerNumberModel(0, 0, MAXSTATVAL, 1);
-        traderS = new JSpinner(traderSkill);
         ((JSpinner.DefaultEditor) traderS.getEditor()).getTextField().setColumns(2);
         traderS.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -152,12 +194,10 @@ public class InitView extends JPanel {
         traderPanel.add(traderLabel);
         traderPanel.add(traderS);
         
-        // fighter
+        /* Fighter Skill */
         final JPanel fighterPanel = new JPanel();
         fighterPanel.setPreferredSize(new Dimension(500, 30));
         final JLabel fighterLabel = new JLabel("Fighter:       ");
-        fighterSkill = new SpinnerNumberModel(0, 0, MAXSTATVAL, 1);
-        fighterS = new JSpinner(fighterSkill);
         ((JSpinner.DefaultEditor) fighterS.getEditor()).getTextField().setColumns(2);
         fighterS.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -170,12 +210,10 @@ public class InitView extends JPanel {
         fighterPanel.add(fighterLabel);
         fighterPanel.add(fighterS);
         
-        // engineer
+        /* Engineer Skill */
         final JPanel engineerPanel = new JPanel();
         engineerPanel.setPreferredSize(new Dimension(500, 40));
         final JLabel engineerLabel = new JLabel("Engineer:   ");
-        engineerSkill = new SpinnerNumberModel(0, 0, MAXSTATVAL, 1);
-        engineerS = new JSpinner(engineerSkill);
         ((JSpinner.DefaultEditor) engineerS.getEditor()).getTextField().setColumns(2);
         engineerS.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -188,10 +226,9 @@ public class InitView extends JPanel {
         engineerPanel.add(engineerLabel);
         engineerPanel.add(engineerS);
         
-        // difficulty
+        /* Game Difficulty */
         final JPanel difficultyPanel = new JPanel();
         difficultyPanel.setPreferredSize(new Dimension(500, 40));
-        difficulties = new ButtonGroup();
 
         final JRadioButton beginner = new JRadioButton("Beginner");
         beginner.setActionCommand("Beginner");
@@ -218,23 +255,22 @@ public class InitView extends JPanel {
         difficultyPanel.add(hard);
         difficultyPanel.add(impossible);
 
-        // start
+        /* Start Button */
         final JPanel startPanel = new JPanel();
         startPanel.setPreferredSize(new Dimension(500, 40));
-        start = new JButton("Start");
         start.addActionListener(new StartButtonListener(this));
         startPanel.add(start);
         
-        // error
+        /* Error */
         final JPanel errorPanel = new JPanel();
         errorPanel.setPreferredSize(new Dimension(500, 30));
-        errorLabel = new JLabel("");
         errorLabel.setForeground(Color.red);
         errorPanel.add(errorLabel);
         
-        // create the frame, add the components, display the frame
-        this.setLayout(new BoxLayout(this,
-                BoxLayout.Y_AXIS));
+        /* Create the frame 
+         * Add the components 
+         * Display the frame */
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(headingPanel);
         this.add(namePanel);
         this.add(pilotPanel);
@@ -256,20 +292,15 @@ public class InitView extends JPanel {
     
     /**
      * Method getSpentPoints.
-    
      * @return short */
     private short getSpentPoints() {
         return (short) (getPilot() + getTrader() + getFighter() + getEngineer());
     }
 
-    /*
+    /**
      * Getters for the attributes.
      * @return the integer associated with each player attribute
      */
-    /**
-     * Method getPilot.
-    
-     * @return short */
     public short getPilot() {
         return pilotSkill.getNumber().shortValue();
     }
@@ -298,26 +329,20 @@ public class InitView extends JPanel {
         return engineerSkill.getNumber().shortValue();
     }
 
-    /*
+    /**
      * Getter for the character name
      * @return the String associated with the player name
      */
-    /**
-     * Method getName.
-    
-     * @return String */
+    @Override
     public String getName() {
         return name.getText();
     }
     
-    /*
-     * Getter for the difficulty
-     * @return the String associated with the difficulties (Beginner, Easy, Normal, Hard, Impossible)
-     */
     /**
-     * Method getDifficulty.
-    
-     * @return String */
+     * Getter for the difficulty
+     * @return the String associated with the difficulties
+     *      (Beginner, Easy, Normal, Hard, Impossible)
+     */
     public String getDifficulty() {
         return difficulties.getSelection().getActionCommand();
     }
@@ -326,12 +351,13 @@ public class InitView extends JPanel {
     *
    
      * @return boolean */
-    private boolean verifyInput() {
+    private boolean canVerifyInput() {
         return ((this.name.getText().length() != 0) && this.pointsLeft == 0);
     }
 
     /**
-     * @author ryree0
+     * @author AmazingPenguins
+     * @version 0.01
      */
     private class StartButtonListener implements ActionListener {
         /**
@@ -352,8 +378,9 @@ public class InitView extends JPanel {
          * @param e ActionEvent
         
          * @see java.awt.event.ActionListener#actionPerformed(ActionEvent) */
+        @Override
         public void actionPerformed(ActionEvent e) {
-            if (view.verifyInput()) {
+            if (view.canVerifyInput()) {
                 delegate.doneConfiguring(view);
                 gc.goToState(GameController.State.GAMEPANEL);
             } else {
@@ -367,5 +394,23 @@ public class InitView extends JPanel {
                 }
             }
         }
+        
+        /**
+         * toString
+         * @return String
+         */
+        @Override
+        public String toString() {
+            return "Save Button Listener";
+        }
+    }
+    
+    /**
+     * toString
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Init View";
     }
 }
