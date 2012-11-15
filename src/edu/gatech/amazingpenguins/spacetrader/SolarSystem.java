@@ -199,6 +199,7 @@ public class SolarSystem implements java.io.Serializable {
      */
     public SolarSystem(Point location) {
     	myLocation = location;
+        random = new Random();
     	setupSolarSystem();
     }
     
