@@ -1,13 +1,4 @@
 Audit Failure:
-    Numeric Literals.
-
-Reasoning:
-    Most of these failures are from initializing interface objects and throwaway
-    initializations. For example, for CardLayout, the Market has to be 
-    instantiated, even though it is not on a planet. So, random values were
-    given.
-
-Audit Failure:
     Audit violations for edu.gatech.amazingpenguins.spacetrader at 11/15/12 9:02 AM
 
     Description,Recommendations,Severity,Resource,Line
