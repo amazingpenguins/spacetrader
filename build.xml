@@ -58,8 +58,8 @@
         <jar basedir="${bin.dir}" destfile="${jarfile}">
             <zipfileset dir="${images.dir}" prefix="images"/>
             <manifest>
-                <attribute name="Main-Class" value="spacetrader/GameController"/>
-                <attribute name="Class-Path" value="spacetrader" />
+                <attribute name="Main-Class" value="edu/gatech/amazingpenguins/spacetrader/GameController"/>
+                <attribute name="Class-Path" value="edu.gatech.amazingpenguins.spacetrader" />
             </manifest>
         </jar>
     </target>
