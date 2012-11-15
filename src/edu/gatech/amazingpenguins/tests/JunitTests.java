@@ -1,5 +1,6 @@
 package edu.gatech.amazingpenguins.tests;
 import edu.gatech.amazingpenguins.spacetrader.*;
+import org.junit.Test;
 
 /**
  * Run JUnit tests on the code.
@@ -12,7 +13,8 @@ public class JunitTests {
      * selling a TradeGood to a player.
      * author: Ryan R
      */
-    private static void testMarketSell() {
+    @Test
+    public void testMarketSell() {
         int prevQuantity;
         boolean wasFull;
         Stats s = new Stats();
@@ -50,9 +52,5 @@ public class JunitTests {
             }
         }
         System.out.println("Market selling test successfully passed!");
-    }
-
-    public static void main(String[] args) {
-        testMarketSell();
     }
 }

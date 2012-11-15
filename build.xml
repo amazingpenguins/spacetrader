@@ -16,6 +16,11 @@
         <property name="src.dir"     location="src"/>
         <property name="src.tests"   location="src/tests"/>
         <property name="jarfile"     value="${basedir}/spacetrader.jar"/>
+
+     	<!-- Include the library .jar file -->
+		<path id="classpath">
+			<fileset dir="${basedir}/lib" includes="junit-4.10.jar"/>
+		</path>
     </target>
 
     <!-- Create any needed directories -->
@@ -35,7 +40,7 @@
     <!-- Compile all of the source -->
     <target name="compile" depends="prepare"
             description="Compile the source ">
-        <javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false"/>
+        <javac srcdir="${src.dir}" destdir="${bin.dir}" classpathref="classpath" includeantruntime="false"/>
     </target>
 
     <!-- Generate javadocs for the source -->
@@ -58,7 +63,7 @@
         <jar basedir="${bin.dir}" destfile="${jarfile}">
             <zipfileset dir="${images.dir}" prefix="images"/>
             <manifest>
-                <attribute name="Main-Class" value="edu/gatech/amazingpenguins/spacetrader/GameController"/>
+                <attribute name="Main-Class" value="edu.gatech.amazingpenguins.spacetrader.GameController"/>
                 <attribute name="Class-Path" value="edu.gatech.amazingpenguins.spacetrader" />
             </manifest>
         </jar>
@@ -69,24 +74,21 @@
         <java jar="${jarfile}" fork="true">
         <classpath>
             <pathelement location="${bin.dir}/tests"/>
-            <pathelement location="java.class.path"/>
+            <pathelement location="${basedir}/lib/junit-4.10.jar"/>
+            <pathelement path="edu.gatech.amazingpenguins.spacetrader"/>
         </classpath>
         </java>
     </target>
 
     <!-- Run the JUnit tests -->
     <target name="test" depends="compile">
-        <junit printsummary="yes" haltonfailure="yes">
-            <classpath>
-                <pathelement location="lib/junit-4.10.jar"/>
-                <pathelement location="${bin.dir}/tests"/>
-            </classpath>
+        <junit>
+            <test name="edu.gatech.amazingpenguins.tests.JunitTests"/>
             <formatter type="plain"/>
-            <batchtest fork="yes" todir="${basedir}">
-                <fileset dir="${bin.dir}">
-                    <include name="tests/*.class"/>
-                </fileset>
-            </batchtest>
+            <classpath>
+                <pathelement location="${basedir}/lib/junit-4.10.jar"/>
+                <pathelement location="${bin.dir}"/>
+            </classpath>
         </junit>
     </target>
 
