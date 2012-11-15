@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Start Game Panel
  */
 import javax.imageio.ImageIO;

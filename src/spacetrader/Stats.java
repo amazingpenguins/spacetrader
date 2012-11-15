@@ -1,3 +1,5 @@
+package spacetrader;
+
 /**
  * @author AmazingPenguins
  * @version 0.01

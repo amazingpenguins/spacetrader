@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Solar System
  */
 import java.awt.Point;

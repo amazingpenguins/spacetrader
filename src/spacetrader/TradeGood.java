@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Trade Good
  */
 import java.io.Serializable;

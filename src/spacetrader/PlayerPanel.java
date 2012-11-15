@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Player Panel
  */
 import java.awt.Color;

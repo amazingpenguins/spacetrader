@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Serial Saver
  */
 import java.io.FileInputStream;

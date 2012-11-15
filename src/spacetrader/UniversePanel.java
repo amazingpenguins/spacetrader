@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Universe Panel
  */
 import javax.imageio.ImageIO;

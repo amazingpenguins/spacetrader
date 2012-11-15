@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Planet
  */
 import java.awt.Graphics;

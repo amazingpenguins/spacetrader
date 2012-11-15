@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Main GUI
  */
 import java.awt.BorderLayout;

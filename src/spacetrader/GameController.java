@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Game Controller
  * Controls the entire game, and contains the game loop.
  */

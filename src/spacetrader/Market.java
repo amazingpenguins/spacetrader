@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Market
  */
 import java.util.HashMap;

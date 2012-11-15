@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Init View
  */
 import java.awt.Color;

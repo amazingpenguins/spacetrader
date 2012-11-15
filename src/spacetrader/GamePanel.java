@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * GamePanel
  */
 import java.awt.BorderLayout;

@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Market Panel
  */
 import javax.imageio.ImageIO;

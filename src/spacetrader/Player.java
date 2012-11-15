@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Player
  */
 import java.awt.Point;

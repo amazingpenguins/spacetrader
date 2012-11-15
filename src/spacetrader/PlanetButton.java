@@ -1,4 +1,4 @@
-/**
+package spacetrader; /**
  * Planet Button
  */
 import javax.imageio.ImageIO;
