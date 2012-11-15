@@ -10,9 +10,11 @@
         <!-- Define our directories -->
         <property name="apidoc.dir"  location="apidoc"/>
         <property name="bin.dir"     location="bin"/>
+        <property name="bin.tests"   location="bin/tests"/>
         <property name="images.dir"  location="images"/>
         <property name="jar.dir"     location="${bin.dir}/jar"/>
         <property name="src.dir"     location="src"/>
+        <property name="src.tests"   location="src/tests"/>
         <property name="jarfile"     value="${basedir}/spacetrader.jar"/>
     </target>
 
@@ -46,7 +48,7 @@
             <bottom>
                 <![CDATA[<i>Copyright &#169; 2012 The Amazing Penguins CS2340. All Rights Reserved.</i>]]>
             </bottom>
-        </javadoc>    
+        </javadoc>
 
     </target>
 
@@ -56,8 +58,8 @@
         <jar basedir="${bin.dir}" destfile="${jarfile}">
             <zipfileset dir="${images.dir}" prefix="images"/>
             <manifest>
-                <attribute name="Main-Class" value="GameController"/>
-                <attribute name="Class-Path" value="java.class.path" />
+                <attribute name="Main-Class" value="spacetrader/GameController"/>
+                <attribute name="Class-Path" value="spacetrader" />
             </manifest>
         </jar>
     </target>
@@ -66,10 +68,26 @@
     <target name="run" depends="jar">
         <java jar="${jarfile}" fork="true">
         <classpath>
-            <pathelement location="${bin.dir}"/>
+            <pathelement location="${bin.dir}/tests"/>
             <pathelement location="java.class.path"/>
         </classpath>
         </java>
+    </target>
+
+    <!-- Run the JUnit tests -->
+    <target name="test" depends="compile">
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath>
+                <pathelement location="lib/junit-4.10.jar"/>
+                <pathelement location="${bin.dir}/tests"/>
+            </classpath>
+            <formatter type="plain"/>
+            <batchtest fork="yes" todir="${basedir}">
+                <fileset dir="${bin.dir}">
+                    <include name="tests/*.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
     </target>
 
     <!-- Generates the javadocs, and builds/runs the jar -->
