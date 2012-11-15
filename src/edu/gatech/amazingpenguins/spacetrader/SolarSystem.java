@@ -3,6 +3,7 @@
  */
 package edu.gatech.amazingpenguins.spacetrader;
 import java.awt.Point;
+import java.util.Random;
 
 /**
  * @author AmazingPenguins
@@ -37,6 +38,11 @@ public class SolarSystem implements java.io.Serializable {
      */
     private Planet myPlanet;
 
+    /**
+     * Field random.
+     */
+    private Random random;
+    
     /**
      * Field GOVCOUNT
      * (value is 16)
@@ -183,6 +189,7 @@ public class SolarSystem implements java.io.Serializable {
         this.techLevel = techLevel;
         myPlanet = p;
         myLocation = mp;
+        random = new Random();
         setupSolarSystem();
     }
 
@@ -200,8 +207,8 @@ public class SolarSystem implements java.io.Serializable {
      */
     private void setupSolarSystem() {
         generatePlanets();
-        government = (int) (Math.random() * GOVCOUNT);
-        techLevel  = (int) (Math.random() * TECHCOUNT);
+        government = random.nextInt(GOVCOUNT);
+        techLevel  = random.nextInt(TECHCOUNT);
     }
 
     /**

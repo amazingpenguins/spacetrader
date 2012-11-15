@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * @author AmazingPenguins
@@ -24,6 +25,11 @@ public class UniversePanel extends JPanel {
      */
     private static final long serialVersionUID = -1595808849286334446L;
 
+    /**
+     * Field random.
+     */
+    private final Random random;
+    
     /**
      * Field gc.
      */
@@ -59,6 +65,7 @@ public class UniversePanel extends JPanel {
                          GameController gc, GamePanel gamePanel) {
         this.gc = gc;
         this.gamePanel = gamePanel;
+        random = new Random();
         setupPanel(universe);
     }
 
@@ -110,10 +117,9 @@ public class UniversePanel extends JPanel {
      */
     public void randomEvent(){
         final int numEvent = 5;
-        final int whichEvent = (int) (Math.random() * numEvent);
+        final int whichEvent = random.nextInt(numEvent);
 
-        final int random = (int) (Math.random() * 10);
-        if (random <= 2) {
+        if (random.nextInt(10) <= 2) {
             events(whichEvent);
         }
     }

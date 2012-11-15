@@ -5,6 +5,7 @@ package edu.gatech.amazingpenguins.spacetrader;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Point;
+import java.util.Random;
 
 /**
  * @author AmazingPenguins
@@ -56,6 +57,11 @@ public class Planet implements java.io.Serializable {
      * Field ENVCOUNT.
      */
     private static final short ENVCOUNT = 12;
+    
+    /**
+     * Field random.
+     */
+    private final Random random;
     
     /**
      * Field WARLIKE.
@@ -256,8 +262,9 @@ public class Planet implements java.io.Serializable {
                     Point location, SolarSystem solarSystem) {
         this.government = government;
         this.techLevel = techLevel;
-        environment = (int) (Math.random() * ENVCOUNT);
-        name = planetName[(int) (Math.random() * planetName.length)];
+        random = new Random();
+        environment = random.nextInt(ENVCOUNT);
+        name = planetName[random.nextInt(planetName.length)];
         market = new Market(this.government, this.environment, this.techLevel);
         this.location = location;
         this.solarSystem = solarSystem;

@@ -4,6 +4,7 @@
 package edu.gatech.amazingpenguins.spacetrader; 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -38,6 +39,11 @@ public class Market implements java.io.Serializable {
      * Field myItems.
      */
     private final Map<TradeGood, MarketItem> myItems;
+    
+    /**
+     * Field random.
+     */
+    private final Random random;
 
     /**
      * @author AmazingPenguins
@@ -90,12 +96,12 @@ public class Market implements java.io.Serializable {
         this.government = government;
         this.environment = environment;
         this.techLevel = techLevel;
+        random = new Random();
         myItems = new HashMap<TradeGood,MarketItem>();
         for(int i = 0; i < TradeGood.ITEMCOUNT; i++) {
             TradeGood curGood = new TradeGood((short) i);
             myItems.put(curGood, 
-                    new MarketItem(myPrice(curGood), 
-                            (int) (Math.random() * 20)));
+                    new MarketItem(myPrice(curGood), random.nextInt(20)));
         }
     }
 

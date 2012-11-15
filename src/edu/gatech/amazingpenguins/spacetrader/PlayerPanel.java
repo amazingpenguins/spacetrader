@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -193,8 +194,8 @@ public class PlayerPanel extends JPanel {
             gov.setText("Government: " + curPlanet.getSolarSystem().govString());
             tech.setText("Tech Level: " + curPlanet.getSolarSystem().techString());
             env.setText("Environment: " + curPlanet.envString());
-            loc.setText("Location: " + (int) curPlanet.getLocation().getX() + ", "
-                                     + (int) curPlanet.getLocation().getY());
+            loc.setText("Location: " + curPlanet.getLocation().x + ", "
+                                     + curPlanet.getLocation().y);
         } else {
             planetName.setText("Planet Name: ");
             gov.setText("Government: ");
