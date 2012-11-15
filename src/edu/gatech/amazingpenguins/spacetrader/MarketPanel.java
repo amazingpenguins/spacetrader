@@ -32,6 +32,61 @@ public class MarketPanel extends JPanel {
     private static final long serialVersionUID = 5382543667056746920L;
 
     /**
+     * Field WATERPOINT.
+     */
+    private static final Point WATERPOINT = new Point(50, 80);
+    
+    /**
+     * Field FOODPOINT.
+     */
+    private static final Point FOODPOINT = new Point(200, 80);
+    
+    /**
+     * Field FURPOINT.
+     */
+    private static final Point FURSPOINT = new Point(350, 80);
+    
+    /**
+     * Field GAMEPOINT.
+     */
+    private static final Point GAMESPOINT = new Point(500, 80);
+    
+    /**
+     * Field OREPOINT.
+     */
+    private static final Point OREPOINT = new Point(650, 80);
+   
+    /**
+     * Field FIREARMPOINT.
+     */
+    private static final Point FIREARMSPOINT = new Point(50, 200);
+    
+    /**
+     * Field MEDICINEPOINT.
+     */
+    private static final Point MEDICINEPOINT = new Point(200, 200);
+    
+    /**
+     * Field MACHINESPOINT.
+     */
+    private static final Point MACHINESPOINT = new Point(350, 200);
+    
+    /**
+     * Field NARCOTICSPOINT.
+     */
+    private static final Point NARCOTICSPOINT = new Point(500, 200);
+    
+    /**
+     * Field ROBOTSPOINT.
+     */
+    private static final Point ROBOTSPOINT = new Point(650, 200);
+    
+    /**
+     * Field UNKNOWNPOINT.
+     */
+    private static final Point UNKNOWNPOINT = new Point(800, 400);
+    
+    /**
      * Field gc.
      */
     private final GameController gc;
@@ -159,62 +214,48 @@ public class MarketPanel extends JPanel {
 
         for (TradeGood good : market.getMarketGoods()) {
             BufferedImage im = null;
-            Point location = new Point();
+            Point location = locateGood(good);
             try {
                 im = ImageIO.read(new File("images/" + good + ".png"));
             } catch(Exception e) {
                 e.printStackTrace();
             }
-            switch(good.getType()) {
-                case TradeGood.WATER:
-                    location.x = 50;
-                    location.y = 80;
-                    break;
-                case TradeGood.FOOD:
-                    location.x = 200;
-                    location.y = 80;
-                    break;
-                case TradeGood.FURS:
-                    location.x = 350;
-                    location.y = 80;
-                    break;
-                case TradeGood.GAMES:
-                    location.x = 500;
-                    location.y = 80;
-                    break;
-                case TradeGood.ORE:
-                    location.x = 650;
-                    location.y = 80;
-                    break;
-                case TradeGood.FIREARMS:
-                    location.x = 50;
-                    location.y = 200;
-                    break;
-                case TradeGood.MEDICINE:
-                    location.x = 200;
-                    location.y = 200;
-                    break;
-                case TradeGood.MACHINES:
-                    location.x = 350;
-                    location.y = 200;
-                    break;
-                case TradeGood.NARCOTICS:
-                    location.x = 500;
-                    location.y = 200;
-                    break;
-                case TradeGood.ROBOTS:
-                    location.x = 650;
-                    location.y = 200;
-                    break;
-                default :
-                    location.x = 800;
-                    location.y = 200;
-                    break;
-            }
             itemMap.put(good, new MarketItem(location, im));
         }
     }
 
+    /**
+     * Moves the item to the correct location.
+     * @param the TradeGood
+     * @return the new location
+     */
+    private Point locateGood(TradeGood tg) {
+        switch(tg.getType()) {
+            case TradeGood.WATER:
+                return WATERPOINT;
+            case TradeGood.FOOD:
+                return FOODPOINT;
+            case TradeGood.FURS:
+                return FURSPOINT;
+            case TradeGood.GAMES:
+                return GAMESPOINT;
+            case TradeGood.ORE:
+                return OREPOINT;
+            case TradeGood.FIREARMS:
+                return FIREARMSPOINT;
+            case TradeGood.MEDICINE:
+                return MEDICINEPOINT;
+            case TradeGood.MACHINES:
+                return MACHINESPOINT;
+            case TradeGood.NARCOTICS:
+                return NARCOTICSPOINT;
+            case TradeGood.ROBOTS:
+                return ROBOTSPOINT;
+            default :
+                return UNKNOWNPOINT;
+        }
+    }
+    
     /**
      * Method paint.
      * @param g Graphics

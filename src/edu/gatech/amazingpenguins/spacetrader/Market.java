@@ -46,6 +46,16 @@ public class Market implements java.io.Serializable {
     private final Random random;
 
     /**
+     * Field GOOD_INCREASE.
+     */
+    private static final int GOOD_INCREASE = 10;
+    
+    /**
+     * Field GOOD_DECREASE.
+     */
+    private static final int GOOD_DECREASE = 5;
+    
+    /**
      * @author AmazingPenguins
      * @version 0.01
      */
@@ -181,84 +191,98 @@ public class Market implements java.io.Serializable {
         switch(tg.getType()) {
             case TradeGood.WATER:
                 if(environment == Planet.DESERT){
-                    return tg.getValue() * 10;
+                    return increasePrice(tg);
                 } else if(environment == Planet.LOTSOFWATER) {
-                    return tg.getValue() / 3;
+                    return decreasePrice(tg);
                 }
                 break;
             case TradeGood.FURS:
                 if(environment == Planet.RICHFAUNA) {
-                    return tg.getValue() / 10;
-                } else if(environment == Planet.DESERT) {
-                    return tg.getValue() * 6;
-                } else if(techLevel == SolarSystem.PREAGRICULTURE) {
-                    return tg.getValue() << 2;
+                    return decreasePrice(tg);
+                } else if(environment == Planet.DESERT || 
+                        techLevel == SolarSystem.PREAGRICULTURE) {
+                    return increasePrice(tg);
                 }
                 break;
             case TradeGood.FOOD:
                 if(environment == Planet.RICHSOIL) {
-                    return tg.getValue() / 5;
+                    return decreasePrice(tg);
                 }
                 break;
             case TradeGood.ORE:
                 if(environment == Planet.WARLIKE) {
-                    return tg.getValue() * 30;
+                    return increasePrice(tg);
                 } else if(environment == Planet.MINERALRICH) {
-                    return tg.getValue() / 20;
+                    return decreasePrice(tg);
                 }
                 break;
             case TradeGood.GAMES:
                 if(environment == Planet.ARTISTIC) {
-                    return tg.getValue() / 5;
+                    return decreasePrice(tg);
                 } else if(techLevel == SolarSystem.HITECH) {
-                    return tg.getValue() * 15;
+                    return increasePrice(tg);
                 }
                     break;
             case TradeGood.FIREARMS:
                 if(environment == Planet.WARLIKE) {
-                    return tg.getValue() / 100;
+                    decreasePrice(tg);
                 } else if(government == SolarSystem.FEUDAL) {
-                    return tg.getValue() * 40;
+                    return increasePrice(tg);
                 }
                 break;
             case TradeGood.MEDICINE:
                 if(environment == Planet.LOTSOFHERBS) {
-                    return tg.getValue() / 10;
+                    return decreasePrice(tg);
                 } else if(environment == Planet.WARLIKE) {
-                    return tg.getValue() * 40;
+                    return increasePrice(tg);
                 }
                 break;
             case TradeGood.MACHINES:
                 if(environment == Planet.LIFELESS) {
-                    return tg.getValue() / 100;
-                } else if(government == SolarSystem.CAPITALIST) {
-                    return tg.getValue() * 30;
-                } else if(techLevel == SolarSystem.INDUSTRIAL) {
-                    return tg.getValue() * 10;
+                    return decreasePrice(tg);
+                } else if(government == SolarSystem.CAPITALIST || 
+                          techLevel == SolarSystem.INDUSTRIAL) {
+                    return increasePrice(tg);
                 }
                 break;
             case TradeGood.NARCOTICS:
                 if(environment == Planet.WEIRDMUSHROOMS) {
-                   return tg.getValue() / 150;
-                } else if(techLevel == SolarSystem.THEOCRACY) {
-                    return tg.getValue() * 15;
-                } else if(environment == Planet.ARTISTIC) {
-                    return tg.getValue() * 15;
+                   return decreasePrice(tg);
+                } else if(techLevel == SolarSystem.THEOCRACY || 
+                          environment == Planet.ARTISTIC) {
+                    return increasePrice(tg);
                 }
                 break;
             case TradeGood.ROBOTS:
                 if(techLevel == SolarSystem.HITECH) {
-                    return tg.getValue() / 20;
-                } else if(government == SolarSystem.INDUSTRIAL) {
-                    return tg.getValue() * 10;
-                } else if(techLevel == SolarSystem.AGRICULTURE) {
-                    return tg.getValue() * 10;
+                    return decreasePrice(tg);
+                } else if(government == SolarSystem.INDUSTRIAL || 
+                          techLevel == SolarSystem.AGRICULTURE) {
+                    return increasePrice(tg);
                 }
                 break;
             default:
                 return tg.getValue();
         }
         return tg.getValue();
+    }
+    
+    /**
+     * Increases the price of the goods.
+     * @param tg The TradeGood to process.
+     * @return The new value.
+     */
+    private int increasePrice(TradeGood tg) {
+        return tg.getValue() * GOOD_INCREASE;
+    }
+    
+    /**
+     * Decrease the price of the goods.
+     * @param tg The TradeGood to process.
+     * @return The new value.
+     */
+    private int decreasePrice(TradeGood tg) {
+        return tg.getValue() / GOOD_DECREASE;
     }
     
     /**
