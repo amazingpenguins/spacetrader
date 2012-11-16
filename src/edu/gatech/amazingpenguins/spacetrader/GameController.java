@@ -194,6 +194,13 @@ public class GameController implements InitViewDelegate, java.io.Serializable {
             }
         }
     }
+    
+    /**
+     * Method getPlanets.
+     */
+    public List<Planet> getPlanets(){
+        return planets;
+    }
 
     /**
      * Method updateMarketPanel.

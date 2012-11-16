@@ -3,6 +3,7 @@
  */
 package edu.gatech.amazingpenguins.tests;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import edu.gatech.amazingpenguins.spacetrader.Market;
 import edu.gatech.amazingpenguins.spacetrader.Planet;
 import edu.gatech.amazingpenguins.spacetrader.Player;
@@ -10,8 +11,11 @@ import edu.gatech.amazingpenguins.spacetrader.SolarSystem;
 import edu.gatech.amazingpenguins.spacetrader.SpaceShip;
 import edu.gatech.amazingpenguins.spacetrader.Stats;
 import edu.gatech.amazingpenguins.spacetrader.TradeGood;
+import edu.gatech.amazingpenguins.spacetrader.GameController;
 
 import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Run JUnit tests on the code.
@@ -179,6 +183,50 @@ public void testMyPrice() {
                 break;
             default:
                 System.out.println("Something is really wrong...");
+            }
+        }
+    }
+    
+    /**
+     * Tests if the generateUniverse method works properly
+     * Chris Shaw did this.
+     */
+    @Test
+    public void testGenerateUniverse(){
+        GameController gc1 = new GameController();
+        GameController gc2 = new GameController();
+        GameController gc3 = new GameController();
+        List<Planet> list1 = gc1.getPlanets();
+        List<Planet> list2 = gc2.getPlanets();
+        List<Planet> list3 = gc3.getPlanets();
+        
+        assertNotNull(gc1);
+        assertNotNull(gc2);
+        assertNotNull(gc3);
+        assertNotNull(list1);
+        assertNotNull(list2);
+        assertNotNull(list3);
+        
+        assertNotSame(gc1, gc2);
+        assertNotSame(gc2, gc3);
+        assertNotSame(gc3, gc1);
+        assertNotSame(list1, list2);
+        assertNotSame(list2, list3);
+        assertNotSame(list3, list1);
+        
+        for(Object planet : list1){
+            for(int i=0; i<25; i++){
+                assertNotSame(planet, list1.get(i));
+            }
+        }
+        for(Object planet : list2){
+            for(int i=0; i<25; i++){
+                assertNotSame(planet, list2.get(i));
+            }
+        }
+        for(Object planet : list3){
+            for(int i=0; i<25; i++){
+                assertNotSame(planet, list3.get(i));
             }
         }
     }
