@@ -118,7 +118,6 @@ public class Market implements java.io.Serializable {
     /**
      * Calculate the price of a TradeGood.
      * @param t The TradeGood to price.
-    
      * @return TradeGood's value. */
     public int getPrice(TradeGood t) {
         return myItems.containsKey(t) ?
@@ -175,7 +174,6 @@ public class Market implements java.io.Serializable {
 
     /**
     * Getter for the TradeGoods map in the market.. 
-   
     *
     * @return Map Map of tradegoods */
     public Set<TradeGood> getMarketGoods() {
@@ -185,9 +183,8 @@ public class Market implements java.io.Serializable {
     /**
      * Calculate how much we value a TradeGood.
      * @param tg The TradeGood to price.
-    
      * @return Our current value of the TradeGood. */
-    private int myPrice(TradeGood tg) {
+    public int myPrice(TradeGood tg) {
         switch(tg.getType()) {
             case TradeGood.WATER:
                 if(environment == Planet.DESERT){
@@ -225,7 +222,7 @@ public class Market implements java.io.Serializable {
                     break;
             case TradeGood.FIREARMS:
                 if(environment == Planet.WARLIKE) {
-                    decreasePrice(tg);
+                    return decreasePrice(tg);
                 } else if(government == SolarSystem.FEUDAL) {
                     return increasePrice(tg);
                 }
@@ -248,7 +245,7 @@ public class Market implements java.io.Serializable {
             case TradeGood.NARCOTICS:
                 if(environment == Planet.WEIRDMUSHROOMS) {
                    return decreasePrice(tg);
-                } else if(techLevel == SolarSystem.THEOCRACY || 
+                } else if(government == SolarSystem.THEOCRACY || 
                           environment == Planet.ARTISTIC) {
                     return increasePrice(tg);
                 }
@@ -291,6 +288,8 @@ public class Market implements java.io.Serializable {
      */
     @Override
     public String toString() {
-        return "Market";
+        return  "Market: {Government: " + government + 
+                "Environment: " + environment +
+                "Tech Level: " + techLevel + "}";
     }
 }
