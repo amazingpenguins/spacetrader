@@ -77,7 +77,11 @@ private void verifyDecrease(TradeGood tg, Market market) {
     Assert.assertTrue("Failing on " + market + " and " + tg,
         tg.getValue()/GOOD_DECREASE == market.myPrice(tg));
 }
-
+/**
+ * Test myMyprice method. 
+ * Scott Daner
+ * sdaner3
+ */
 @Test
 public void testMyPrice() {
     for (int i = 0; i < TradeGood.ITEMCOUNT; i++) {
