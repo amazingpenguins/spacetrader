@@ -296,6 +296,7 @@ public class SpaceShip implements java.io.Serializable {
 
     public void clearCargo(){
         cargoBay.clear();
+        curCargoCount = cargosize;
     }
 
     /**

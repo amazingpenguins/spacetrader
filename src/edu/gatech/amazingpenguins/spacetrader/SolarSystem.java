@@ -41,7 +41,7 @@ public class SolarSystem implements java.io.Serializable {
     /**
      * Field random.
      */
-    private Random random;
+    private final Random random;
     
     /**
      * Field GOVCOUNT

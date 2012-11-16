@@ -10,11 +10,10 @@
         <!-- Define our directories -->
         <property name="apidoc.dir"  location="apidoc"/>
         <property name="bin.dir"     location="bin"/>
-        <property name="bin.tests"   location="bin/tests"/>
         <property name="images.dir"  location="images"/>
         <property name="jar.dir"     location="${bin.dir}/jar"/>
-        <property name="src.dir"     location="src"/>
-        <property name="src.tests"   location="src/tests"/>
+        <property name="src.dir"     location="src/edu/gatech/amazingpenguins/spacetrader"/>
+        <property name="src.tests"   location="src/edu/gatech/amazingpenguins/tests"/>
         <property name="jarfile"     value="${basedir}/spacetrader.jar"/>
 
      	<!-- Include the library .jar file -->
@@ -40,15 +39,19 @@
     <!-- Compile all of the source -->
     <target name="compile" depends="prepare"
             description="Compile the source ">
-        <javac srcdir="${src.dir}" destdir="${bin.dir}" classpathref="classpath" includeantruntime="false"/>
+        <javac srcdir="${src.dir}" destdir="${bin.dir}"
+            classpathref="classpath" includeantruntime="false"/>
+        <javac srcdir="${src.tests}" destdir="${bin.dir}"
+            classpathref="classpath" includeantruntime="false"/>
     </target>
 
     <!-- Generate javadocs for the source -->
     <target name="javadoc" depends="prepare"
             description="Generate the javadocs ">
-        <javadoc sourcepath="${src.dir}" access="public" destdir="${apidoc.dir}/javadoc">
+        <javadoc sourcepath="${src.dir}"
+             access="public" destdir="${apidoc.dir}/javadoc">
             <fileset dir="${src.dir}">
-                <include name="**/*.java"/>
+                <include name="*.java"/>
             </fileset>
             <bottom>
                 <![CDATA[<i>Copyright &#169; 2012 The Amazing Penguins CS2340. All Rights Reserved.</i>]]>
