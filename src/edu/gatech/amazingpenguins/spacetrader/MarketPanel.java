@@ -226,7 +226,7 @@ public class MarketPanel extends JPanel {
 
     /**
      * Moves the item to the correct location.
-     * @param the TradeGood
+     * @param tg the TradeGood
      * @return the new location
      */
     private Point locateGood(TradeGood tg) {
