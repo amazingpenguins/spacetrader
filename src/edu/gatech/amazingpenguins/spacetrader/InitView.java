@@ -108,6 +108,14 @@ public class InitView extends JPanel {
      */
     private int pointsLeft;
     
+    private static int TEXT_FIELD_WIDTH = 20;
+    private static int PANEL_WIDTH = 500;
+    private static int HEADING_PANEL_HEIGHT = 50;
+    private static int NAME_PANEL_HEIGHT = 40;
+    private static int FIGHTER_PANEL_HEIGHT = 30;
+    private static int COLS = 2;
+    
+    
     /**
      * Constructor for InitView.
      * @param gc GameController
@@ -128,7 +136,7 @@ public class InitView extends JPanel {
         engineerS = new JSpinner(engineerSkill);
         
         /* Text Fields */
-        name = new JTextField(20);
+        name = new JTextField(TEXT_FIELD_WIDTH);
         
         /* Buttons */
         start = new JButton("Start");
@@ -151,23 +159,23 @@ public class InitView extends JPanel {
         
         /* Header */
         final JPanel headingPanel = new JPanel();
-        headingPanel.setPreferredSize(new Dimension(500, 50));
+        headingPanel.setPreferredSize(new Dimension(PANEL_WIDTH, HEADING_PANEL_HEIGHT));
         final JLabel heading = new JLabel(
                 "Choose a name, distribute 16 attribute points, and choose a difficulty");
         headingPanel.add(heading);
 
         /* Name */
         final JPanel namePanel = new JPanel();
-        namePanel.setPreferredSize(new Dimension(500, 40));
+        namePanel.setPreferredSize(new Dimension(PANEL_WIDTH, NAME_PANEL_HEIGHT));
         final JLabel nameLabel = new JLabel("Character Name:  ");
         namePanel.add(nameLabel);
         namePanel.add(name);
 
         /* Pilot Skill */
         final JPanel pilotPanel = new JPanel();
-        pilotPanel.setPreferredSize(new Dimension(500, 30));
+        pilotPanel.setPreferredSize(new Dimension(PANEL_WIDTH, NAME_PANEL_HEIGHT));
         final JLabel pilotLabel = new JLabel("Pilot:           ");
-        ((JSpinner.DefaultEditor) pilotS.getEditor()).getTextField().setColumns(2);
+        ((JSpinner.DefaultEditor) pilotS.getEditor()).getTextField().setColumns(COLS);
         pilotS.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 pointsLeft = MAXSTATVAL - getSpentPoints();
@@ -183,7 +191,7 @@ public class InitView extends JPanel {
         final JPanel traderPanel = new JPanel();
         traderPanel.setPreferredSize(new Dimension(500, 30));
         final JLabel traderLabel = new JLabel("Trader:       ");
-        ((JSpinner.DefaultEditor) traderS.getEditor()).getTextField().setColumns(2);
+        ((JSpinner.DefaultEditor) traderS.getEditor()).getTextField().setColumns(COLS);
         traderS.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 pointsLeft = MAXSTATVAL - getSpentPoints();
@@ -197,9 +205,9 @@ public class InitView extends JPanel {
         
         /* Fighter Skill */
         final JPanel fighterPanel = new JPanel();
-        fighterPanel.setPreferredSize(new Dimension(500, 30));
+        fighterPanel.setPreferredSize(new Dimension(PANEL_WIDTH, FIGHTER_PANEL_HEIGHT));
         final JLabel fighterLabel = new JLabel("Fighter:       ");
-        ((JSpinner.DefaultEditor) fighterS.getEditor()).getTextField().setColumns(2);
+        ((JSpinner.DefaultEditor) fighterS.getEditor()).getTextField().setColumns(COLS);
         fighterS.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 pointsLeft = MAXSTATVAL - getSpentPoints();
@@ -213,9 +221,9 @@ public class InitView extends JPanel {
         
         /* Engineer Skill */
         final JPanel engineerPanel = new JPanel();
-        engineerPanel.setPreferredSize(new Dimension(500, 40));
+        engineerPanel.setPreferredSize(new Dimension(PANEL_WIDTH, NAME_PANEL_HEIGHT));
         final JLabel engineerLabel = new JLabel("Engineer:   ");
-        ((JSpinner.DefaultEditor) engineerS.getEditor()).getTextField().setColumns(2);
+        ((JSpinner.DefaultEditor) engineerS.getEditor()).getTextField().setColumns(COLS);
         engineerS.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 pointsLeft = MAXSTATVAL - getSpentPoints();
@@ -229,7 +237,8 @@ public class InitView extends JPanel {
         
         /* Game Difficulty */
         final JPanel difficultyPanel = new JPanel();
-        difficultyPanel.setPreferredSize(new Dimension(500, 40));
+        // same dimensions has name panel, so didn't want to be redundant
+        difficultyPanel.setPreferredSize(new Dimension(PANEL_WIDTH, NAME_PANEL_HEIGHT));
 
         final JRadioButton beginner = new JRadioButton("Beginner");
         beginner.setActionCommand("Beginner");
@@ -258,7 +267,8 @@ public class InitView extends JPanel {
 
         /* Start Button */
         final JPanel startPanel = new JPanel();
-        startPanel.setPreferredSize(new Dimension(500, 40));
+        // same dimensions has name panel, so didn't want to be redundant
+        startPanel.setPreferredSize(new Dimension(PANEL_WIDTH, NAME_PANEL_HEIGHT));
         start.addActionListener(new StartButtonListener(this));
         startPanel.add(start);
         
