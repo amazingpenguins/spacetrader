@@ -62,7 +62,17 @@ public class PlayerPanel extends JPanel {
      */
     private JLabel fuel, name, ship, credits, cargo,
             planetName, env, tech, loc, gov;
-
+    
+    /**
+     * Field _255.
+     */
+    private static int _255 = 255;
+    
+    /**
+     * Field _80.
+     */
+    private static int _80 = 80;
+    
     /**
      * Field player.
      */
@@ -105,7 +115,7 @@ public class PlayerPanel extends JPanel {
     private void setupPlayerPanel(boolean onMarket) {
         this.setLayout(new GridLayout(5, 3));
         this.setPreferredSize(new Dimension(650, 150));
-        //this.setBackground(new Color(255, 255, 255, 90));
+        //this.setBackground(new Color(_255, _255, _255, 90));
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
         //player info
@@ -130,7 +140,7 @@ public class PlayerPanel extends JPanel {
             navigationButton = new JButton("Market");
         }
 
-        navigationButton.setBackground(new Color(255, 255, 255, 80));
+        navigationButton.setBackground(new Color(_255, _255, _255, _80));
         navigationButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         navigationButton.setRolloverEnabled(false);
         navigationButton.setFocusPainted(false);
@@ -138,7 +148,7 @@ public class PlayerPanel extends JPanel {
 
         /* Ship Yard Button */
         final JButton shipYard = new JButton("Ship Yard");
-        shipYard.setBackground(new Color(255, 255, 255, 80));
+        shipYard.setBackground(new Color(_255, _255, _255, _80));
         shipYard.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         shipYard.setRolloverEnabled(false);
         shipYard.setFocusPainted(false);
@@ -147,7 +157,7 @@ public class PlayerPanel extends JPanel {
 
         /* Refuel Button */
         final JButton refuel = new JButton("Refuel");
-        refuel.setBackground(new Color(255, 255, 255, 80));
+        refuel.setBackground(new Color(_255, _255, _255, _80));
         refuel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         refuel.setRolloverEnabled(false);
         refuel.setFocusPainted(false);
@@ -155,7 +165,7 @@ public class PlayerPanel extends JPanel {
 
         /* Save Game Button */
         final JButton save = new JButton("Save Game");
-        save.setBackground(new Color(255, 255, 255, 80));
+        save.setBackground(new Color(_255, _255, _255, _80));
         save.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         save.setRolloverEnabled(false);
         save.setFocusPainted(false);

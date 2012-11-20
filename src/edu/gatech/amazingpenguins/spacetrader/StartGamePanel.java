@@ -38,6 +38,11 @@ public class StartGamePanel extends JPanel {
     private BufferedImage bg;
     
     /**
+     * Field __255.
+     */
+    private static int _255 = 255;
+    
+    /**
      * Constructor for StartGamePanel.
      * @param gc GameController
      */
@@ -62,7 +67,7 @@ public class StartGamePanel extends JPanel {
         newGame.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 38));
         newGame.setForeground(Color.WHITE);
         newGame.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        newGame.setBackground(new Color(255, 255, 255, 85));
+        newGame.setBackground(new Color(_255, _255, _255, 85));
         newGame.setFocusable(false);
         newGame.setRolloverEnabled(false);
         newGame.setMaximumSize(new Dimension(50, 20));
@@ -77,7 +82,7 @@ public class StartGamePanel extends JPanel {
         savedGame.setFocusable(false);
         savedGame.setRolloverEnabled(false);
         savedGame.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        savedGame.setBackground(new Color(255, 255, 255, 85));
+        savedGame.setBackground(new Color(_255, _255, _255, 85));
         savedGame.setMaximumSize(new Dimension(0, 0));
 
         setLayout(null);
