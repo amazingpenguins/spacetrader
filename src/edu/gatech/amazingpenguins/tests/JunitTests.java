@@ -239,4 +239,69 @@ public void testMyPrice() {
     public String toString() {
         return "Junit Tests";
     }
+    
+    /**
+     * Tests to make sure the Market properly behaves when
+     * buying a TradeGood to a player.
+     * author: Adam Szaruga
+     */
+    @Test
+    public void testMarketBuy() {
+    	
+        Market market = new Market(0, 1, 2);
+        Stats stats = new Stats();
+        Player player = new Player(stats);
+        int prevQuantity = 0;
+        int prevCredits = 0;
+        
+        TradeGood[] tradeGoods = new TradeGood[TradeGood.ITEMCOUNT];
+        for(int i = 0; i < tradeGoods.length; i++) {
+            tradeGoods[i] = new TradeGood((short)i);
+            
+        }
+
+        
+        /* Using the GNAT for testing, 15 cargo slots. */
+        player.setShip(new SpaceShip(SpaceShip.GNAT));
+        player.addCredits(100);
+        for (TradeGood t : tradeGoods){
+        	player.getShip().addCargo(t, 5);
+        }
+        
+        /* test that nothing happens when player is null */
+        
+        for (TradeGood t : tradeGoods){
+        	prevQuantity = market.getQuantity(t);
+        	market.marketBuy(null, t, 1);
+        	assert(prevQuantity == market.getQuantity(t));
+        	assert(player.getCredits() == 100);
+        }
+        
+        /* test that nothing happens when the ship doesn't have the trade good */
+        player.getShip().clearCargo();
+        for (TradeGood t : tradeGoods){
+        	prevQuantity = market.getQuantity(t);
+        	market.marketBuy(player, t, 1);
+        	assert(prevQuantity == market.getQuantity(t));
+        	assert(player.getCredits() == 100);
+        }
+        
+        /* test that the player get the right amount of credits added */
+        for (TradeGood t : tradeGoods){
+        	player.getShip().addCargo(t, 1);
+        	prevCredits = player.getCredits();
+        	market.marketBuy(player, t, 1);
+        	assert(player.getCredits() == prevCredits + market.getPrice(t));
+        }
+        
+        /* test that the right amount of trade goods get added to the market */
+        for (TradeGood t : tradeGoods){
+        	player.getShip().addCargo(t, 1);
+        	prevQuantity = market.getQuantity(t);
+        	market.marketBuy(player, t, 1);
+        	assert(prevQuantity +1  == market.getQuantity(t));
+        }
+        
+    }
+    
 }
